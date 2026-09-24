@@ -2,20 +2,20 @@
 tags:
   - tasks
 ---
-# Tasks (master list)
+# 任务总表
 
-You capture here and you never read here. Queries on the [[Task Dashboard]], project notes, and people notes surface the right tasks at the right time.
+任务统一记录在这里，无需每天翻阅。[[Task Dashboard|任务仪表盘]]、项目笔记和人物笔记中的查询会在适当时候显示相关任务。
 
-Task format (Obsidian Tasks plugin, emoji format):
-- `- [ ] Do the thing 📅 2026-09-01` due date
-- `- [ ] Do the thing ⏳ 2026-09-01` scheduled date
-- `- [ ] Do the thing ⏫` high priority
-- `- [ ] Do the thing 🔁 every week` recurring
-- `- [ ] Ask about budget #discuss #p/jane-doe` shows on Alex's note and in the To discuss query
-- `- [ ] Draft outline #project/lifeos-vault` shows on the project note
+任务格式（Obsidian Tasks 插件的表情符号格式）：
+- `- [ ] 完成事项 📅 2026-09-01`：到期日期。
+- `- [ ] 完成事项 ⏳ 2026-09-01`：安排日期。
+- `- [ ] 完成事项 ⏫`：高优先级。
+- `- [ ] 完成事项 🔁 every week`：重复任务；`every week` 是 Tasks 插件的原始语法。
+- `- [ ] 询问预算 #discuss #p/jane-doe`：显示在对应人物笔记及待讨论查询中。
+- `- [ ] 起草大纲 #project/lifeos-vault`：显示在对应项目笔记中。
 
-## Inbox
-- [ ] Open the Setup dashboard and work through it, then tick this off
+## 收件箱
+- [ ] 打开 Setup 仪表盘，完成设置清单后勾选此项
 
-## Someday
-- 
+## 将来再做
+-

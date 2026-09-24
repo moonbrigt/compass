@@ -7,47 +7,47 @@ setup_backup: false
 tags:
   - setup
 ---
-A vault that asks you one honest question set every night. Everything else (planning, habits, tasks, writing, an AI assistant) is layered on top of that, one layer at a time. Compass is based on Mike Schmitz's "How I Run My Whole Life Out of Obsidian"; not affiliated with Practical PKM.
+这个仓库从每晚诚实回答一组问题开始。计划、习惯、任务、写作和 AI 助手会逐步加入。Compass 借鉴了 Mike Schmitz 的视频“How I Run My Whole Life Out of Obsidian”，与 Practical PKM 没有关联。
 
-## Step A: turn plugins on (do this first)
-When you opened this folder, Obsidian showed a box about **Restricted mode**. Click **Turn off**. If you closed it: Settings → Community plugins → **Turn off Restricted mode**. You will see ten community plugins plus the first-party Life OS plugin, already installed. Then press Ctrl/Cmd+P and run **Reload app without saving**. Life OS opens automatically after reload.
+## 步骤 A：启用插件（先完成）
+首次打开此文件夹时，Obsidian 会询问是否启用第三方插件。确认信任仓库作者并启用插件；若弹窗已关闭，可到“设置 → 第三方插件”中关闭受限模式。仓库内已安装 10 个第三方插件和首方 Life OS 插件。随后按 Ctrl/Cmd+P，搜索并运行 **重新加载 Obsidian（不保存当前编辑内容）**。重新加载后，Life OS 会自动打开。
 
-**If the box below shows code instead of a checklist, Step A is not done yet.**
+**如果下方显示代码而非设置清单，说明步骤 A 尚未完成。**
 
-## Setup status
+## 设置状态
 ```dataviewjs
 await dv.view("Meta/views/setup");
 ```
-Four items are self-declared because no script can see them (your Claude login, the MCP registration, the browser extension, a backup): tick them in this note's properties when done.
+有四项只能由你手动确认：代理登录、MCP 注册、浏览器扩展连接和备份。完成后在本笔记属性中勾选对应项目。
 
-## Today (20 minutes)
-1. Step A above.
-2. [[Compass Config]]: set `birthdate`.
-3. [[Life Theme]]: one draft sentence under `## Theme` (it shows in every daily note; refine it at the first retreat).
-4. Open [[Compass Dashboard]]; it renders from the example data.
-5. Tonight: Ctrl/Cmd+Shift+D creates or opens today's note (with its questions and habits filled in); Ctrl/Cmd+Shift+Q asks the questions. Answer 1 to 10, write one line under `## Journal`. Stop there.
+## 今天（约 20 分钟）
+1. 完成上方的步骤 A。
+2. 打开 [[Compass Config|Compass 配置]]，设置 `birthdate`。
+3. 在 [[Life Theme|人生主题]] 的 `## 主题` 下先写一句草稿；它会出现在每篇日记中，可在第一次个人静修时完善。
+4. 打开 [[Compass Dashboard|Compass 仪表盘]]；它会使用示例数据展示页面。
+5. 今晚按 Ctrl/Cmd+Shift+D 创建或打开今日笔记，按 Ctrl/Cmd+Shift+Q 回答每日问题。用 1 到 10 分评分，并在 `## 日记` 下写一行即可。
 
-## This week
-- Every morning Ctrl/Cmd+Shift+D, every night Ctrl/Cmd+Shift+Q.
-- Day 3: open [[Compass Config]] and reword one question you did not mean. Keep 3 to 5 habits.
-- Day 7: look at [[Daily Questions]]. Change nothing. Fill in [[Ideal Week]] roughly and delete its `example` property. Decide the reading module: fill [[Reading Plan]] or delete `09 Reading`.
+## 本周
+- 每天早晨按 Ctrl/Cmd+Shift+D，每晚按 Ctrl/Cmd+Shift+Q。
+- 第 3 天：打开 [[Compass Config|Compass 配置]]，调整一条不符合自己情况的问题；习惯保持 3 到 5 项。
+- 第 7 天：查看 [[Daily Questions|每日问题]]，暂不调整。粗略填写 [[Ideal Week|理想的一周]]，并删除其中的 `example` 属性。决定是否使用阅读模块：填写 [[Reading Plan|阅读计划]]，或删除 `09 Reading`。
 
-## This month
-- Day 8: delete the notes tagged `example` (the [[16 Onboarding Assistant]] can do it one file at a time, or use search `tag:#example`).
-- Day 14: open this week's weekly note (Ctrl/Cmd+Alt+W) and fill only "What went well".
-- Day 21: optional, AI in the vault: [[14 Agent Client and Claude Code]], then press **Help me set up this vault** below.
-- Day 30: if 25 of 30 days are scored (the checklist counts), read [[04 Workflow - Personal Retreat]] and book a retreat for day 60 to 90. Tasks, writing boards, the browser extension come after that ([[11 Build Order]]).
+## 本月
+- 第 8 天：删除带 `example` 标签的示例笔记。可搜索 `tag:#example`；[[16 Onboarding Assistant|入门助手]] 也能逐篇协助处理。
+- 第 14 天：打开本周笔记（Ctrl/Cmd+Alt+W），先只填写“做得好的事”。
+- 第 21 天：如需在仓库中使用 AI，阅读 [[14 Agent Client and Claude Code|Agent Client 与 Claude Code]]，然后点击下方的**帮我设置这个仓库**。
+- 第 30 天：如果 30 天中有 25 天完成评分（清单会统计），阅读 [[04 Workflow - Personal Retreat|季度个人静修]]，并安排在第 60 至 90 天进行个人静修。任务、写作看板和浏览器扩展可在之后加入（见 [[11 Build Order|搭建顺序]]）。
 
-## With an assistant
+## 使用助手
 ```agent
 type: button
-text: "Help me set up this vault"
-prompt: "Read Prompts/16 Onboarding Assistant.md with vault_read and follow its Prompt section from step 0."
+text: "帮我设置这个仓库"
+prompt: "请用 vault_read 阅读 Prompts/16 Onboarding Assistant.md，从第 0 步开始执行其中的“## 提示词”部分。"
 viewType: right-pane
 ```
 
-## Not in English?
-Rename the keys in [[Compass Config]] (`dq_aprender`) and translate the question text there; every chart labels itself from the key. The Guide stays in English.
+## 自定义每日问题
+在 [[Compass Config|Compass 配置]] 中编辑每日问题的 `text`。若更改属性键，请保留 `dq_` 前缀，例如 `dq_aprender`；图表会根据该键识别数据。
 
-## When you are done
-Set this note's `status` property to `done`. The checklist hides itself. Reopen it any time by setting it back to `open`.
+## 完成设置后
+将本笔记的 `status` 属性设为 `done`，清单就会收起。需要重新查看时，将其改回 `open`。

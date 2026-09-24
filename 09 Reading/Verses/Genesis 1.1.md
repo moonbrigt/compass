@@ -8,10 +8,10 @@ tags:
   - highlight
   - example
 ---
-# Genesis 1:1
+# 创世记 1:1
 
-In the beginning God created the heaven and the earth.
+起初，神创造天地。
 
-Chapter: [[Genesis 1]] · Next: [[Genesis 1.2]]
+章节：[[Genesis 1|创世记第 1 章]] · 下一节：[[Genesis 1.2|创世记 1:2]]
 
-> Note-as-verse. Sermon notes, topical Bibles, book notes, and study notes link here, so the local graph becomes a personal cross-reference library. Paper-Bible highlights are recorded as note-level tags (for example `#highlight`, `#topic/creation`).
+> 本页按经节存放内容。讲章、主题索引、读书笔记和研读笔记都可以链接到这里，使本地关系图逐步成为个人交叉引用资料库。纸质《圣经》中的标记可记为笔记标签，例如 `#highlight`、`#topic/creation`。

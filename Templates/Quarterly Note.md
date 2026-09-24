@@ -5,37 +5,37 @@ focus_area:
 tags:
   - quarterly
 ---
-« [[01 Journal/Quarterly/<% moment(tp.file.title, "YYYY-[Q]Q").subtract(1, "quarter").format("YYYY-[Q]Q") %>|Last quarter]] · [[Compass Dashboard]] · [[01 Journal/Quarterly/<% moment(tp.file.title, "YYYY-[Q]Q").add(1, "quarter").format("YYYY-[Q]Q") %>|Next quarter]] »
+« [[01 Journal/Quarterly/<% moment(tp.file.title, "YYYY-[Q]Q").subtract(1, "quarter").format("YYYY-[Q]Q") %>|上季度]] · [[Compass Dashboard|Compass 仪表盘]] · [[01 Journal/Quarterly/<% moment(tp.file.title, "YYYY-[Q]Q").add(1, "quarter").format("YYYY-[Q]Q") %>|下季度]] »
 
-<% moment(tp.file.title, "YYYY-[Q]Q").startOf("quarter").format("MMM D") %> to <% moment(tp.file.title, "YYYY-[Q]Q").endOf("quarter").format("MMM D, YYYY") %> · Retreat: [[02 Retreats/<% tp.file.title %> Personal Retreat]]
+<% moment(tp.file.title, "YYYY-[Q]Q").startOf("quarter").locale("zh-cn").format("M月D日") %> 至 <% moment(tp.file.title, "YYYY-[Q]Q").endOf("quarter").locale("zh-cn").format("YYYY年M月D日") %> · 个人静修：[[02 Retreats/<% tp.file.title %> Personal Retreat|本季度个人静修]]
 
-> [!theme]- Life theme and core values
-> ![[Life Theme#Theme]]
-> ![[Core Values#Values]]
+> [!theme]- 生活主题与核心价值观
+> ![[Life Theme#主题]]
+> ![[Core Values#价值观]]
 
 ```agent
 type: button
-text: "Prepare my retreat"
-prompt: "Read Prompts/04 Retreat Prep.md with vault_read and follow its Prompt section for the note I have open (or the current period if none applies)."
+text: "准备个人静修"
+prompt: "请用 vault_read 阅读 Prompts/04 Retreat Prep.md，并针对当前打开的笔记执行其中的“## 提示词”部分；如果当前笔记不适用，则使用当前时间段。"
 viewType: right-pane
 ```
 
-## Quarterly intentions
-Set during the personal retreat. Copy them here (or embed the retreat section) so the weekly notes can pull them in.
-![[<% tp.file.title %> Personal Retreat#5. Intentions for next quarter]]
+## 季度意向
+在个人静修时确定。将意向复制到这里，或嵌入静修笔记中的对应章节，供每周笔记引用。
+![[<% tp.file.title %> Personal Retreat#5. 下季度意向]]
 
-## Focus area (from the wheel of life)
+## 关注领域（来自生活之轮）
 - 
 
-## Projects this quarter
+## 本季度项目
 ```dataview
-TABLE WITHOUT ID file.link AS Project, status, area, due
+TABLE WITHOUT ID file.link AS 项目, status AS 状态, area AS 领域, due AS 到期日
 FROM "04 Projects"
 WHERE quarter = "<% tp.file.title %>" AND status != "done"
 SORT due ASC
 ```
 
-## Weeks
+## 每周笔记
 ```dataview
 LIST
 FROM "01 Journal/Weekly"
@@ -43,11 +43,11 @@ WHERE quarter = "<% tp.file.title %>"
 SORT file.name ASC
 ```
 
-## Daily questions this quarter
+## 本季度每日问题
 ```dataviewjs
 await dv.view("Meta/views/dailyquestions", { from: "<% moment(tp.file.title, "YYYY-[Q]Q").startOf("quarter").format("YYYY-MM-DD") %>", to: "<% moment(tp.file.title, "YYYY-[Q]Q").endOf("quarter").format("YYYY-MM-DD") %>" });
 ```
 
-## End of quarter notes
-Carry these into the next personal retreat's retrospective.
+## 季末记录
+在下一次个人静修的回顾中参考这些记录。
 - 

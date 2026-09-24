@@ -1,15 +1,14 @@
-Mike's warning (22:42): it took him five years; copying it in a weekend is "a fantastic way to bounce off of Obsidian entirely." Pick one workflow, run it for 30 days, then add the next.
+# 循序搭建 Compass
 
-| Days | Layer | Definition of done |
+Mike 提醒：他的流程花了五年多才形成。先选一个工作流运行 30 天，稳定之后再加下一层。
+
+| 天数 | 加入的部分 | 完成标准 |
 | --- | --- | --- |
-| 1 to 30 | **Daily journaling + daily questions** | Daily note opened every morning, questions answered every night, at least 25 of 30 days scored |
-| 31 to 60 | **Habits** (3 to 5 checkboxes) + **weekly note** | Friday review done 4 weeks running using the week table |
-| 61 to 90 | **First personal retreat** + quarterly note + life theme and values | Retreat note complete, wheel rendered, 3 intentions embedded in the weekly note |
-| 91 to 120 | **Tasks**: master list, dashboard, 2 to 3 project notes, people notes for regulars | A week executed from the dashboard with time blocking |
-| 121 to 150 | **Writing**: one board, one type, block-id quotes in book notes | One piece taken from backlog to published inside the vault |
-| 151+ | **Reading plan / Bible module**, second retreat, dashboard tuning | Second retreat compared against the first |
+| 第 1–30 天 | **每日记事与每日问题** | 每天早上打开日记，晚上答题；30 天中至少 25 天有分数 |
+| 第 31–60 天 | **3–5 项习惯与周记** | 连续四周完成周五复盘，并使用周视图 |
+| 第 61–90 天 | **首次个人静修、季记、人生主题与价值观** | 静修笔记写完，生命之轮显示，三项意向进入周记 |
+| 第 91–120 天 | **任务总表、任务仪表盘、2–3 个项目和常见人物笔记** | 连续一周按仪表盘建议选任务，并在日历中划出执行时间 |
+| 第 121–150 天 | **一种写作类型及其看板、读书笔记引文块 ID** | 一件作品在仓库中从“想法”推进到“已完成”并发表 |
+| 第 151 天起 | **阅读计划、第二次静修、仪表盘调整** | 第二次静修与第一次并排比较 |
 
-Rules:
-- Do not add a layer while the previous one is below 80% consistency.
-- Delete what you do not use. A widget that shows nothing is a seam.
-- Change the templates, not the dashboards.
+若上一层尚不能稳定运行，先不要增加新层。删除长期不用的组件；优先改模板和配置，再考虑修改视图代码。

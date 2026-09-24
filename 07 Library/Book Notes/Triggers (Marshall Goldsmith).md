@@ -4,29 +4,29 @@ author: Marshall Goldsmith
 year: 2015
 rating: 5
 status: finished
-started: 
-finished: 
+started:
+finished:
 tags:
   - book
   - example
 ---
-The source of the Daily Questions workflow. Link: https://geni.us/triggers-book
+每日问题工作流的来源。链接：https://geni.us/triggers-book
 
-## Summary in three sentences
-Our environment triggers behaviour more than our intentions do. Active questions ("Did I do my best to...") shift responsibility to effort, which we control, instead of outcomes, which we do not. Scoring them daily on a 1 to 10 scale, and having to face the scores, is the trigger that produces change.
+## 三句话总结
+环境对行为的触发作用往往超过我们的意图。主动式问题（“我是否尽力……”）把注意力从不可控的结果转向可控的努力。每天用 1 到 10 分作答，并正视这些分数，可以推动改变。
 
-## Key ideas
-- Passive questions ("Do you have clear goals?") invite blame on the environment. Active questions ("Did I do my best to set clear goals?") put the effort on you.
-- Score effort, not results. You cannot control results anyway.
-- Consistency beats intensity: the questions work because they are answered every day.
+## 核心观点
+- 被动式问题（“你有清晰目标吗？”）容易把责任归咎于环境。主动式问题（“我是否尽力设定清晰目标？”）则让你关注自己的努力。
+- 评价努力，而非结果；结果并不完全受你控制。
+- 持续比强度更重要：这些问题有用，是因为每天都要回答。
 
-## Quotes
-> "Did I do my best to..." is the frame: you grade the intention, not the outcome. ^daily-questions
+## 引文
+> “我是否尽力……”是提问框架：评价的是投入，而非结果。^daily-questions
 
-## How this changes what I do
-- One `dq_*` property per question in every daily note (six shipped, editable in Compass Config), answered at 21:00 through the Daily Questions Prompt.
+## 对我的行动有什么影响
+- 每篇日记为每个问题设置一个 `dq_*` 属性（默认六项，可在 Compass Config 中修改），并在 21:00 通过每日问题提示词回答。
 
-## Linked writing
+## 关联的作品
 ```dataview
 LIST
 FROM "06 Writing"

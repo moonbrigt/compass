@@ -1,19 +1,19 @@
 ---
 tags:
   - reading
-plan: 
-start: 
+plan:
+start:
 ---
-# Reading Plan
+# 阅读计划
 
-One task per chapter (or section) of whatever you read daily, scheduled (⏳) on the day you plan to read it. The daily note's **Daily reading** callout queries this file for items scheduled on or before today, so unread items roll forward instead of disappearing. Link each item to its note in `09 Reading/Chapters/` if you keep the text in the vault.
+每天要读的章节或小节各写一条任务，并用 ⏳ 标记计划阅读日期。日记中的**每日阅读**提示框会查询本文件里安排在今天或更早的条目，因此尚未读完的内容会保留下来。如果阅读文本也保存在仓库中，可把任务链接到 `09 Reading/Chapters/` 中对应的笔记。
 
-Format:
+格式：
 ```
-- [ ] Read [[Genesis 1]] ⏳ 2027-01-01
-- [ ] Read "Atomic Habits" chapter 3 ⏳ 2027-01-02
+- [ ] 阅读 [[Genesis 1]] ⏳ 2027-01-01
+- [ ] 阅读《原子习惯》第 3 章 ⏳ 2027-01-02
 ```
 
-Bible readers: `scripts/generate_reading_plan.py --start YYYY-MM-DD --days 365` writes the full 1,189-chapter plan into this file, and `scripts/split_bible.py` creates the chapter and verse notes. See [[07 Workflow - Daily Reading]].
+若阅读《圣经》，可运行 `scripts/generate_reading_plan.py --start YYYY-MM-DD --days 365`，将完整的 1,189 章计划写入本文件；`scripts/split_bible.py` 用于创建章节和经文笔记。参见 [[07 Workflow - Daily Reading|每日阅读]]。
 
-## Plan
+## 计划

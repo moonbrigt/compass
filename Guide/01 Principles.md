@@ -1,65 +1,52 @@
-Quoted or closely paraphrased from Mike Schmitz, with timestamps.
+# Compass 的设计原则
 
-## 1. Connections are the point (0:00 to 2:40)
-- "PKM isn't just about storing information, it's about connecting it." Apps that never integrate leave every area organized but none of it talking.
-- This is **not** "make Obsidian do everything". He still says that is the wrong approach. The difference: cramming everything in for the sake of it, versus running the things that *benefit from being connected* in the same place.
-- The chain he describes (1:29): journal entry → linked to the habits being built → feeding the quarterly retreat that judges whether they create change → shaping the projects committed to → producing the writing published → which pulls from the journal entries you started with. "The connections doing the heavy lifting."
-- **PKM stack / jobs to be done**: hire each app for a specific job. Until you are clear on the jobs, no app gives you clarity. For most of his life-management jobs the right tool happens to be Obsidian; there are trade-offs, and it works because he is clear on what he wants.
+以下按 Mike Schmitz 的视频整理；时间戳对应原视频，引用与概述均来自他的讲解。
 
-## 2. Journal to craft the future (2:40 to 5:52)
-- Daily Questions from Marshall Goldsmith's *Triggers*: "Did I do my best to ___?" Rate 1 to 10. Focus on **effort, not results**.
-- Example: cut a 12-mile training run to 6 → maybe a 5. Sick, but did a slow 3 miles anyway → a 10. "Control what you can control and be intentional about your actions."
-- Easier to do consistently because you never judge yourself on what got done.
-- Values are written to **properties in the daily note** by an end-of-day shortcut. Wins, gratitude, and journal entries are captured with a QuickAdd macro into the same note. "No separate journaling apps to remember to open."
-- **On this day**: a Bases query in the daily note template surfaces what you wrote 1, 2, 3 years ago on the same date. "It's not the act of writing the entry, it's the act of bumping into your past self when you weren't expecting to."
-- "Don't journal to record the past, journal to craft the future. Drop a marker that future you will find useful."
-- If he could keep only one Obsidian workflow for life, it is this one.
+## 1. 让信息彼此关联（0:00–2:40）
 
-## 3. The personal retreat is the highest leverage day (5:52 to 7:53)
-- Once a quarter, a full day off, everything in a single note.
-- Format: review life theme and core values → review journal (queries + daily questions dashboard) → wheel of life (rate happiness per area, pick one for the next 90 days) → two-part retrospective (look back, then start/stop/keep) → set intentions for next quarter → review the ideal week so the intentions have time.
-- Because past retreats are linkable, you can put Q2 2024 next to today's and "instantly see whether I'm actually changing or just rewriting the same goals with slightly different wording." "You can't lie to yourself when your own writing from 2 years ago is staring you in the face."
-- "You do not need to go to a cabin in the woods. What you need is a few hours, a single document, and the willingness to actually answer the hard questions."
+个人知识管理的价值不只是存储，还在于建立联系。若每个领域都在独立应用里，记录虽然井井有条，彼此却无法对话。Mike 并不主张把所有事情硬塞进 Obsidian；他把**需要相互关联**的工作放在同一个仓库，并按具体任务选择工具。
 
-## 4. Multi-scale planning (7:53 to 9:45)
-- Cal Newport's idea: align daily, weekly, and quarterly plans so you consistently act on what you decided mattered at the retreat.
-- Above the quarter: roles and values. Mike's version: a **life theme** (personal mission statement) and **personal core values**, each an individual note, reviewed every 90 days.
-- Cadence: quarterly, weekly, daily. **No annual plans**: "too long, and impossible to get right." A quarter is long enough for significant progress and short enough for built-in resets.
-- Each layer is its own note, connected by the Periodic Notes plugin with separate templates for quarterly, weekly, daily.
+他举的链条是：日记关联正在培养的习惯；这些记录进入季度个人静修，用来判断是否真的发生改变；静修决定项目；项目产出写作；写作又取材于最初的日记。真正发挥作用的是这些连接。每种应用都有取舍，先弄清自己想完成什么，再决定用什么工具。
 
-## 5. Habits: no app, no notifications, no streak shame (9:45 to 11:51)
-- He cycled through Streaks, Habitify, Strides, Way of Life every six months; none stuck, because the data lived away from the reflection that explained *why* a day was missed.
-- Now: checkbox properties in the daily note for the habits tracked **this season**. 15 seconds at the end of the day. "That's the entire data entry layer."
-- A DataviewJS dashboard reads every daily note and shows streaks, gaps, trends. Same visualization the apps gave, but next to the journal entry: the difference between "I missed 3 days" and "I missed 3 days because that's the week my dad was in the hospital."
-- "Tracking honestly is more important than tracking perfectly." A tracker is only useful if it changes behaviour, and putting it in the place you already open every morning is "the single biggest behavior change lever."
+## 2. 用日记塑造未来（2:40–5:52）
 
-## 6. Bible reading: the cleanest example of one-vault linking (11:51 to 14:11)
-- Two representations: **note as chapter** (for the daily reading plan) and **note as verse** (30,000+ atomic notes).
-- A chronological plan file holds repeating tasks per chapter assigned to a day; a custom callout in the daily note shows that day's reading.
-- Sermon sketch notes since 2017 link to each verse mentioned, so the local graph is a personal cross-reference library. Maps of content, topical Bibles, and college notes link to verses too. Paper-Bible highlights became note-level tags.
-- "No dedicated Bible app also holds my sermon notes, my book notes, and my journal. That's why everything lives in one vault."
+- 每日问题源自 Marshall Goldsmith 的《Triggers》：用“今天我是否尽全力……？”提问，按 1–10 分评价**投入**，不按结果评分。例如训练计划跑 12 英里却只跑了 6 英里，可能是 5 分；生病仍按当时能力慢跑 3 英里，也可能是 10 分。
+- 晚间快捷操作把分数写进当日日记的属性。QuickAdd 把日记、收获、感恩写入同一篇笔记，无需记着打开另一款应用。
+- “往年今日”让当天笔记显示一两三年前同一天的记录。将来偶然读到过去写下的话，才是回顾的力量。
+- 写日记不仅记录过去，也给未来的自己留下有用的标记。若只能保留一个 Obsidian 工作流，Mike 会选它。
 
-## 7. Tasks without context are a list of guilt (14:11 to 16:42)
-- Used OmniFocus, Todoist, Things, TickTick, Asana. All good; Obsidian replaced them for *his* kind of work.
-- Pieces: Tasks plugin for inline tasks; most captured to a **master task list he never looks at**; project membership by **tag**; queries surface the right tasks at the right time.
-- People notes with custom queries. A task tagged `discuss` + the person's tag rolls up into a discuss query read before the meeting. Same for projects. A task dashboard queries the whole vault for what to look at today.
-- Why it beats a dedicated app: "Every task is one click away from the context that explains why it exists."
-- Honest caveat: location reminders or 50 client projects with SLAs → "my system is probably terrible for you."
-- Obsidian is where tasks **live**, not where the day is **executed**. The dashboard is "a recommendation engine"; he picks tasks and **time blocks** them. "The computer is the brain, but the notebook is the list."
+## 3. 季度个人静修（5:52–7:53）
 
-## 8. Writing: just keep writing (16:42 to 18:36)
-- Newsletters, YouTube scripts, course content, book notes, articles: every piece starts and ends in Obsidian.
-- Not because the editor is magical, but because **source material and draft share the vault**: link the book note, embed the quote, keep writing. The friction between "I had an idea" and "it's in a published piece" kills most writing; same-vault writing fixes most of it.
-- Kanban boards per writing type, separate folders per type, QuickAdd captures to the board backlog, cards move left to right until published. Each type has its own template and metadata. These are "task notes" rather than inline tasks.
-- Export markdown at the end: scripts to the editor in Notion, newsletter through Kit, articles to Ghost.
+每季度留出一整天，用一篇笔记完成：回顾人生主题与核心价值观 → 阅读日记和每日问题趋势 → 给生命之轮各领域评分，并选一个未来 90 天的重点 → 回顾过去并列出开始、停止、继续的事 → 确定下季度意向 → 检查理想一周，给这些意向安排时间。
 
-## 9. The Compass dashboard (18:36 to 20:46)
-- Built with DataviewJS (with Claude's help, per his earlier video). Wheel of life pulled from this quarter's retreat by date and naming convention; combined daily questions widget with toggles and a time-frame dropdown; habits widget with current streak, best streak, longest break, completion %, total, and recent days; life theme; memento mori; quick links to capture and to the planning notes.
-- "Because everything I do is dynamically generated, I don't have to touch a single line of code."
+过去的静修笔记可以与现在并排阅读：几年后是否真的改变，还是只给同一个目标换了说法？不必去山中小屋；几小时、一份文档和认真回答难题的意愿就够了。
 
-## 10. Reduce the seams (22:07 to 23:17)
-- "Every time you context switch between apps, you pay a small tax. Over months and years, those small taxes compound. The fewer seams you have, the more compound interest your system earns."
-- That does not mean dump everything in one app. Find where the friction is, get clear on what you are optimizing for, then build.
-- "What I showed you took me over 5 years to build. Please do not try to copy the whole thing in a weekend." Pick one workflow, probably daily journaling, get it working for 30 days, then layer the next one.
+## 4. 多尺度规划（7:53–9:45）
 
-See [[11 Build Order]] for that layering turned into a plan.
+借鉴 Cal Newport 的方法，让每日、每周、每季度行动都指向静修时决定的重要事项。更上层是人生主题和个人核心价值观，每 90 天重看一次。Mike 不做年度计划：一年太长，难以准确规划；季度既足以推进重要事情，也能定期重置。各层是独立笔记，由 Periodic Notes 与模板连接。
+
+## 5. 把习惯放在反思旁边（9:45–11:51）
+
+Mike 试过多款习惯应用，但脱离日记的数据无法解释某一天为何中断。现在，他在每日笔记中勾选**当季追踪**的习惯；晚间录入约需 15 秒。DataviewJS 看板显示连续天数、间断与趋势，旁边就是当天的文字。于是“漏了三天”可以与“父亲住院的那一周漏了三天”一起理解。诚实记录比完美连续更重要；追踪器必须帮助改变行为。
+
+## 6. 每日阅读：同仓库链接的例子（11:51–14:11）
+
+原视频用《圣经》阅读展示两种粒度：按**章节**建笔记，用于每日计划；按**经节**建原子笔记，用于引用。按时间顺序的阅读计划给各章节安排日期；每日笔记中的提示框显示当天任务。讲道提纲、主题索引、课程笔记和纸本划线都能链接到经节，形成个人交叉参照网络。示例仓库只附少量示范章节与经节，不包含完整文本。
+
+## 7. 让任务留在上下文里（14:11–16:42）
+
+任务由 Tasks 插件记录；多数新任务先进入平时无需逐条查看的任务总表。标签标明项目或人物，看板查询在合适时机显示相关任务。例如带有 `discuss` 与某人物标签的任务，会出现在会前要读的人物笔记里。每项任务都可点回说明缘由的上下文。
+
+这种方式适合 Mike 的工作；地点提醒、几十个有服务期限的客户项目等需求未必适合。Obsidian 保存任务和建议今日重点，实际执行仍要挑选任务并在日历里划出时间。
+
+## 8. 写作从素材走到发表（16:42–18:36）
+
+通讯、视频脚本、课程、读书笔记和文章都在仓库里起草，因为素材与草稿可以直接链接、嵌入和复用。每种写作有独立文件夹、模板、元数据与 Kanban 看板；QuickAdd 把想法投入待办池，卡片逐列移动直至发表。最后导出 Markdown，交给各发布渠道。
+
+## 9. Compass 仪表盘（18:36–20:46）
+
+DataviewJS 从当季静修提取生命之轮，从每日笔记生成问题趋势和习惯统计，还显示人生主题、生命倒计时与常用入口。新增符合约定的笔记后，组件会自动更新；日常不必修改脚本。
+
+## 10. 减少应用间的断点（22:07–23:17）
+
+每次在应用之间切换都要付出一点注意力成本。先找到真正造成摩擦的连接，再围绕自己的目标搭建系统。Mike 花了五年多才形成这套流程；可先让每日记事稳定运行 30 天，再逐层加入其他工作流。参见 [[11 Build Order|搭建顺序]]。

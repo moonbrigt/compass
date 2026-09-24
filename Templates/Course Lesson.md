@@ -9,30 +9,30 @@ sources: []
 tags:
   - writing/course
 ---
-Board: [[Course Board]]
+看板：[[Course Board|课程看板]]
 
 ```agent
 type: button
-text: "Work on this piece"
-prompt: "Read Prompts/10 Writing Pipeline.md with vault_read and follow its Prompt section for the note I have open (or the current period if none applies)."
+text: "推进这篇作品"
+prompt: "请用 vault_read 阅读 Prompts/10 Writing Pipeline.md，并针对当前打开的笔记执行其中的“## 提示词”部分；如果当前笔记不适用，则使用当前时间段。"
 viewType: right-pane
 ```
 ```agent
 type: button
-text: "SEO pre-publish audit"
-prompt: "Read Prompts/11 SEO Pre-publish Audit.md with vault_read and follow its Prompt section for the note I have open (or the current period if none applies)."
+text: "发布前 SEO 检查"
+prompt: "请用 vault_read 阅读 Prompts/11 SEO Pre-publish Audit.md，并针对当前打开的笔记执行其中的“## 提示词”部分；如果当前笔记不适用，则使用当前时间段。"
 viewType: right-pane
 ```
 
-## Learning outcome
-After this lesson the student can:
+## 学习目标
+完成本课后，学员能够：
 - 
 
-## Script / content
+## 讲稿与内容
 
 
-## Exercise
+## 练习
 
 
-## Resources
+## 参考资料
 - 

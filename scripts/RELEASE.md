@@ -1,43 +1,42 @@
-# Release checklist
+# 发布检查清单
 
-A local candidate is not a public release. Never archive the working vault directly and never run the full template verifier against it.
+本机候选不等于公开版本。不要直接压缩正在使用的仓库，也不要对其运行完整的模板发行验证器。
 
-## Automated preparation
+## 自动准备
 
-The repository is maintainer source, not an already-built distribution. Keep the reviewed files in `scripts/template/defaults/` under version control. The builder requires them to replace personal configuration, planning, tasks, and knowledge state. Never populate these defaults from a personal vault.
+本仓库是维护者源文件，不是已打包的发行目录。把经审核的默认文件保存到版本控制中的 `scripts/template/defaults/`；构建器用这些文件替换私人配置、规划、任务与知识层状态。不得用个人仓库内容填充默认文件。
 
-CI runs the application and release-safety contracts, builds a fresh candidate outside the checkout, verifies its exact manifest, and checks disposable archive extraction. The generated `MANIFEST.sha256`, workspace state, ZIP, and checksum are build outputs, not source files to commit. CI does not establish native acceptance or publish a release.
+CI 会运行应用及发布安全契约，在检出目录之外构建全新候选，验证其精确清单，并在临时目录中解压检查。`MANIFEST.sha256`、工作区状态、ZIP 与校验和是构建产物，不应提交为源文件。CI 不代表 Obsidian 原生验收，也不负责发布。
 
-1. Run `node scripts/verify_life_os_app.mjs .`, `node scripts/verify_assistant_contracts.mjs .`, and `python3 scripts/verify_release_safety.py`.
-2. Choose an explicit version and a fresh output name outside the working vault. Existing destinations and archives are refused.
-3. Build a sanitized local candidate:
+1. 运行 `node scripts/verify_life_os_app.mjs .`、`node scripts/verify_assistant_contracts.mjs .` 与 `python3 scripts/verify_release_safety.py`。
+2. 明确指定版本，以及位于工作仓库外的全新输出名称。已有目标目录或压缩包会被拒绝。
+3. 构建脱敏的本机候选：
 
-```bash
-python3 scripts/build_template.py --out ../life-os-releases --name LifeOS-1.1.0-candidate --version 1.1.0 --zip
-```
+   ```bash
+   python3 scripts/build_template.py --out ../life-os-releases --name LifeOS-1.1.0-candidate --version 1.1.0 --zip
+   ```
 
-4. Inspect the candidate's embedded `MANIFEST.sha256` and the archive's full `.sha256` sidecar. Verify archive contents and paths, not only its filename.
-   Run `python3 scripts/verify_archive_restore.py /absolute/path/to/candidate.zip` to validate the sidecar, reject unsafe archive entries, extract into a disposable directory, and compare every restored file with the embedded manifest. This does not restore or test a personal vault.
-5. Keep each flavor in its own fresh destination. The without-reading variant needs separate functional acceptance; do not assume removing a folder leaves all commands valid.
+4. 检查候选内的 `MANIFEST.sha256` 与 ZIP 外置的 `.sha256` 校验文件。核对归档内容与路径，不只看文件名。运行 `python3 scripts/verify_archive_restore.py /absolute/path/to/candidate.zip`，在临时目录验证外置校验和，拒绝不安全条目，再把每个解压文件与内置清单比较。此操作不会恢复或测试个人仓库。
+5. 每种构建变体都使用独立的新目标。去除阅读模块的版本还需单独做功能验收；不能假定删掉目录后所有命令仍可用。
 
-Raw plugin settings are never copied to staging. The builder reconstructs allowlisted settings first, strips machine-local state, and uses private staging. Unknown plugin settings are omitted. This favors safe defaults over preserving every customization.
+插件设置不从源仓库原样复制。构建器先重建允许的设置，再在私有暂存目录里去除机器状态；未知设置会省略。这保证默认值可审查，但意味着需要重新核对捕获和看板创建等功能。
 
-Files covered by reviewed defaults are skipped before copying. Canonical project and writing boards are rebuilt empty, without reading their live cards or lane names. Other personal boards receive no filename-based exemption. Planning, task, and knowledge-layer personal state comes only from reviewed defaults. Desktop metadata and local agent directories are excluded; core appearance and webviewer state are reset. Review functional behavior after these resets, especially capture and board creation. A passing scan is not proof that every allowed source file has been manually reviewed.
+经审核默认文件对应的源路径会在复制前跳过。项目和写作的标准看板会重建为空看板，不读取源仓库中的卡片或列名；其他私人看板不会因文件名叫 `Board.md` 就被例外保留。规划、任务和知识层的个人状态只来自默认文件。桌面元数据及本地智能体目录会排除，外观与网页查看器状态会重置。自动扫描通过不等于每个允许的源文件都已完成人工审查。
 
-## Human review before distribution
+## 分发前人工审查
 
-- Review the exact archive for private data, example labeling, source paths, and unexpected files. The machine-local working vault is not the review target.
-- Check README, CHANGELOG, application manifest, notices, and candidate version metadata agree. Old 1.0.2 archives are not current Life OS candidates.
-- Verify upstream binary provenance and license requirements separately. Kanban's bundled license is GPL-3.0, not MIT. Presence of a LICENSE file alone is not a completed redistribution review.
-- Local REST API remains enabled over loopback HTTP in the package policy. Changing that default requires an explicit decision. Verify actual listener behavior in the isolated native test.
-- Complete `Guide/23 Native Acceptance.md` against the archive checksum. Record desktop-native, mobile, provider, and MCP outcomes separately.
-- Do not claim a provider is connected or a backup is recoverable without testing it.
-- Commit, push, release creation, and publication require separate authorization.
+- 检查**准确的待发归档**是否含私人数据、示例标记、源路径或意外文件。不要把本机工作仓库当作发行审查对象。
+- 核对 README、CHANGELOG、插件 manifest、许可说明和候选版本信息。旧版 1.0.2 压缩包不含当前 Life OS 应用。
+- 单独核对上游插件二进制文件来源与再分发许可。Kanban 附带的是 GPL-3.0，不是 MIT；存在 LICENSE 文件不等于已完成再分发审查。
+- 模板策略默认在回环地址上启用 Local REST API HTTP 服务。更改默认行为需明确决策；在隔离的 Obsidian 原生测试中检查实际监听状态。
+- 对照归档校验和完成 `Guide/23 Native Acceptance.md`，分别记录桌面原生、移动端、服务商连接与 MCP 的结果。
+- 未实际测试服务商连接或备份恢复时，不要声称它们可用。
+- 提交、推送、创建 Release 与公开发布需分别获得授权。
 
-## Upgrade and rollback
+## 升级与回退
 
-There is no in-place updater. Close Obsidian, back up the complete old vault, and extract the new candidate alongside it. Migrate personal content, custom configuration, and templates with conflict review. Do not copy the old or new `.obsidian` directory wholesale. Test restoring the backup before retiring any old copy. No archive cleanup or retirement is automatic.
+没有原位升级器。关闭 Obsidian，备份完整旧仓库，在旁边解压新候选，再审查并迁移个人内容、自定义配置与模板。不要整目录复制旧版或新版的 `.obsidian`。停用旧副本前测试备份恢复。构建流程不会自动清理归档或退役旧版本。
 
-## Current acceptance boundary
+## 当前验收边界
 
-Synthetic tests exercise parser logic, controls, and packaging safety without personal notes or provider calls. They do not establish native Obsidian acceptance. Keep every unrun check marked not tested.
+模拟测试可用虚构记录检查解析、交互与打包安全，但无法证明 Obsidian 原生运行。尚未执行的项目继续标记为“未测试”。

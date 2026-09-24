@@ -2,10 +2,10 @@
 kanban-plugin: board
 ---
 
-# Course Board
+# 课程看板
 
-## Ideas
+## 想法
 
-## In progress
+## 进行中
 
-## Done
+## 已完成

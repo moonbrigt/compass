@@ -1,29 +1,30 @@
-# Workflow 2: Quarterly Personal Retreat
+# 工作流 2：季度个人静修
 
-Video: 5:52 to 7:53. "Without exaggeration, the single highest leverage day on my calendar."
+视频：5:52–7:53。Mike 将这一天视为日历上最有影响力的一天。
 
-## Format (6:12), in the order Mike does it
-1. Review **life theme** and **core values**: do they still resonate?
-2. Review **journal entries** (queries + daily questions dashboard, spot trends).
-3. **Wheel of life**: rate current happiness per area, choose one area for the next 90 days.
-4. **Two-part retrospective**: look back at the quarter; then list what to **start, stop, keep**.
-5. **Set intentions** for the next quarter.
-6. Review the **ideal week** so the intentions actually have time.
+## 按视频顺序进行
 
-## How it is built here
-- `Templates/Personal Retreat.md`, auto-applied to any note created in `02 Retreats/` (Templater folder template).
-- File name convention **`YYYY-QN Personal Retreat`**. The Compass dashboard finds the current quarter's retreat by that name and date (19:22) and draws the wheel from the `wheel_*` number properties. Fallback: most recent retreat.
-- The template links the previous retreat and the same quarter last year, so you can put them side by side (7:10).
-- Sections 2 and 3 render live: daily questions for the quarter, habits, wins list, and the radar chart of your own `wheel_*` values.
-- Section 5's intentions are embedded into the quarterly note and from there into every weekly note. Write them once.
+1. 回顾**人生主题**与**核心价值观**，看它们是否仍贴合生活。
+2. 阅读这一季度的**日记**和每日问题趋势。
+3. 给**生命之轮**各领域的现状评分，并选一个未来 90 天重点改善的领域。
+4. 分两步复盘：回看本季度，再列出要**开始、停止、继续**的事。
+5. 写下下季度的**意向**。
+6. 检查**理想一周**，为意向安排真实时间。
 
-## Wheel of life areas (edit to taste)
-`wheel_faith`, `wheel_family`, `wheel_marriage`, `wheel_friends`, `wheel_health`, `wheel_career`, `wheel_finances`, `wheel_growth`. Rename in the template; the chart discovers whatever `wheel_*` exists.
+## 本仓库如何实现
 
-## Practices
-- Block a whole day. No cabin required (7:40).
-- Read last quarter's retreat first. If this quarter's intentions are last quarter's with new wording, that is the finding.
-- Three intentions maximum. Each must be actionable weekly.
-- End by creating or updating project notes with `quarter:` set, so the quarterly note lists them.
+- `Templates/Personal Retreat.md` 会自动应用于 `02 Retreats/` 下的新笔记。
+- 文件名遵循 **`YYYY-QN Personal Retreat`**。Compass 仪表盘按日期和名称查找本季度静修笔记，读取 `wheel_*` 数字属性画生命之轮；找不到时退回最近一次静修笔记。
+- 模板链接上季度及去年同季度的静修，便于并排比较。
+- 反思部分动态显示本季度每日问题、习惯和收获；生命之轮图读取你的实际评分。
+- 意向写在静修笔记中，再嵌入季度笔记，并从季度笔记进入每周笔记，只需维护一处。
 
-Related: NeuYear Personal Retreat Planner (paper option Mike links): https://www.neuyear.net/products/the-personal-retreat-planner
+## 生命之轮领域
+
+默认属性为 `wheel_faith`、`wheel_family`、`wheel_marriage`、`wheel_friends`、`wheel_health`、`wheel_career`、`wheel_finances`、`wheel_growth`。可在模板中调整；图表会发现现有的 `wheel_*`。
+
+## 使用建议
+
+在日历中留出整天。先读上次静修：若本季度意向只是上季度目标换了说法，这本身就是重要发现。意向最多三项，并能落实到每周行动。结束时创建或更新项目笔记，设置 `quarter:`，使季度笔记列出相关项目。
+
+相关纸质工具：[NeuYear Personal Retreat Planner](https://www.neuyear.net/products/the-personal-retreat-planner)。

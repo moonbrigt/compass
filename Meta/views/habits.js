@@ -1,4 +1,4 @@
-// Compass Habit Canvas widget.
+// Compass 习惯画布组件。
 // Usage:  await dv.view("Meta/views/habits", { days: 14 })
 // Reads every daily note, finds checkbox properties starting with habit_prefix and
 // renders: last N days grid, current streak, best streak, longest break, completion %, total.
@@ -24,11 +24,12 @@ for (const p of pages) {
 
 const root = dv.container.createEl("div", { cls: "lifeos-widget" });
 if (habits.size === 0) {
-  root.createEl("p", { text: `No checkbox properties starting with "${PREFIX}" found in ${FOLDER} yet. Add some to Templates/Daily Note.md and start checking them off.` });
+  root.createEl("p", { text: `尚未在 ${FOLDER} 中找到以“${PREFIX}”开头的复选属性。请在 Templates/Daily Note.md 中添加习惯并开始记录。` });
 } else {
   const today = moment().startOf("day");
   const fmt = d => d.format("YYYY-MM-DD");
-  const label = k => k.slice(PREFIX.length).replace(/[_-]+/g, " ").replace(/\b\w/g, c => c.toUpperCase());
+  const HABIT_LABELS = { habit_journal: "日记", habit_exercise: "运动", habit_reading: "阅读" };
+  const label = k => HABIT_LABELS[k] || k.slice(PREFIX.length).replace(/[_-]+/g, " ");
   const dates = [...byDate.keys()].sort();
   const first = moment(dates[0]);
   const rows = [];
@@ -64,7 +65,7 @@ if (habits.size === 0) {
 
   const table = root.createEl("table", { cls: "lifeos-table" });
   const thead = table.createEl("thead").createEl("tr");
-  for (const h of ["Habit", `Last ${DAYS} days`, "Current", "Best", "Longest break", "Completion", "Total"]) thead.createEl("th", { text: h });
+  for (const h of ["习惯", `近 ${DAYS} 天`, "当前连续天数", "最长连续天数", "最长中断天数", "完成率", "完成总天数"]) thead.createEl("th", { text: h });
   const tbody = table.createEl("tbody");
   for (const r of rows) {
     const tr = tbody.createEl("tr");
@@ -76,5 +77,5 @@ if (habits.size === 0) {
     tr.createEl("td", { text: r.pct + "%" });
     tr.createEl("td", { text: String(r.total) });
   }
-  root.createEl("p", { text: "● done   ○ tracked but missed   · no daily note", cls: "lifeos-legend" }).style.opacity = "0.6";
+  root.createEl("p", { text: "● 已完成   ○ 有记录但未完成   · 无日记", cls: "lifeos-legend" }).style.opacity = "0.6";
 }

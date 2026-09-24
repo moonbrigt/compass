@@ -7,16 +7,16 @@ passages: []
 tags:
   - sermon
 ---
-Link every verse mentioned as `[[Genesis 1.1]]` (note-as-verse) and the chapter as `[[Genesis 1]]` (note-as-chapter). Over time the local graph becomes your own cross-reference library.
+将提到的经文链接到 `[[Genesis 1.1|创世记 1:1]]`（一节一篇笔记），将章节链接到 `[[Genesis 1|创世记第 1 章]]`（一章一篇笔记）。逐步建立自己的本地交叉引用资料库。
 
-## Passages
+## 经文
 - 
 
-## Sketch note
+## 草图笔记
 ![[]]
 
-## Main points
+## 主要观点
 1. 
 
-## Application
+## 实践应用
 - 

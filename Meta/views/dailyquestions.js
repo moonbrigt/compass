@@ -1,4 +1,4 @@
-// Compass Daily Questions widget: lines + averages of every dq_* number property.
+// Compass 每日问题组件：绘制每个 dq_* 数值属性的曲线与平均值。
 // Usage:
 //   await dv.view("Meta/views/dailyquestions", { days: 30 })              interactive (dropdown + toggles)
 //   await dv.view("Meta/views/dailyquestions", { from: "2026-07-01", to: "2026-09-30" })  fixed range
@@ -23,24 +23,25 @@ for (const p of pages) {
   }
 }
 const keys = Object.keys(series).sort();
-const label = k => k.slice(PREFIX.length).replace(/[_-]+/g, " ").replace(/\b\w/g, c => c.toUpperCase());
+const QUESTION_LABELS = { dq_goals: "目标", dq_progress: "进展", dq_meaning: "意义", dq_happy: "快乐", dq_relationships: "积极关系", dq_engaged: "全心投入" };
+const label = k => QUESTION_LABELS[k] || k.slice(PREFIX.length).replace(/[_-]+/g, " ");
 
 const root = dv.container.createEl("div", { cls: "lifeos-widget" });
 if (keys.length === 0) {
-  root.createEl("p", { text: `No number properties starting with "${PREFIX}" found in ${FOLDER} yet. Answer your daily questions (Templates/Daily Questions Prompt.md) and they will show up here.` });
+  root.createEl("p", { text: `尚未在 ${FOLDER} 中找到以“${PREFIX}”开头的数值属性。填写每日问题（Templates/Daily Questions Prompt.md）后，数据会显示在这里。` });
 } else {
   const controls = root.createEl("div", { cls: "lifeos-controls" });
   let sel = null;
   if (!FIXED_FROM) {
     sel = controls.createEl("select");
-    for (const [v, l] of [[7, "Last 7 days"], [30, "Last 30 days"], [90, "Last 90 days"], [365, "Last year"], [0, "All time"]]) {
+    for (const [v, l] of [[7, "近 7 天"], [30, "近 30 天"], [90, "近 90 天"], [365, "近一年"], [0, "全部时间"]]) {
       const o = sel.createEl("option", { text: l });
       o.value = String(v);
       if (v === DEFAULT_RANGE) o.selected = true;
     }
     sel.addEventListener("change", render);
   } else {
-    controls.createEl("span", { text: `${FIXED_FROM.format("YYYY-MM-DD")} → ${FIXED_TO ? FIXED_TO.format("YYYY-MM-DD") : "today"}` });
+    controls.createEl("span", { text: `${FIXED_FROM.format("YYYY-MM-DD")} → ${FIXED_TO ? FIXED_TO.format("YYYY-MM-DD") : "今天"}` });
   }
   const toggles = {};
   keys.forEach((k, i) => {
@@ -74,8 +75,8 @@ if (keys.length === 0) {
       svg += `<line x1="${ml}" x2="${W - mr}" y1="${y(g)}" y2="${y(g)}" stroke="currentColor" stroke-opacity="${g === 1 || g === 10 ? 0.35 : 0.12}" />`;
       if (g === 1 || g === 5 || g === 10) svg += `<text x="${ml - 6}" y="${y(g) + 4}" font-size="11" text-anchor="end" fill="currentColor" opacity="0.7">${g}</text>`;
     }
-    svg += `<text x="${ml}" y="${H - 8}" font-size="11" fill="currentColor" opacity="0.7">${from.format("MMM D, YYYY")}</text>`;
-    svg += `<text x="${W - mr}" y="${H - 8}" font-size="11" text-anchor="end" fill="currentColor" opacity="0.7">${to.format("MMM D, YYYY")}</text>`;
+    svg += `<text x="${ml}" y="${H - 8}" font-size="11" fill="currentColor" opacity="0.7">${from.clone().locale("zh-cn").format("YYYY年M月D日")}</text>`;
+    svg += `<text x="${W - mr}" y="${H - 8}" font-size="11" text-anchor="end" fill="currentColor" opacity="0.7">${to.clone().locale("zh-cn").format("YYYY年M月D日")}</text>`;
     const rows = [];
     keys.forEach((k, i) => {
       if (!toggles[k].checked) return;
@@ -92,7 +93,7 @@ if (keys.length === 0) {
     });
     svg += `</svg>`;
     chart.innerHTML = svg;
-    let html = `<table class="lifeos-table"><thead><tr><th>Question</th><th>Average</th><th>Min</th><th>Max</th><th>Days answered</th><th>Latest</th></tr></thead><tbody>`;
+    let html = `<table class="lifeos-table"><thead><tr><th>问题</th><th>平均值</th><th>最低</th><th>最高</th><th>填写天数</th><th>最近一次</th></tr></thead><tbody>`;
     for (const r of rows) html += `<tr>${r.map(c => `<td>${c}</td>`).join("")}</tr>`;
     html += `</tbody></table>`;
     tableEl.innerHTML = html;

@@ -1,20 +1,17 @@
-# Workflow 4: Habit Tracking
+# 工作流 4：习惯追踪
 
-Video: 9:45 to 11:51. "Almost embarrassingly simple."
+视频：9:45–11:51。录入方式很简单。
 
-## Data entry
-Checkbox properties in the daily note, prefixed `habit_`: `habit_journal`, `habit_exercise`, `habit_read`, `habit_reading`. Check them as you go or when the Daily Questions Prompt asks at night. No app, no notifications, no streak shame (10:36).
+## 记录
 
-## Dashboard (his "Habit Canvas", 10:47)
-`00 Dashboards/Habit Canvas.md` and the habits widget on the Compass dashboard, both `Meta/views/habits.js`:
-- discovers every `habit_*` checkbox across the daily notes,
-- shows the last N days as a grid (● done, ○ missed, · no note),
-- current streak, best streak, longest break, completion % (of days the habit was tracked), total completions (20:08).
+在每日笔记中使用以 `habit_` 开头的复选框属性，例如 `habit_journal`、`habit_exercise`、`habit_read`、`habit_reading`。可随时勾选，也可在晚间由“每日问题”模板统一询问。不需要另一款应用、通知或为了连续天数感到压力。
 
-## Change the habits
-Edit the properties block in `Templates/Daily Note.md`. Nothing else. Track a small set "this season" (10:29); retire habits by removing the property from the template (history stays in old notes and still counts).
+## 习惯看板
 
-## Practices
-- The habit lives next to the journal entry that explains the miss (11:08). Read them together at the weekly review.
-- "Tracking honestly is more important than tracking perfectly."
-- Do not chase the streak number. The widget shows it because it is informative, not because it is the goal.
+`00 Dashboards/Habit Canvas.md` 与 Compass 仪表盘中的组件都调用 `Meta/views/habits.js`。它会发现日记中的所有 `habit_*` 属性，以网格显示最近 N 天（● 完成、○ 未完成、· 无笔记），并计算当前连续天数、最佳连续天数、最长中断、记录期间的完成率和总完成次数。
+
+## 调整习惯
+
+编辑 `Templates/Daily Note.md` 中的属性即可。每一季只追踪少数真正重要的习惯。要停止追踪某项习惯，从模板移除属性；历史笔记仍保留原记录，历史统计也仍可读取。
+
+周复盘时，把缺漏日期与旁边的日记一起看。诚实记录比追求完美连续更重要；连续天数只是帮助理解行为的指标。

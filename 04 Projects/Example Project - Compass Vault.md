@@ -4,38 +4,38 @@ status: active
 area: growth
 quarter: 2026-Q3
 started: 2026-08-26
-due: 
+due:
 people:
-  - "[[Example Person - Alex Rivera]]"
+  - "[[Example Person - Alex Rivera|示例人物：Alex Rivera]]"
 tags:
   - project
   - example
 ---
-Tag tasks anywhere in the vault with `#project/example-project-compass-vault` and they roll up here.
+在仓库任意位置给任务加上 `#project/example-project-compass-vault`，任务就会汇总到这里。
 
-## Outcome
-What "done" looks like:
-- 30 consecutive days of daily questions answered, dashboards rendering from real data.
+## 预期成果
+完成时应是什么样子：
+- 连续 30 天回答每日问题，让仪表盘显示真实数据。
 
-## Next actions
+## 下一步行动
 ```tasks
 not done
 tags include #project/example-project-compass-vault
 sort by due
 ```
 
-## Inline tasks
-- [ ] Fill in Life Theme and Core Values #project/example-project-compass-vault
-- [ ] Set birthdate in Compass Config #project/example-project-compass-vault
-- [ ] Ask Alex how she structures her weekly review #discuss #p/example-person-alex-rivera #project/example-project-compass-vault
+## 笔记内任务
+- [ ] 填写生活主题和核心价值观 #project/example-project-compass-vault
+- [ ] 在 Compass 配置中设置出生日期 #project/example-project-compass-vault
+- [ ] 询问 Alex 如何安排每周复盘 #discuss #p/example-person-alex-rivera #project/example-project-compass-vault
 
-## Notes
-- Built from the Guide folder. Layer one workflow at a time.
+## 笔记
+- 依据 Guide 文件夹中的指南建立，每次增加一个工作流。
 
-## Log
-- 2026-08-26 Created.
+## 日志
+- 2026-08-26 已创建。
 
-## Done
+## 已完成
 ```tasks
 done
 tags include #project/example-project-compass-vault

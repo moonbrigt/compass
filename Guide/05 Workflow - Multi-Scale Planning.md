@@ -1,34 +1,31 @@
-# Workflow 3: Multi-Scale Planning
+# 工作流 3：多尺度规划
 
-Video: 7:53 to 9:45. Cal Newport's term: align daily, weekly, and quarterly plans so daily action serves what the retreat decided.
+视频：7:53–9:45。借鉴 Cal Newport 的方法，让每日、每周、每季度的行动对齐个人静修时确定的重要事项。
 
-## Layers
-| Layer | Note | Template | Reviewed |
+## 规划层级
+
+| 层级 | 笔记 | 模板 | 回顾频率 |
 | --- | --- | --- | --- |
-| Roles and values | `03 Planning/Life Theme.md`, `03 Planning/Core Values.md` (roles table inside) | manual | every 90 days at the retreat |
-| Quarter | `01 Journal/Quarterly/YYYY-QN.md` | `Templates/Quarterly Note.md` | at the retreat, glanced weekly |
-| Week | `01 Journal/Weekly/gggg-Www.md` | `Templates/Weekly Note.md` | Sunday or Monday, and Friday review |
-| Day | `01 Journal/Daily/YYYY-MM-DD.md` | `Templates/Daily Note.md` | morning and 21:00 |
+| 角色与价值观 | `03 Planning/Life Theme.md`、`03 Planning/Core Values.md`（内含角色表） | 手工维护 | 静修时，每 90 天 |
+| 季度 | `01 Journal/Quarterly/YYYY-QN.md` | `Templates/Quarterly Note.md` | 静修时，每周略读 |
+| 每周 | `01 Journal/Weekly/gggg-Www.md` | `Templates/Weekly Note.md` | 周日或周一规划，周五复盘 |
+| 每日 | `01 Journal/Daily/YYYY-MM-DD.md` | `Templates/Daily Note.md` | 早上与晚间 |
 
-No annual plan, by design (8:46).
+此流程不设置年度计划：一年太长，季度更便于调整。
 
-## How the layers connect
-- Periodic Notes creates each layer in its folder from its template (9:16). Templater fills the date math.
-- Daily note embeds **this week's intentions** and **this quarter's intentions** are embedded in the weekly note; the quarterly note embeds the **retreat's intentions**. One source of truth, visible at every scale.
-- Every note has a navigation line: previous, parent scale, dashboard, next.
-- `Ideal Week` is checked in the weekly note and rewritten at the retreat.
+## 各层如何连接
 
-## Weekly note
-- Three weekly intentions, chosen against the quarterly ones.
-- Tasks due this week (Tasks query).
-- Friday review: a table of each day's effort scores and habit hits (`Meta/views/week.js`) plus wins pulled from the daily notes.
+- Periodic Notes 在对应文件夹创建周期笔记，Templater 填入日期计算结果。
+- 日记嵌入**本周意向**，周记嵌入**本季度意向**，季记嵌入**静修意向**。每层只在源笔记写一次。
+- 每篇笔记都有上一期、上层规划、仪表盘和下一期的导航链接。
+- 周记用“理想一周”检查时间分配；静修时可重新修订理想一周。
 
-## Quarterly note
-- Focus area from the wheel.
-- Projects with `quarter: YYYY-QN` and status not done.
-- List of the quarter's weekly notes.
-- Daily questions chart locked to the quarter's dates.
+## 周记
 
-## Practices
-- Plan the week before the week starts; adjust the calendar then, not on Thursday.
-- If a weekly intention does not trace back to a quarterly one, ask why it is there.
+选三项与季度意向一致的每周意向；查看本周到期任务；周五通过 `Meta/views/week.js` 查看每日努力分数、习惯记录与收获。
+
+## 季记
+
+记录生命之轮的重点领域；列出 `quarter: YYYY-QN` 且尚未完成的项目、本季度周记及限定在季度日期内的每日问题图表。
+
+尽量在新的一周开始前规划，并提前调整日历。若某项每周意向无法追溯到季度意向，先弄清它为何需要占用本周时间。

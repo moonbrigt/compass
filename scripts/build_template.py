@@ -1,12 +1,11 @@
 #!/usr/bin/env python3
-"""Build a clean, distributable copy of this vault from the live one.
+"""从维护者源仓库构建可分发的干净 Obsidian 模板。
 
     python3 scripts/build_template.py --out ../life-os-releases --name Candidate --version 1.1.0 --zip
     python3 scripts/build_template.py --out ../life-os-releases --name CandidateLite --version 1.1.0 --without-reading
 
-Never writes into the live vault. Steps: copy with drop rules, keep only example-tagged notes in
-user folders, reset defaults, strip machine state from plugin settings, trim the transcript, add
-version and a one-page workspace, chmod, verify, zip. See scripts/RELEASE.md.
+不会反写源仓库。构建时排除私人内容和机器状态，恢复审核过的默认值，
+写入版本和初始工作区，验证后可选择生成 ZIP。详见 scripts/RELEASE.md。
 """
 import argparse, fnmatch, json, os, re, shutil, stat, subprocess, sys, hashlib, zipfile, datetime, tempfile
 from pathlib import Path
@@ -16,12 +15,13 @@ LIVE = os.path.dirname(HERE)
 
 DROP_GLOBS = [
     ".directory", ".claude", ".claude/*", ".claude-obsidian.json", ".github", ".github/*",
+    ".agents", ".agents/*", ".specify", ".specify/*", "specs", "specs/*", ".venv", ".venv/*",
     "Guide/18 Distribution Checklist.md",
     ".git", ".git/*", ".vault-meta", ".vault-meta/*", ".raw", ".raw/*", ".trash", ".trash/*",
     ".claude/settings.local.json", ".mcp.json", ".obsidian/workspace*.json", ".obsidian/graph.json",
     ".obsidian/plugins/agent-client/sessions", ".obsidian/plugins/agent-client/sessions/*",
     ".obsidian/plugins/*/data.json.bak", "Meta/Agent Chats", "Meta/Agent Chats/*", "Agent Client", "Agent Client/*",
-    "scripts/template", "scripts/template/*", "build", "build/*",
+    "scripts/template", "scripts/template/*", "scripts/locale_audit.py", "build", "build/*",
     "wiki/concepts", "wiki/concepts/*", "wiki/sources", "wiki/sources/*", "wiki/entities", "wiki/entities/*", "wiki/questions", "wiki/questions/*", "wiki/log/*", "inbox/*",
     "Untitled*", "*/Untitled*", "*.canvas", ".DS_Store", "*/.DS_Store", "Thumbs.db", "*/Thumbs.db",
     "__pycache__", "*/__pycache__", "*.pyc", "*.png.bak", "*.html", "*.log",
@@ -30,11 +30,11 @@ USER_CONTENT = ["01 Journal/", "02 Retreats/", "04 Projects/", "05 People/", "06
                 "09 Reading/Chapters/", "09 Reading/Verses/", "09 Reading/Study Notes/", "09 Reading/Topics/"]
 KEEP_IN_USER_FOLDERS = re.compile(r".* Board\.md$")
 BOARD_DEFAULTS = {
-    "04 Projects/Projects Board.md": "Projects Board",
-    "06 Writing/Newsletters/Newsletter Board.md": "Newsletter Board",
-    "06 Writing/YouTube Scripts/YouTube Board.md": "YouTube Board",
-    "06 Writing/Articles/Article Board.md": "Article Board",
-    "06 Writing/Course Content/Course Board.md": "Course Board",
+    "04 Projects/Projects Board.md": "项目看板",
+    "06 Writing/Newsletters/Newsletter Board.md": "通讯看板",
+    "06 Writing/YouTube Scripts/YouTube Board.md": "视频看板",
+    "06 Writing/Articles/Article Board.md": "文章看板",
+    "06 Writing/Course Content/Course Board.md": "课程看板",
 }
 READING_PATHS = ["09 Reading", "Guide/07 Workflow - Daily Reading.md", "scripts/generate_reading_plan.py", "scripts/split_bible.py", "Templates/Study Note.md"]
 
@@ -54,13 +54,13 @@ def has_example_tag(path):
 
 def copy_tree(live, out):
     for root, dirs, files in os.walk(live):
-        rel_root = os.path.relpath(root, live)
+        rel_root = os.path.relpath(root, live).replace("\\", "/")
         rel_root = "" if rel_root == "." else rel_root
-        dirs[:] = [d for d in dirs if not dropped(os.path.join(rel_root, d) if rel_root else d)]
+        dirs[:] = [d for d in dirs if not dropped(f"{rel_root}/{d}" if rel_root else d)]
         if any(os.path.islink(os.path.join(root, d)) for d in dirs):
             raise ValueError("Package source contains a symbolic-link directory")
         for f in files:
-            rel = os.path.join(rel_root, f) if rel_root else f
+            rel = f"{rel_root}/{f}" if rel_root else f
             if dropped(rel):
                 continue
             source = os.path.join(root, f)
@@ -77,7 +77,8 @@ def copy_tree(live, out):
                 name = rel.removeprefix(".obsidian/")
                 settings = None
                 if name == "app.json": settings = {"newFileLocation": "current"}
-                elif name in ("appearance.json", "types.json", "webviewer.json"): settings = {}
+                elif name == "appearance.json": settings = {"enabledCssSnippets": ["lifeos", "vault-colors"]}
+                elif name in ("types.json", "webviewer.json"): settings = {}
                 elif name == "core-plugins.json":
                     original = json.loads(Path(source).read_text())
                     if not isinstance(original, dict): raise ValueError("Unsupported core plugin settings")
@@ -90,7 +91,15 @@ def copy_tree(live, out):
                     settings = original
                 elif name == "hotkeys.json":
                     original = json.loads(Path(source).read_text())
-                    settings = {key: value for key, value in original.items() if key.startswith("life-os-app:")}
+                    allowed_hotkeys = {
+                        "life-os-app:open-home", "life-os-app:open-capture",
+                        "quickadd:choice:lifeos-daily", "quickadd:choice:lifeos-weekly",
+                        "quickadd:choice:lifeos-quarterly", "quickadd:choice:lifeos-journal",
+                        "quickadd:choice:lifeos-win", "quickadd:choice:lifeos-gratitude",
+                        "quickadd:choice:lifeos-task",
+                        "templater-obsidian:Templates/Daily Questions Prompt.md",
+                    }
+                    settings = {key: value for key, value in original.items() if key in allowed_hotkeys}
                 if settings is not None:
                     target = Path(out, rel)
                     target.parent.mkdir(parents=True, exist_ok=True)
@@ -99,7 +108,7 @@ def copy_tree(live, out):
             if rel in BOARD_DEFAULTS:
                 target = Path(out, rel)
                 target.parent.mkdir(parents=True, exist_ok=True)
-                target.write_text("---\nkanban-plugin: board\n---\n\n# " + BOARD_DEFAULTS[rel] + "\n\n## Ideas\n\n## In progress\n\n## Done\n", encoding="utf-8")
+                target.write_text("---\nkanban-plugin: board\n---\n\n# " + BOARD_DEFAULTS[rel] + "\n\n## 想法\n\n## 进行中\n\n## 已完成\n", encoding="utf-8")
                 continue
             if rel.startswith(".obsidian/plugins/") and f != "data.json" and f not in ("main.js", "manifest.json", "styles.css", "LICENSE"):
                 continue
@@ -186,9 +195,14 @@ def reset_defaults(out):
 def json_surgery(out):
     def load(rel):
         p = os.path.join(out, rel)
-        return (p, json.load(open(p))) if os.path.exists(p) else (p, None)
+        if not os.path.exists(p):
+            return p, None
+        with open(p, encoding="utf-8") as stream:
+            return p, json.load(stream)
     def save(p, d):
-        json.dump(d, open(p, "w"), indent=2, ensure_ascii=False); open(p, "a").write("\n")
+        with open(p, "w", encoding="utf-8") as stream:
+            json.dump(d, stream, indent=2, ensure_ascii=False)
+            stream.write("\n")
     p, d = load(".obsidian/plugins/obsidian-local-rest-api/data.json")
     save(p, {"enableInsecureServer": True})
     p, d = load(".obsidian/plugins/agent-client/data.json")
@@ -228,44 +242,72 @@ def json_surgery(out):
 def text_surgery(out, without_reading):
     p = os.path.join(out, "Guide/Source - Video Analysis.md")
     if os.path.exists(p):
-        s = open(p, encoding="utf-8").read()
-        i = s.find("\n## Transcript")
+        s = Path(p).read_text(encoding="utf-8")
+        i = s.find("\n## 字幕")
         if i != -1:
-            s = s[:i] + "\n## Transcript\nNot included in the distributed template. Watch the video at the source URL above.\n"
-            open(p, "w", encoding="utf-8").write(s)
+            s = s[:i] + "\n## 字幕\n发行模板未附完整字幕。可通过上方 `source` 链接观看原视频。\n"
+            Path(p).write_text(s, encoding="utf-8")
     if without_reading:
         for rel in READING_PATHS:
             p = os.path.join(out, rel)
             if os.path.isdir(p): shutil.rmtree(p)
             elif os.path.exists(p): os.remove(p)
         p = os.path.join(out, "Templates/Daily Note.md")
-        s = open(p, encoding="utf-8").read()
-        s = re.sub(r"> \[!reading\]- Daily reading\n(?:> .*\n)+\n", "", s)
+        s = Path(p).read_text(encoding="utf-8")
+        s = re.sub(r"> \[!reading\]- 每日阅读\n(?:> .*\n)+\n", "", s)
         s = s.replace("path does not include 09 Reading/Reading Plan\n", "")
-        open(p, "w", encoding="utf-8").write(s)
+        Path(p).write_text(s, encoding="utf-8")
         def edit(rel, fn):
             q = os.path.join(out, rel)
             if os.path.exists(q):
-                t = open(q, encoding="utf-8").read(); open(q, "w", encoding="utf-8").write(fn(t))
-        edit("00 Dashboards/Setup.md", lambda t: t.replace(" Decide the reading module: fill [[Reading Plan]] or delete `09 Reading`.", ""))
-        edit("Guide/00 Start Here.md", lambda t: re.sub(r"^\| 5 \| Daily reading.*\n", "", t, flags=re.M))
+                t = Path(q).read_text(encoding="utf-8")
+                Path(q).write_text(fn(t), encoding="utf-8")
+        def remove_setup_reading(t):
+            sentence = "决定是否使用阅读模块：填写 [[Reading Plan|阅读计划]]，或删除 `09 Reading`。"
+            if t.count(sentence) != 1:
+                raise ValueError("Cannot safely remove reading setup guidance")
+            return t.replace(sentence, "")
+        edit("00 Dashboards/Setup.md", remove_setup_reading)
+        edit("Guide/00 Start Here.md", lambda t: re.sub(r"^\| 5 \| 每日阅读.*\n", "", t, flags=re.M))
         edit("AGENTS.md", lambda t: re.sub(r"^\| `09 Reading/`.*\n", "", t, flags=re.M))
         edit("README.md", lambda t: re.sub(r"^09 Reading/.*\n", "", t, flags=re.M))
+        edit("README.md", lambda t: re.sub(r"^\| 5 \| 每日阅读.*\n", "", t, flags=re.M))
         edit("00 Dashboards/Task Dashboard.md", lambda t: t.replace("path does not include 09 Reading/Reading Plan\n", ""))
+        edit("Guide/02 Plugins.md", lambda t: t.replace("共有 20 个选项", "共有 19 个选项").replace("8 个按模板新建", "7 个按模板新建").replace("其余 12 个是模板选项", "其余 11 个是模板选项").replace("| 📖 新建研读笔记 | `09 Reading/Study Notes/{{VALUE}}.md` | `Templates/Study Note.md` |\n", ""))
+        edit("Guide/21 Life OS Application.md", lambda t: t.replace("`07 Library/` 与 `09 Reading/`", "`07 Library/`").replace("、读书与研读笔记", "与读书笔记"))
+        life_os = Path(out, ".obsidian/plugins/life-os-app/main.js")
+        source = life_os.read_text(encoding="utf-8")
+        study_action = r'(?m)^\s*\{\n\s*icon: "book-open-check",\n\s*label: "新建研读笔记",\n\s*description: "[^"]+",\n\s*command: "quickadd:choice:lifeos-new-study-note",\n\s*\},\n'
+        reading_action = r'(?m)^\s*\{\n\s*icon: "book-open",\n\s*label: "阅读计划",\n\s*description: "[^"]+",\n\s*path: "09 Reading/Reading Plan.md",\n\s*\},\n'
+        source, removed_study = re.subn(study_action, "", source)
+        source, removed_plan = re.subn(reading_action, "", source)
+        if (removed_study, removed_plan) != (2, 1):
+            raise ValueError("Cannot safely remove reading actions from Life OS")
+        life_os.write_text(source, encoding="utf-8")
+        quickadd = Path(out, ".obsidian/plugins/quickadd/data.json")
+        choices = json.loads(quickadd.read_text(encoding="utf-8"))
+        choices["choices"] = [choice for choice in choices["choices"] if choice.get("id") != "lifeos-new-study-note"]
+        quickadd.write_text(json.dumps(choices, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
         tj = os.path.join(out, ".obsidian/plugins/templater-obsidian/data.json")
         if os.path.exists(tj):
-            d = json.load(open(tj)); d["folder_templates"] = [x for x in d.get("folder_templates", []) if not x.get("folder", "").startswith("09 Reading")]
-            json.dump(d, open(tj, "w"), indent=2); open(tj, "a").write("\n")
+            with open(tj, encoding="utf-8") as stream:
+                d = json.load(stream)
+            d["folder_templates"] = [x for x in d.get("folder_templates", []) if not x.get("folder", "").startswith("09 Reading")]
+            with open(tj, "w", encoding="utf-8") as stream:
+                json.dump(d, stream, indent=2, ensure_ascii=False)
+                stream.write("\n")
 
 def version_stamp(out, version):
     plugins = {}
     pdir = os.path.join(out, ".obsidian/plugins")
     for d in sorted(os.listdir(pdir)):
         m = os.path.join(pdir, d, "manifest.json")
-        if os.path.exists(m): plugins[d] = json.load(open(m))["version"]
-    open(os.path.join(out, "Meta/version.md"), "w").write(
-        "---\ntemplate_version: %s\nbuilt: %s\nrelease_status: candidate\nmin_obsidian: 1.13.1\nplugins:\n%s---\n# Version\n\nThis is a local candidate, not evidence of native acceptance or publication. There is no in-place updater. Back up the old vault and migrate content and custom configuration into a separate fresh copy with conflict review. See `scripts/RELEASE.md`.\n"
-        % (version, datetime.date.today().isoformat(), "".join('  %s: "%s"\n' % kv for kv in plugins.items())))
+        if os.path.exists(m):
+            with open(m, encoding="utf-8") as stream:
+                plugins[d] = json.load(stream)["version"]
+    Path(out, "Meta/version.md").write_text(
+        "---\ntemplate_version: %s\nbuilt: %s\nrelease_status: candidate\nmin_obsidian: 1.13.1\nplugins:\n%s---\n# 版本\n\n这是本机候选，不能据此认定已完成 Obsidian 原生验收或公开发布。仓库没有原位升级器。请先备份旧仓库，再把个人内容与自定义配置逐项审查后迁入旁边的新副本。详见 `scripts/RELEASE.md`。\n"
+        % (version, datetime.date.today().isoformat(), "".join('  %s: "%s"\n' % kv for kv in plugins.items())), encoding="utf-8")
 
 def chmod_all(out):
     for root, dirs, files in os.walk(out):
@@ -279,7 +321,7 @@ def manifest(out):
             if f == "MANIFEST.sha256": continue
             p = os.path.join(root, f)
             h = hashlib.sha256(Path(p).read_bytes()).hexdigest()
-            lines.append("%s  %s" % (h, os.path.relpath(p, out)))
+            lines.append("%s  %s" % (h, os.path.relpath(p, out).replace("\\", "/")))
     Path(out, "MANIFEST.sha256").write_text("\n".join(sorted(lines)) + "\n")
 
 def main():
@@ -317,13 +359,17 @@ def main():
         if rc != 0:
             print("Verification failed; private staging removed; no archive published")
             return rc
-        # Exclusive reservation prevents replacement of an existing destination.
-        destination.mkdir(mode=0o700)
+        # Reserve the name without pre-creating the destination: Windows cannot
+        # replace even an empty destination directory.
+        reservation = parent / f".{a.name}.reservation"
+        descriptor = os.open(reservation, os.O_CREAT | os.O_EXCL | os.O_WRONLY, 0o600)
+        os.close(descriptor)
         try:
+            if destination.exists() or destination.is_symlink():
+                raise ValueError("Destination already exists; choose a fresh output name")
             os.replace(out, destination)
-        except Exception:
-            destination.rmdir()
-            raise
+        finally:
+            reservation.unlink()
         print("Verified local candidate", destination)
         if a.zip:
             temporary_zip = os.path.join(staging, "candidate.zip")
@@ -346,6 +392,6 @@ def main():
 if __name__ == "__main__":
     try:
         sys.exit(main())
-    except (ValueError, OSError):
-        print("Build refused or failed safely. Check fresh destination, inputs, and permissions.", file=sys.stderr)
+    except (ValueError, OSError) as exc:
+        print(f"构建已安全停止：{exc}", file=sys.stderr)
         sys.exit(1)

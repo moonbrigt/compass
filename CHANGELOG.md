@@ -1,94 +1,114 @@
-# Changelog
+# 更新日志
 
-Format: Added, Changed, Templates (manual merge notes), Plugins, Breaking. Semver: major = path or property rename, minor = new widget or workflow, patch = docs and fixes.
+分类：新增、变更、模板（需手动合并）、插件、破坏性变更。版本规则：路径或属性改名升主版本；新组件或工作流升次版本；文档及修复升补丁版本。
 
-## Unreleased
+## 尚未发布
 
-### Release preparation hardening
-- Skip live personal defaults before staging; rebuild canonical boards empty instead of copying live cards; remove the arbitrary Board.md exemption; reset core machine state and omit local agent directories.
-- Add disposable archive restore verification with checksum, traversal, duplicate-path, file-type, inventory, and per-file integrity checks. Eleven release-safety tests cover core rejection paths.
-- Update acceptance evidence for application 0.20.0 and separate owner-reported testing from reproducible automated checks. Native workflows, personal backup recovery, provider authentication, and redistribution provenance remain separate gates.
+### 简体中文候选
 
-### Application 0.20.0 candidate
-- Muted copper emphasis replaces bright orange primary buttons. Shared section gaps and card spacing apply across modules, with narrow-pane adjustments. Home's duplicate bottom Assistant banner and system summary are removed; setup is a compact notice near the top.
-- Today adds a recorded-property meter, Focus adds clickable workload segments, Projects shows explicit routing-tag task counts, and People has a tagged discussion queue. Missing or partial task indexes are disclosed.
-- Create adds up to three indexed open-item previews per actual board lane. Library supports typed sources, status/type filters, existing local raster covers and text fallbacks, with no remote cover requests. AI has separate provider and optional local-tool branches.
-- Per-module optional-visual controls complement the global switch. Preferences remain session-only. Ten-module browser checks cover spacing, narrow widths, source navigation, new summaries, and a light-theme smoke check. Native acceptance and release remain open.
+- 将 Life OS 界面、仪表盘、QuickAdd 选项、模板、提示词、示例笔记、指南、封面和仓库说明改为简体中文；可见内部链接使用中文名称，技术路径、属性键、命令 ID 与占位符保持稳定。
+- 写作看板使用“想法、进行中、已完成”列，QuickAdd 捕获目标与实际标题一致。
+- 构建与验证脚本更新为识别中文标题、链接别名及默认文件。完整与精简候选通过静态检查；Windows Obsidian 1.13.7 已试用首页、设置、仪表盘、日记和项目创建，未测试范围见 `Guide/23 Native Acceptance.md`。
 
-### Application 0.19.0 candidate
-- Home has a transparent, non-animated Brain preview beside Now. It shows at most 300 notes, labels sample counts, and opens the full Brain inside the same dashboard with navigation preserved.
-- Focus provides mutually exclusive task groups; Create summarizes one selected board's actual level-two lanes; Library retains finished books and filters by recorded status; AI includes a configuration map without claiming live connectivity.
-- View controls hide optional visuals, change record/Focus list limits, select compact or comfortable spacing, and restore defaults. Controls are in-memory per view, not persisted to vault or AI settings.
-- Browser checks cover preview cleanup, full Brain navigation, group filtering, board counts and source links, completed books, and narrow module widths. No personal records or live AI settings changed; no new plugins installed.
+### 发布准备加固
 
-### Application 0.18.0 candidate
-- Simplified Home to attention, capture, horizons, and compact signals. Full analytics now live in Review. Added local Plan month navigation, daily-note links, keyboard-operable effort source links, a daily values table, and scored-retreat navigation.
-- Strict score validation, separate habit completion and recorded coverage, configurable folder handling, metadata-backed task indexing, unresolved status reporting, sample exclusions, and task source-line navigation.
-- Assistant workflows explicitly prepare without auto-send. Privacy guidance distinguishes context sharing and operating policy from technical enforcement.
-- Hardened local candidate building with fresh external destinations, sanitize-before-copy settings, symlink rejection, embedded checksums, archive validation, and live-vault verification preflight. No public release or native acceptance is claimed.
-- Added synthetic dashboard interactions, Brain regression checks, assistant contracts, and release-safety tests. No new community plugins installed and no personal records changed.
+- 暂存前跳过个人默认文件；标准看板重建为空，不复制真实卡片；移除仅凭 `Board.md` 文件名放行的例外；重置核心机器状态并排除本地智能体目录。
+- 增加临时解压验证，检查校验和、目录穿越、重复路径、文件类型、清单与逐文件完整性；11 项发布安全测试覆盖关键拒绝路径。
+- 更新应用 0.20.0 的验收证据，区分用户报告与可复现自动检查。原生工作流、私人备份恢复、服务商认证与再分发来源仍是单独关卡。
 
-### Added
-- Life OS Brain: a rotatable brain-shaped graph of the vault's resolved links, with region filters, search, connected-note browsing, zoom, keyboard controls, and note opening. Standard Obsidian Graph view remains available.
-- Review analytics: 7/30/90-day effort charts, habit calendar, and latest retreat life-area scores, with explicit sample-data control and missing-data states. Tasks and planning horizons appear directly on Home.
-- Scoped button sizing and container-responsive layouts correct clipped descriptions and overlapping cards in Obsidian panes.
-- First-party Life OS application plugin with a native Home view, persistent navigation for Today, Plan, Focus, Review, Projects, People, Create, Library, and AI, a universal capture router, live system summary, responsive layout, and approval-aware AI messaging.
-- Privacy-preserving Today cockpit that reads only configured question and habit properties, reports completion, and opens the existing guided check-in workflows.
-- Live refresh on metadata, create, delete, and rename events, plus automatic opening as the primary surface after Obsidian finishes loading the vault.
-- Native live panels for connected planning horizons, seven-day review signals, active projects, people, books, and creative pipeline counts.
-- Native commitment feed for Today and Focus, ranked by overdue, due-today, and high-priority state from the canonical task, project, and people files.
-- Home-level system telemetry and an AI control center that separates local capability availability from authentication and live connection state.
-- Command-palette entry points for every application module and the universal Capture modal, ready for user-defined hotkeys.
-- Task ranking now treats scheduled-today work as immediate and recognizes both high and highest Tasks priorities.
-- Configuration entry points in the application top bar and command palette, opening the canonical Compass Config note.
-- Home onboarding banner that follows the canonical Setup note status and disappears only when onboarding is marked complete.
-- Debounced live refresh now includes body modifications, keeping the commitment feed current without redundant re-indexing bursts.
-- Setup now treats Life OS as a required application component and accepts any configured local Agent Client provider. The AI control center distinguishes installed tooling from configured sessions and local server state.
-- Commitment indexing now tolerates individual unreadable files, reports partial coverage, and sorts scheduled work deterministically.
-- Vault-local hotkeys for opening Life OS (`Mod+Shift+L`) and universal Capture (`Mod+Shift+C`).
-- First-class New Project and New Person template inputs in universal Capture and the corresponding native modules, with collision-safe existing-note behavior.
-- Template-backed creation for newsletter drafts, video scripts, articles, and course lessons from universal Capture and the native Create module.
-- Universal Capture is grouped into Quick capture, Ideas, and Create notes for a faster, scalable input surface.
-- Template-backed New Book and New Study Note inputs complete the Library creation path.
-- `scripts/verify_life_os_app.mjs` validates the application manifest, command and path contracts, styles, capabilities, screen rendering, capture modal, and view activation. The release gate now runs it against every built template.
+### 应用 0.20.0 候选
 
-### Fixed
-- Restored `04 Projects` as a top-level folder so Templater, QuickAdd, dashboard links, Kanban note creation, and the documented folder contract agree again. Existing project content was moved without rewriting it.
+- 用柔和铜色替换刺眼的橙色主按钮；统一模块间距与卡片间距，兼顾窄窗格。首页移除重复的底部助手横幅和系统摘要，设置提示缩为顶部小块。
+- 今日增加属性记录进度；专注增加可点击的工作量分段；项目显示明确路由标签对应的任务数；人物增加带标签的待讨论队列。任务索引缺失或不完整会提示。
+- 新建页按真实看板列预览最多三项未完成事项；资料库支持类型化来源、状态/类型筛选、本地图片封面与文字替代，不请求远程封面；AI 分别展示服务商与可选本机工具的路径。
+- 全局视觉开关之外增加当前模块控制。偏好只在本次视图会话中保留。十模块浏览器检查覆盖间距、窄宽度、来源导航、新摘要及浅色主题基本检查；原生验收和发布尚未完成。
 
-## 1.0.2 (2026-08-27)
-### Fixed
-- Note creation no longer depends on Templater's on-create trigger, which does not fire reliably when Periodic Notes creates a note (the note then shows raw `<%` code and has no properties). Ctrl/Cmd+Shift+D, Ctrl/Cmd+Alt+W, Ctrl/Cmd+Alt+Q, and "New personal retreat" are QuickAdd template commands that create the note in the right folder, run Templater, and open it (or just open it if it exists). Periodic Notes and Calendar remain for navigation. Setup, Guide 02, AGENTS.md, and prompts 01 and 16 updated.
+### 应用 0.19.0 候选
 
-Fixes from the full post-publication review. Everyone on 1.0.0 should re-download; the daily note template in 1.0.0 did not create the question and habit properties.
+- 首页在“当前事项”旁加入透明、静态的知识图谱预览，最多显示 300 篇笔记、标出示例数量，并在同一仪表盘中打开保留导航的完整图谱。
+- 专注把任务归入互斥类别；新建页汇总所选看板真实二级标题列；资料库保留已读书籍并按记录状态筛选；AI 展示配置图，不声称已建立实际连接。
+- “视图”控制可隐藏可选视觉元素、调整记录与专注列表上限、选择紧凑或舒适间距、恢复默认。仅保存在当前视图内存中，不写入仓库或 AI 设置。
+- 浏览器检查覆盖预览卸载、完整图谱导航、分组筛选、看板计数与来源链接、已读书籍及窄模块宽度。未改动个人记录或实际 AI 设置，也未新增社区插件。
 
-### Fixed
-- `Templates/Daily Note.md` and `Templates/Personal Retreat.md`: the property generator contained a literal line break inside a JavaScript string, so Templater failed and new notes had no `dq_*`, `habit_*`, or `wheel_*` properties. The verify gate now simulates both generators.
-- Quarterly note embedded `#Intentions for next quarter`; the retreat heading is `## 5. Intentions for next quarter`. The verify gate now checks every heading fragment in links.
-- Navigation links in daily, weekly, quarterly, and retreat templates now carry the folder path, and Templater folder templates cover `01 Journal/Daily`, `Weekly`, `Quarterly`, so clicking a not-yet-existing period note creates it in the right folder from the right template.
-- Setup checklist no longer marks the Agent Client path and the reading module as done on a fresh copy.
-- `SECURITY.md` reporting section, `Guide/02` QuickAdd count and button mechanics, `Guide/14` prerequisites (Node.js) and Flatpak wrapper instructions, `Guide/19` reference to `AGENTS.md`, prompt 02 and 07 input lists, README tree.
+### 应用 0.18.0 候选
 
-### Added
-- `LICENSE` is plain MIT (GitHub detects it); Guide prose license moved to `LICENSE-GUIDE.md`. `CODE_OF_CONDUCT.md`, pull request template. Repository Discussions enabled.
-- Build drops any non-Markdown file in personal folders; verifier ignores `.git` when measuring size.
+- 首页简化为待关注事项、捕获、规划层级与紧凑信号；完整分析移到复盘。增加本机计划月历、日记链接、可用键盘打开的努力分数来源、逐日数值表与静修来源导航。
+- 严格校验分数，区分习惯完成与记录覆盖率；统一使用配置文件夹、基于元数据的任务索引、未解决状态提示、示例排除和任务来源行导航。
+- 助手工作流明确只准备提示词，不自动发送。隐私说明区分上下文分享、使用规则和技术强制。
+- 加固本机候选构建：只用外部新目录、复制前脱敏设置、拒绝符号链接、内置校验和、归档验证和源仓库预检。不声称已公开发布或完成原生验收。
+- 新增模拟仪表盘交互、知识图谱回归、助手契约与发布安全测试。未安装新社区插件，也未修改个人记录。
 
-## 1.0.0 (2026-08-26)
-First public template.
+### 新增
 
-### Added
-- Seven workflows from the video: daily questions, personal retreat, multi-scale planning, habits, daily reading, tasks, writing boards; Compass, Habit Canvas, Daily Questions, Task, Projects, Boards, Assistant, Setup dashboards.
-- `Meta/Compass Config.md` as the single config: questions, habits, wheel areas, folders, prefixes, birthdate.
-- `AGENTS.md` (canonical agent instructions), `CLAUDE.md` and `GEMINI.md` pointers, `Prompts/` library (16 jobs), `.claude/settings.json` read-only allowlist.
-- Obsidian MCP bridge (Local REST API `/mcp`), Agent Client integration, Vault Lens provider, Web viewer, SEO, Omnisearch, claude-obsidian knowledge layer (`wiki/`).
-- `scripts/build_template.py` and `scripts/verify_template.py` for releases; `THIRD_PARTY_NOTICES.md`, `CREDITS.md`, `LICENSE`.
+- Life OS 知识图谱：基于仓库已解析链接的可旋转脑形关系图，支持区域筛选、搜索、相连笔记浏览、缩放、键盘操作和打开笔记；Obsidian 原生关系图仍可用。
+- 复盘分析：7/30/90 天努力图、习惯日历与最近静修的生活领域分数；可明确选择是否包含示例数据，并区分缺失数据。
+- 调整按钮尺寸和容器响应式布局，修复 Obsidian 窗格里描述截断、卡片重叠。
+- 仓库自有 Life OS 插件：原生首页、今日、计划、专注、复盘、项目、人物、新建、资料库、AI 的持久导航，统一捕获、实时系统摘要、响应式布局及需批准的 AI 提示。
+- 今日工作台只读取已配置的问题和习惯属性，报告记录情况，并打开现有引导式填写流程。
+- 元数据变化及文件创建、删除、改名后实时刷新；Obsidian 加载仓库后自动打开主界面。
+- 规划层级、七日复盘信号、进行中项目、人物、书籍及创作流程计数的原生实时面板。
+- 今日与专注页的任务列表，从标准任务、项目和人物文件读取，按逾期、今天到期及高优先级排序。
+- 首页系统状态和 AI 控制中心，区分本地功能可用与已认证的实际连接。
+- 每个模块与统一捕获对话框都可从命令面板打开，并可自行绑定快捷键。
+- 任务排序把今天安排的工作视为当前事项，识别 Tasks 的高优先级与最高优先级。
+- 顶部栏及命令面板可打开标准的 Compass Config 笔记。
+- 首页入门提示跟随标准“设置”笔记状态，只有入门完成后才消失。
+- 防抖刷新监听笔记正文修改，让任务列表保持更新而不重复密集索引。
+- “设置”页把 Life OS 列为必需组件，并接受任意已配置的本机 Agent Client 服务商。AI 控制中心区分工具安装、会话配置和本机服务状态。
+- 任务索引能容忍个别无法读取的文件，报告部分覆盖率，并稳定排序已安排任务。
+- 仓库内快捷键：打开 Life OS（`Mod+Shift+L`）和统一捕获（`Mod+Shift+C`）。
+- 统一捕获及相应模块提供基于模板的新建项目、新建人物功能，遇到同名笔记时不会覆盖。
+- 统一捕获及新建模块可按模板创建通讯草稿、视频脚本、文章和课程课时。
+- 统一捕获按快捷记录、想法、新建笔记分组。
+- 基于模板的新建读书笔记与研读笔记补全资料库的创建路径。
+- `scripts/verify_life_os_app.mjs` 检查应用 manifest、命令与路径契约、样式、功能、屏幕渲染、捕获对话框及视图激活；发行验证对构建模板也运行它。
 
-### Council decisions recorded
-- Public name changed from the working name "LifeOS" to **Compass** (owner decision after the council). Internal ids (`lifeos-*` QuickAdd choices, CSS classes, snippet name) are unchanged on purpose.
-- Generalize the Bible module to `09 Reading` with Bible as the worked example (dissent: keep `09 Bible` and offer a build variant).
-- Ship plugin binaries with license copies (dissent: ship only the plugin list).
-- Local REST API enabled by default on loopback with a per-install key (dissent: installed, not enabled).
-- Daily notes carry no agent buttons (dissent: put morning and evening buttons in the daily template).
-- `AGENTS.md` canonical rather than `CLAUDE.md` (dissent: keep the documented name).
+### 修复
 
-### Plugins
-dataview, templater-obsidian, periodic-notes, quickadd, obsidian-tasks-plugin, obsidian-kanban, omnisearch, obsidian-local-rest-api, agent-client, seo (versions in `Meta/version.md`).
+- 恢复顶层 `04 Projects` 文件夹，使 Templater、QuickAdd、仪表盘链接、Kanban 笔记创建与文档中的目录约定一致；原项目内容迁移时未重写。
+
+## 1.0.2（2026-08-27）
+
+### 修复
+
+- 创建周期笔记不再依赖 Templater 的“新建时触发”；Periodic Notes 创建文件时该触发可能不可靠，导致显示原始 `<%` 代码且缺少属性。`Ctrl/Cmd+Shift+D`、`Ctrl/Cmd+Alt+W`、`Ctrl/Cmd+Alt+Q` 及“新建个人静修”改用 QuickAdd 模板命令，在正确文件夹创建、运行 Templater 并打开笔记；若文件已存在则直接打开。Periodic Notes 与 Calendar 仍负责导航。“设置”、指南 02、`AGENTS.md`、提示词 01 和 16 已同步。
+
+完整的发布后复查发现以下问题。使用 1.0.0 的用户应重新下载；当时的日记模板未能创建问题和习惯属性。
+
+### 其他修复
+
+- `Templates/Daily Note.md` 与 `Templates/Personal Retreat.md` 的属性生成器在 JavaScript 字符串中包含实际换行，导致 Templater 失败，新笔记缺少 `dq_*`、`habit_*`、`wheel_*`。验证器现会模拟这两处生成器。
+- 季记曾嵌入 `#Intentions for next quarter`，而静修笔记实际标题为 `## 5. Intentions for next quarter`；验证器现检查链接中的标题片段。当前汉化版使用相应中文标题。
+- 日记、周记、季记与静修模板的导航链接已带文件夹路径；Templater 文件夹模板覆盖 `01 Journal/Daily`、`Weekly`、`Quarterly`，点击未存在的周期笔记时能在正确文件夹应用模板。
+- 全新副本中的“设置”清单不再把 Agent Client 路径及阅读模块误标为完成。
+- 更新 `SECURITY.md` 报告方式、指南 02 的 QuickAdd 选项数量与按钮机制、指南 14 的 Node.js 前提和 Flatpak 包装脚本、指南 19 的 `AGENTS.md` 引用、提示词 02/07 的输入清单及 README 目录树。
+
+### 新增
+
+- `LICENSE` 改为纯 MIT 文本，便于 GitHub 识别；指南文字许可移至 `LICENSE-GUIDE.md`。增加 `CODE_OF_CONDUCT.md` 和拉取请求模板，启用仓库 Discussions。
+- 构建时排除个人目录中的非 Markdown 文件；验证器计算大小时忽略 `.git`。
+
+## 1.0.0（2026-08-26）
+
+首个公开模板。
+
+### 新增
+
+- 视频中的七项工作流：每日问题、个人静修、多尺度规划、习惯、每日阅读、任务、写作看板；Compass、习惯、每日问题、任务、项目、看板、助手与设置仪表盘。
+- `Meta/Compass Config.md` 作为问题、习惯、生命之轮领域、文件夹、前缀、出生日期的唯一配置。
+- `AGENTS.md` 共用智能体规则、`CLAUDE.md` 与 `GEMINI.md` 指针、16 项 `Prompts/` 提示词以及 `.claude/settings.json` 只读预授权。
+- Obsidian MCP 桥接（Local REST API 的 `/mcp`）、Agent Client、Vault Lens 服务、网页查看器、SEO、Omnisearch 与 claude-obsidian 知识层（`wiki/`）。
+- 发行工具 `scripts/build_template.py`、`scripts/verify_template.py` 及 `THIRD_PARTY_NOTICES.md`、`CREDITS.md`、`LICENSE`。
+
+### 当时记录的方案决策
+
+- 公开名称从“LifeOS”改为 **Compass**；内部 QuickAdd ID `lifeos-*`、CSS 类和片段名保留不变。
+- 将原《圣经》模块泛化为 `09 Reading`，以《圣经》为示例；当时也有人主张保留 `09 Bible` 并另做构建变体。
+- 发行时附带插件二进制与许可副本；另一方案是只列出插件清单。
+- Local REST API 默认在本机回环地址启用，并使用每台电脑独有的密钥；另一方案是只安装、不启用。
+- 日记不放智能体按钮；另一方案是在日记模板放早晚按钮。
+- 以 `AGENTS.md` 而非 `CLAUDE.md` 作为正式规则文件；另一方案是保留原文档名称。
+
+### 插件
+
+dataview、templater-obsidian、periodic-notes、quickadd、obsidian-tasks-plugin、obsidian-kanban、omnisearch、obsidian-local-rest-api、agent-client、seo；具体版本见 `Meta/version.md`。

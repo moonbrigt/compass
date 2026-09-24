@@ -9,28 +9,28 @@ finished:
 tags:
   - book
 ---
-## Summary in three sentences
+## 三句话总结
 
 
-## Key ideas
+## 核心观点
 - 
 
-## Quotes
-Give each quote a block id so you can embed it in your writing without leaving the vault.
+## 引文
+为每段引文设置块 ID，方便在写作笔记中直接嵌入。
 
 > "" ^quote-1
 
-## How this changes what I do
+## 对我的行动有什么影响
 - 
 
 ```agent
 type: button
-text: "File this page in the wiki"
-prompt: "Read Prompts/12 Research Capture.md with vault_read and follow its Prompt section for the note I have open (or the current period if none applies)."
+text: "将此页面归档到知识库"
+prompt: "请用 vault_read 阅读 Prompts/12 Research Capture.md，并针对当前打开的笔记执行其中的“## 提示词”部分；如果当前笔记不适用，则使用当前时间段。"
 viewType: right-pane
 ```
 
-## Linked writing
+## 关联的作品
 ```dataview
 LIST
 FROM "06 Writing"

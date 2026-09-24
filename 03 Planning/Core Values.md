@@ -1,27 +1,27 @@
 ---
-reviewed: 
+reviewed:
 tags:
   - planning
 ---
-Three to five. Each value gets one line describing what it looks like in practice, so you can check decisions against it. Reviewed every 90 days with the [[Life Theme]].
+列出三到五项核心价值观。每项用一句话描述它在实践中是什么样子，便于据此检查自己的决定。每 90 天与 [[Life Theme|人生主题]] 一起复查。
 
-## Values
-1. **Value one**: what it looks like when I am living it.
-2. **Value two**: 
-3. **Value three**: 
+## 价值观
+1. **价值一**：我践行它时会是什么样子。
+2. **价值二**：
+3. **价值三**：
 
-## Roles
-Cal Newport starts multi-scale planning above the quarter with roles and values. List the roles you hold and what "doing it well" means.
+## 角色
+Cal Newport 在季度计划之上，先从角色与价值观着手。列出你承担的角色，以及在每个角色中“做得好”意味着什么。
 
-| Role | Doing it well means |
+| 角色 | 做得好意味着 |
 | --- | --- |
-| Friend |  |
-| Family member |  |
-| Professional |  |
-| Learner or creator |  |
-| Community member |  |
+| 朋友 |  |
+| 家人 |  |
+| 专业工作者 |  |
+| 学习者或创作者 |  |
+| 社区成员 |  |
 
-Add Partner, Parent, Caregiver, Believer, or any other role as it applies.
+可按自身情况添加伴侣、父母、照护者、信仰者或其他角色。
 
-## Review log
-- 
+## 复查记录
+-

@@ -83,7 +83,7 @@ class ReleaseSafety(unittest.TestCase):
         self.output.mkdir()
         builder.copy_tree(str(self.live), str(self.output))
         self.assertFalse((self.output / "04 Projects/Private Board.md").exists())
-        self.assertNotIn("SYNTHETIC_PRIVATE_SENTINEL", (self.output / "04 Projects/Projects Board.md").read_text())
+        self.assertNotIn("SYNTHETIC_PRIVATE_SENTINEL", (self.output / "04 Projects/Projects Board.md").read_text(encoding="utf-8"))
     def test_archive_path_rules(self):
         for path in ["../escape", "/absolute", "root/../escape", "root\\escape", "C:/escape", "root//file"]:
             self.assertFalse(safe_name(path))

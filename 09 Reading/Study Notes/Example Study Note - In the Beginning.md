@@ -1,23 +1,23 @@
 ---
 type: sermon
 date: 2025-08-24
-speaker: Example speaker
+speaker: 示例讲员
 series: Genesis
 passages:
-  - "[[Genesis 1]]"
+  - "[[Genesis 1|创世记第 1 章]]"
 tags:
   - sermon
   - example
 ---
-## Passages
-- [[Genesis 1.1]], [[Genesis 1.3]]
+## 经文
+- [[Genesis 1.1|创世记 1:1]], [[Genesis 1.3|创世记 1:3]]
 
-## Sketch note
-(attach the sketch note image here)
+## 草图笔记
+（在此附上草图）
 
-## Main points
-1. Creation was intentional ([[Genesis 1.1]]).
-2. Light before the sun: order before detail ([[Genesis 1.3]]).
+## 主要观点
+1. 创造出于有意的行动（[[Genesis 1.1|创世记 1:1]]）。
+2. 先有光，后有太阳：先建立秩序，再关注细节（[[Genesis 1.3|创世记 1:3]]）。
 
-## Application
-- Start the week by deciding what matters before deciding what to do. See [[Creation]].
+## 实践应用
+- 每周开始时，先决定什么重要，再决定做什么。参见 [[Creation|创造]]。

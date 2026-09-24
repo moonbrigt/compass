@@ -1,9 +1,9 @@
 ---
 type: newsletter
 status: drafting
-platform: 
-publish_date: 
-subject: Grade your effort, not your results
+platform:
+publish_date:
+subject: 评价努力，而非结果
 word_target: 800
 sources:
   - "[[Triggers (Marshall Goldsmith)]]"
@@ -11,18 +11,18 @@ tags:
   - writing/newsletter
   - example
 ---
-> Example draft showing the "source and draft in the same vault" move: the quote below is embedded from the book note, not copied.
+> 这是一篇示例草稿，展示“资料与草稿在同一仓库”如何运作：下方引文由读书笔记嵌入，并非复制。
 
-## Hook
-Most habit trackers punish you for the wrong thing.
+## 开头引子
+大多数习惯追踪工具让你因错误的原因责备自己。
 
-## Body
+## 正文
 ![[Triggers (Marshall Goldsmith)#^daily-questions]]
 
-That one reframe is why my journaling finally stuck...
+正是这个角度的改变，让我终于坚持写日记……
 
-## Call to action
-Reply with the one question you would ask yourself every night.
+## 行动号召
+回复一个你愿意每晚问自己的问题。
 
-## Sources used
+## 使用的资料
 - [[Triggers (Marshall Goldsmith)]]

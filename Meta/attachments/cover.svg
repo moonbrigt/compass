@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1280" height="640" viewBox="0 0 1280 640" role="img" aria-labelledby="t d">
-  <title id="t">Compass</title>
-  <desc id="d">Run your whole life out of Obsidian: one honest question set a night, everything else follows.</desc>
+  <title id="t">Compass 简体中文版</title>
+  <desc id="d">每晚诚实回答一组问题，让记录、规划与行动在同一仓库中连接。</desc>
   <defs>
     <radialGradient id="glow" cx="1000" cy="320" r="420" gradientUnits="userSpaceOnUse">
       <stop offset="0" stop-color="#e3a75b" stop-opacity="0.16"/>
@@ -29,17 +29,17 @@
     </g>
     <circle cx="1000" cy="320" r="9" fill="#0b0e14" stroke="#e3a75b" stroke-width="2"/>
     <circle cx="1000" cy="320" r="2.5" fill="#e3a75b"/>
-    <text x="1000.0" y="91.0" text-anchor="middle" font-family="Inter, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="19" font-weight="600" letter-spacing="1" fill="#e3a75b">N</text><text x="1236.0" y="327.0" text-anchor="middle" font-family="Inter, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="19" font-weight="600" letter-spacing="1" fill="#8b93a5">E</text><text x="1000.0" y="563.0" text-anchor="middle" font-family="Inter, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="19" font-weight="600" letter-spacing="1" fill="#8b93a5">S</text><text x="764.0" y="327.0" text-anchor="middle" font-family="Inter, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="19" font-weight="600" letter-spacing="1" fill="#8b93a5">W</text>
+    <text x="1000.0" y="91.0" text-anchor="middle" font-family="Inter, 'Segoe UI', 'Microsoft YaHei', sans-serif" font-size="19" font-weight="600" fill="#e3a75b">北</text><text x="1236.0" y="327.0" text-anchor="middle" font-family="Inter, 'Segoe UI', 'Microsoft YaHei', sans-serif" font-size="19" font-weight="600" fill="#8b93a5">东</text><text x="1000.0" y="563.0" text-anchor="middle" font-family="Inter, 'Segoe UI', 'Microsoft YaHei', sans-serif" font-size="19" font-weight="600" fill="#8b93a5">南</text><text x="764.0" y="327.0" text-anchor="middle" font-family="Inter, 'Segoe UI', 'Microsoft YaHei', sans-serif" font-size="19" font-weight="600" fill="#8b93a5">西</text>
   </g>
 
   <!-- copy -->
-  <text x="96" y="214" font-family="Inter, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="15" font-weight="600" letter-spacing="3.5" fill="#e3a75b">OBSIDIAN VAULT TEMPLATE</text>
+  <text x="96" y="214" font-family="Inter, 'Segoe UI', 'Microsoft YaHei', sans-serif" font-size="15" font-weight="600" letter-spacing="1.8" fill="#e3a75b">OBSIDIAN 仓库模板</text>
   <text x="92" y="322" font-family="Inter, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="118" font-weight="700" letter-spacing="-3" fill="#f3f4f6">Compass</text>
-  <text font-family="Inter, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="26" fill="#a3aab8">
-    <tspan x="96" y="378">Run your whole life out of Obsidian:</tspan>
-    <tspan x="96" y="414">one honest question set a night,</tspan>
-    <tspan x="96" y="450">everything else follows.</tspan>
+  <text font-family="Inter, 'Segoe UI', 'Microsoft YaHei', sans-serif" font-size="26" fill="#a3aab8">
+    <tspan x="96" y="378">每晚诚实回答一组问题，</tspan>
+    <tspan x="96" y="414">让记录、规划与行动</tspan>
+    <tspan x="96" y="450">在同一仓库中连接。</tspan>
   </text>
   <line x1="96" y1="506" x2="640" y2="506" stroke="#2a3140" stroke-width="1"/>
-  <text x="96" y="546" font-family="Inter, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="17" font-weight="500" letter-spacing="0.8" fill="#6f7787">Journal<tspan fill="#e3a75b">&#160;·&#160;</tspan>Retreat<tspan fill="#e3a75b">&#160;·&#160;</tspan>Plan<tspan fill="#e3a75b">&#160;·&#160;</tspan>Habits<tspan fill="#e3a75b">&#160;·&#160;</tspan>Tasks<tspan fill="#e3a75b">&#160;·&#160;</tspan>Write<tspan fill="#e3a75b">&#160;·&#160;</tspan>Assistant</text>
+  <text x="96" y="546" font-family="Inter, 'Segoe UI', 'Microsoft YaHei', sans-serif" font-size="17" font-weight="500" letter-spacing="0.8" fill="#6f7787">日记<tspan fill="#e3a75b">&#160;·&#160;</tspan>静修<tspan fill="#e3a75b">&#160;·&#160;</tspan>计划<tspan fill="#e3a75b">&#160;·&#160;</tspan>习惯<tspan fill="#e3a75b">&#160;·&#160;</tspan>任务<tspan fill="#e3a75b">&#160;·&#160;</tspan>写作<tspan fill="#e3a75b">&#160;·&#160;</tspan>助手</text>
 </svg>

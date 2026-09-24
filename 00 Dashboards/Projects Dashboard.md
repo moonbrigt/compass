@@ -1,11 +1,11 @@
-Projects are notes in `04 Projects/` with a `status`, `area`, `quarter`, and `due` property. Tasks belong to a project via `#project/<slug>`.
+项目是 `04 Projects/` 中带有 `status`、`area`、`quarter` 和 `due` 属性的笔记。任务通过 `#project/<slug>` 标签关联到项目。
 
-## Active
+## 进行中
 ```dataviewjs
 const cfg = dv.page("Meta/Compass Config") || {};
 const folder = cfg.projects_folder || "04 Projects";
 const projects = dv.pages(`"${folder}"`).where(p => p.type === "project" && p.status !== "done").sort(p => p.due ?? "9999", "asc");
-const slug = n => n.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+const slug = n => n.toLowerCase().replace(/[^\p{L}\p{N}]+/gu, "-").replace(/(^-|-$)/g, "");
 const allTasks = dv.pages().where(p => !p.file.path.startsWith("wiki/")).file.tasks;
 const rows = projects.map(p => {
   const tag = "#project/" + slug(p.file.name);
@@ -13,21 +13,22 @@ const rows = projects.map(p => {
   const open = mine.where(t => !t.completed).length;
   const done = mine.where(t => t.completed).length;
   const pct = open + done ? Math.round(100 * done / (open + done)) : 0;
-  return [p.file.link, p.status, p.area ?? "", p.quarter ?? "", p.due ?? "", open, `${pct}%`];
+  const status = ({ active: "进行中", planned: "已计划", done: "已完成", on_hold: "暂停" })[p.status] || p.status;
+  return [p.file.link, status, p.area ?? "", p.quarter ?? "", p.due ?? "", open, `${pct}%`];
 });
-dv.table(["Project", "Status", "Area", "Quarter", "Due", "Open tasks", "Progress"], rows);
+dv.table(["项目", "状态", "领域", "季度", "到期日", "未完成任务", "进度"], rows);
 ```
 
-## By quarter
+## 按季度
 ```dataview
-TABLE WITHOUT ID file.link AS Project, status, area, due
+TABLE WITHOUT ID file.link AS 项目, status AS 状态, area AS 领域, due AS 到期日
 FROM "04 Projects"
 WHERE type = "project"
 GROUP BY quarter
 SORT quarter DESC
 ```
 
-## Done
+## 已完成
 ```dataview
 LIST
 FROM "04 Projects"

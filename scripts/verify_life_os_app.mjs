@@ -50,7 +50,7 @@ check(
 check(
   "Setup verifies the Life OS application",
   setupView.includes('["life-os-app", "Life OS"]') &&
-    setupView.includes('findCommand("life-os-app:open-home")')
+    setupView.includes('commands?.["life-os-app:open-home"]')
 );
 check(
   "canonical Projects folder restored",
@@ -90,17 +90,20 @@ const recordChoiceContracts = [
   ["lifeos-new-article", "Templates/Article.md", "06 Writing/Articles"],
   ["lifeos-new-course-lesson", "Templates/Course Lesson.md", "06 Writing/Course Content"],
   ["lifeos-new-book", "Templates/Book Note.md", "07 Library/Book Notes"],
-  ["lifeos-new-study-note", "Templates/Study Note.md", "09 Reading/Study Notes"],
+  ...(fs.existsSync(path.join(root, "09 Reading"))
+    ? [["lifeos-new-study-note", "Templates/Study Note.md", "09 Reading/Study Notes"]]
+    : []),
 ];
 const invalidRecordChoices = recordChoiceContracts.filter(
   ([id, templatePath, folder]) => {
     const choice = quickAddById.get(id);
+    const prompt = choice?.fileNameFormat?.format?.match(/^\{\{VALUE:([^|}]+)\|label:([^|}]+)\|trim\}\}$/);
     return !(
       choice?.type === "Template" &&
       choice.command === true &&
       choice.templatePath === templatePath &&
       choice.folder?.folders?.includes(folder) &&
-      choice.fileNameFormat?.format?.includes("{{VALUE:") &&
+      prompt && prompt[1] === prompt[2] && /[\u4e00-\u9fff]/.test(prompt[1]) &&
       choice.fileExistsMode === "Nothing"
     );
   }
@@ -217,9 +220,8 @@ class ItemView extends Component {
   }
 }
 
-class Modal extends Component {
+class Modal {
   constructor(app) {
-    super();
     this.app = app;
     this.contentEl = new FakeElement();
     Modal.lastOpened = this;
@@ -281,6 +283,9 @@ try {
           moment: () => {
             const date = new Date("2026-09-09T12:00:00Z");
             const api = {
+              locale() {
+                return this;
+              },
               clone: () => {
                 const cloned = new Date(date.getTime());
                 return {
@@ -403,8 +408,9 @@ try {
     },
     async openFile(file) { this.openedFile = file; },
   };
+  const commandCalls = [];
   const fakeApp = {
-    commands: { executeCommandById: () => true },
+    commands: { executeCommandById: (id) => { commandCalls.push(id); return true; } },
     plugins: { getPlugin: (id) => pluginInstances.get(id) || null },
     metadataCache: {
       on: () => ({ off: () => {} }),
@@ -503,6 +509,8 @@ try {
   let homeHasSystemSummary = false;
   let homeHasSetupBanner = false;
   let todayHasPropertyValues = false;
+  let projectStatusLocalized = false;
+  let libraryTypeLocalized = false;
   const treeHasClass = (element, className) =>
     String(element.options?.cls || "")
       .split(/\s+/)
@@ -529,9 +537,13 @@ try {
     }
     if (screen === "today") {
       todayHasPropertyValues =
-        treeHasText(view.contentEl, "8/10") && treeHasText(view.contentEl, "Done");
+        treeHasText(view.contentEl, "8/10") && treeHasText(view.contentEl, "已完成");
     }
+    if (screen === "projects") projectStatusLocalized = treeHasText(view.contentEl, "进行中");
+    if (screen === "library") libraryTypeLocalized = treeHasText(view.contentEl, "书籍");
   }
+  check("project status displays in Chinese", projectStatusLocalized);
+  check("library type displays in Chinese", libraryTypeLocalized);
   check("all application screens render", emptyScreens.length === 0, emptyScreens.join(", "));
   const missingPanels = Object.keys(requiredPanels).filter(
     (screen) => !renderedPanels.has(screen)
@@ -605,7 +617,7 @@ try {
     "task feed exposes partial index coverage",
     treeHasText(
       view.contentEl,
-      "4 open, 1 unreadable, 1 metadata pending, 1 unresolved status, 1 sample excluded"
+      "4 项未完成, 1 个文件无法读取, 1 个文件的元数据待加载, 1 项状态无法识别, 1 个示例已排除"
     )
   );
   check(
@@ -619,23 +631,23 @@ try {
   view.render();
   check(
     "permission status reports observable policy without enforcement claim",
-    treeHasText(view.contentEl, "Manual prompts") &&
-      treeHasText(view.contentEl, "Client setting is off. This reports policy, not enforcement.") &&
-      !treeHasText(view.contentEl, "Required for every write")
+    treeHasText(view.contentEl, "手动提示词") &&
+      treeHasText(view.contentEl, "客户端设置已关闭自动批准。这里只显示配置，不代表每项操作都会被强制拦截。") &&
+      !treeHasText(view.contentEl, "每次写入都必须批准")
   );
   pluginInstances.get("agent-client").settings.autoAllowPermissions = true;
   view.render();
   check(
     "permission status warns when auto-allow is enabled",
-    treeHasText(view.contentEl, "Auto-allow on") &&
-      treeHasText(view.contentEl, "Client may auto-approve requests. This reports policy, not enforcement.")
+    treeHasText(view.contentEl, "自动批准已开启") &&
+      treeHasText(view.contentEl, "客户端可能自动批准请求。这里只显示配置，不代表每项操作都会被强制拦截。")
   );
   delete pluginInstances.get("agent-client").settings.autoAllowPermissions;
   view.render();
   check(
     "permission status remains unknown when setting is unobservable",
-    treeHasText(view.contentEl, "Unknown") &&
-      treeHasText(view.contentEl, "Permission setting was not observable. No enforcement claim.")
+    treeHasText(view.contentEl, "未知") &&
+      treeHasText(view.contentEl, "无法读取权限设置，因此无法确认审批是否受到强制执行。")
   );
   pluginInstances.get("agent-client").settings.autoAllowPermissions = false;
 
@@ -653,7 +665,7 @@ try {
     "Today rejects boolean effort scores",
     strictToday.questionRecorded === 0 &&
       strictToday.questions[0]?.state === "invalid" &&
-      strictToday.questions[0]?.display === "Invalid value"
+      strictToday.questions[0]?.display === "无效数值"
   );
   check(
     "Today distinguishes unchecked, missing, and invalid habits",
@@ -662,7 +674,7 @@ try {
       strictToday.habits.map((habit) => habit.state).join(",") ===
         "unchecked,missing,invalid" &&
       strictToday.habits.map((habit) => habit.display).join(",") ===
-        "Unchecked,Not recorded,Invalid value"
+        "未勾选,未记录,无效数值"
   );
   const coverage = view.summarizeDailyProperties(
     {
@@ -763,6 +775,17 @@ try {
       treeHasClass(child, "life-os-capture-section")
     ).length === 3
   );
+  const findCaptureChoice = (element) =>
+    String(element.options?.cls || "").split(/\s+/).includes("life-os-capture-choice")
+      ? element
+      : element.children.map(findCaptureChoice).find(Boolean);
+  const firstCaptureChoice = findCaptureChoice(Modal.lastOpened.contentEl);
+  firstCaptureChoice?.handlers.click?.();
+  check(
+    "capture choice executes the QuickAdd command",
+    commandCalls.at(-1) === "quickadd:choice:lifeos-journal" &&
+      Modal.lastOpened.contentEl.children.length === 0
+  );
   fakeLeaf.view = view;
   fakeApp.workspace.getLeavesOfType = () => [fakeLeaf];
   await plugin.activateView("today");
@@ -785,12 +808,12 @@ try {
   view.render();
   const findText = (element, text) => element.options?.text === text ? element :
     element.children.map((child) => findText(child, text)).find(Boolean);
-  check("Home keeps full analytics in Review", !findText(view.contentEl, "7 days") && !!findText(view.contentEl, "Explore Review"));
+  check("Home keeps full analytics in Review", !findText(view.contentEl, "7 天") && !!findText(view.contentEl, "查看复盘"));
   view.activeScreen = "review";
   view.render();
-  findText(view.contentEl, "7 days").handlers.click();
+  findText(view.contentEl, "7 天").handlers.click();
   check("chart range control changes aggregation window", view.getAnalytics().days.length === 7);
-  findText(view.contentEl, "Include samples").handlers.click();
+  findText(view.contentEl, "包含示例").handlers.click();
   check("sample control changes state", view.includeExamples === true);
   view.analyticsDays = 30;
   view.includeExamples = false;

@@ -4,28 +4,28 @@ quarter: <% moment(tp.file.title, "gggg-[W]ww").format("YYYY-[Q]Q") %>
 tags:
   - weekly
 ---
-« [[01 Journal/Weekly/<% moment(tp.file.title, "gggg-[W]ww").subtract(1, "week").format("gggg-[W]ww") %>|Last week]] · [[01 Journal/Quarterly/<% moment(tp.file.title, "gggg-[W]ww").format("YYYY-[Q]Q") %>|Quarter]] · [[Compass Dashboard]] · [[01 Journal/Weekly/<% moment(tp.file.title, "gggg-[W]ww").add(1, "week").format("gggg-[W]ww") %>|Next week]] »
+« [[01 Journal/Weekly/<% moment(tp.file.title, "gggg-[W]ww").subtract(1, "week").format("gggg-[W]ww") %>|上周]] · [[01 Journal/Quarterly/<% moment(tp.file.title, "gggg-[W]ww").format("YYYY-[Q]Q") %>|本季度]] · [[Compass Dashboard|Compass 仪表盘]] · [[01 Journal/Weekly/<% moment(tp.file.title, "gggg-[W]ww").add(1, "week").format("gggg-[W]ww") %>|下周]] »
 
-# Week <% moment(tp.file.title, "gggg-[W]ww").format("w, gggg") %>
-<% moment(tp.file.title, "gggg-[W]ww").startOf("week").format("MMM D") %> to <% moment(tp.file.title, "gggg-[W]ww").endOf("week").format("MMM D") %>
+# <% moment(tp.file.title, "gggg-[W]ww").format("[第 ]w[ 周（]gggg[ 年）]") %>
+<% moment(tp.file.title, "gggg-[W]ww").startOf("week").locale("zh-cn").format("M月D日") %> 至 <% moment(tp.file.title, "gggg-[W]ww").endOf("week").locale("zh-cn").format("M月D日") %>
 
-Days: <%* const s = moment(tp.file.title, "gggg-[W]ww").startOf("week"); const parts = []; for (let i = 0; i < 7; i++) parts.push(`[[01 Journal/Daily/${s.clone().add(i, "day").format("YYYY-MM-DD")}|${s.clone().add(i, "day").format("ddd")}]]`); tR += parts.join(" · "); %>
+日期：<%* const s = moment(tp.file.title, "gggg-[W]ww").startOf("week"); const parts = []; for (let i = 0; i < 7; i++) parts.push(`[[01 Journal/Daily/${s.clone().add(i, "day").format("YYYY-MM-DD")}|${s.clone().add(i, "day").locale("zh-cn").format("ddd")}]]`); tR += parts.join(" · "); %>
 
-> [!intention]- Quarterly intentions
-> ![[01 Journal/Quarterly/<% moment(tp.file.title, "gggg-[W]ww").format("YYYY-[Q]Q") %>#Quarterly intentions]]
+> [!intention]- 季度意向
+> ![[01 Journal/Quarterly/<% moment(tp.file.title, "gggg-[W]ww").format("YYYY-[Q]Q") %>#季度意向]]
 
-## Weekly intentions
-The 3 things that, if done this week, move the quarterly intentions forward.
+## 本周意向
+本周完成后能推进季度意向的三件事。
 1. 
 2. 
 3. 
 
-## Ideal week check
-Look at [[Ideal Week]]. Where does the time for the intentions above actually live this week? Adjust the calendar now, not on Thursday.
+## 检查理想一周
+查看 [[Ideal Week|理想的一周]]。本周何时落实上述意向？现在就调整日历，不要等到周四。
 
 - 
 
-## Due this week
+## 本周到期
 ```tasks
 not done
 due after <% moment(tp.file.title, "gggg-[W]ww").startOf("week").subtract(1, "day").format("YYYY-MM-DD") %>
@@ -36,26 +36,26 @@ group by filename
 
 ```agent
 type: button
-text: "Review this week"
-prompt: "Read Prompts/03 Weekly Review.md with vault_read and follow its Prompt section for the note I have open (or the current period if none applies)."
+text: "复盘本周"
+prompt: "请用 vault_read 阅读 Prompts/03 Weekly Review.md，并针对当前打开的笔记执行其中的“## 提示词”部分；如果当前笔记不适用，则使用当前时间段。"
 viewType: right-pane
 ```
 
-## Weekly review
-Done at the end of the week. Effort scores and habit hits per day, from the daily notes.
+## 每周复盘
+周末填写。下方从日记中汇总每日努力程度评分和习惯完成情况。
 ```dataviewjs
 await dv.view("Meta/views/week", { week: dv.current().file.name });
 ```
 
-### What went well
+### 做得好的事
 
-### What did not
+### 不顺利的事
 
-### Wins this week
+### 本周收获
 ```dataview
 LIST L.text
 FROM "01 Journal/Daily"
 FLATTEN file.lists AS L
-WHERE L.section.subpath = "Wins" AND file.day >= date(<% moment(tp.file.title, "gggg-[W]ww").startOf("week").format("YYYY-MM-DD") %>) AND file.day <= date(<% moment(tp.file.title, "gggg-[W]ww").endOf("week").format("YYYY-MM-DD") %>)
+WHERE L.section.subpath = "收获" AND file.day >= date(<% moment(tp.file.title, "gggg-[W]ww").startOf("week").format("YYYY-MM-DD") %>) AND file.day <= date(<% moment(tp.file.title, "gggg-[W]ww").endOf("week").format("YYYY-MM-DD") %>)
 SORT file.name ASC
 ```

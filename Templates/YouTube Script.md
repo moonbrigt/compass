@@ -10,42 +10,42 @@ sources: []
 tags:
   - writing/youtube
 ---
-Board: [[YouTube Board]] · Handoff: export markdown to wherever your editor works when the script is final.
+看板：[[YouTube Board|视频看板]] · 交接：脚本定稿后，将 Markdown 导出给剪辑人员使用。
 
 ```agent
 type: button
-text: "Work on this piece"
-prompt: "Read Prompts/10 Writing Pipeline.md with vault_read and follow its Prompt section for the note I have open (or the current period if none applies)."
+text: "推进这篇作品"
+prompt: "请用 vault_read 阅读 Prompts/10 Writing Pipeline.md，并针对当前打开的笔记执行其中的“## 提示词”部分；如果当前笔记不适用，则使用当前时间段。"
 viewType: right-pane
 ```
 ```agent
 type: button
-text: "SEO pre-publish audit"
-prompt: "Read Prompts/11 SEO Pre-publish Audit.md with vault_read and follow its Prompt section for the note I have open (or the current period if none applies)."
+text: "发布前 SEO 检查"
+prompt: "请用 vault_read 阅读 Prompts/11 SEO Pre-publish Audit.md，并针对当前打开的笔记执行其中的“## 提示词”部分；如果当前笔记不适用，则使用当前时间段。"
 viewType: right-pane
 ```
 
-## Hook (0:00 to 0:30)
+## 开场引子（0:00 到 0:30）
 
 
-## Setup / why this matters
+## 背景与意义
 
 
-## Sections
+## 内容分段
 ### 1.
 
 ### 2.
 
 ### 3.
 
-## Payoff / takeaway
+## 核心收获
 
 
-## Call to action
+## 行动号召
 
 
-## B-roll and on-screen notes
+## 补充画面与屏幕文字
 - 
 
-## Sources
+## 资料来源
 - 

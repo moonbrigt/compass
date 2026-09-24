@@ -1,33 +1,35 @@
-The Vault Lens browser extension (https://github.com/jk-oster/obsidian-search-for-web, v2.7.x) shows vault notes next to web search results and on pages you revisit. It talks to a small local server inside Obsidian. This page records which server the template ships and why (from a security review of the plugins' source code).
+# Vault Lens 搜索服务
 
-## What ships
-| Plugin | State | Why |
+[Vault Lens](https://github.com/jk-oster/obsidian-search-for-web) 浏览器扩展会在网页搜索结果旁以及重访页面时显示相关仓库笔记；它连接 Obsidian 内运行的本机服务。下表记录模板所附服务及原项目安全审查作出的选择。
+
+| 插件 | 模板状态 | 原因 |
 | --- | --- | --- |
-| **Local REST API** 5.1.0 | installed, enabled, HTTP server on port 27123 | The only provider that gives Vault Lens preview, edit, append, daily-note and page-notes features. Authenticated with a per-install bearer API key. Binds to 127.0.0.1. Vault Lens defaults to this provider, `http`, 27123, so the member's only manual step is pasting the key. |
-| **Omnisearch** 1.30.1 | installed, enabled, its HTTP server **off** (default) | Great in-vault search (BM25, typo tolerant). Its HTTP endpoint has no authentication and `Access-Control-Allow-Origin: *`, so any local process or loaded web page could query the vault index. Leave it off unless you know why you want it. Real port if you do: 51361 (the Vault Lens quickstart's "51736" is a typo). |
+| **Local REST API** 5.1.0 | 已安装、启用，HTTP 端口 27123 | 支持 Vault Lens 的预览、编辑、追加、日记与当前网页关联笔记。每台电脑有独立 bearer API 密钥，默认仅绑定 `127.0.0.1`。Vault Lens 的默认连接方式为 `http`、27123，用户需自行填入密钥。 |
+| **Omnisearch** 1.30.1 | 已安装、启用；其 HTTP 服务默认关闭 | 仓库内搜索支持相关度排序与拼写容错；但 HTTP 接口没有认证，并允许任意来源读取。除非明确需要，否则保持关闭。若启用，实际端口为 51361；Vault Lens 快速入门中的“51736”为原项目记录的笔误。 |
 
-Shipped settings: `.obsidian/plugins/obsidian-local-rest-api/data.json` contains only `{"enableInsecureServer": true}`. The plugin generates the API key and a self-signed certificate on first load and saves them into that same file on the member's machine.
+模板的 `.obsidian/plugins/obsidian-local-rest-api/data.json` 只含 `{"enableInsecureServer": true}`。插件首次加载时在用户电脑生成 API 密钥与自签名证书，并写入该文件。
 
-## Member setup (8 steps)
-1. Open the vault, turn off Restricted mode. Local REST API loads with the other plugins.
-2. Settings → Local REST API: confirm "Non-encrypted (HTTP) server" is running on 27123. Copy the API key shown there.
-3. Install Vault Lens: Chrome Web Store (Chrome, Brave, Edge, Arc, Opera), Firefox Add-ons (2.5.2+), or Edge Add-ons. Links: https://vaultlens.com/getting-started.html
-4. Extension Options → "Obsidian Connection": provider Local REST API, protocol `http`, port `27123`, paste the API key, vault name = the folder you opened.
-5. Wait for the green "connection established" toast.
-6. Verify search: search the web for a word that appears in `Guide/00 Start Here.md`; the extension icon turns green and lists the note.
-7. Verify the write path: click the daily-note button in the extension sidebar; the note should open under `01 Journal/Daily/`. If it was created empty (without the Daily Note properties), run **Templater: Replace templates in the active file** once; QuickAdd captures work either way.
-8. Optional: Settings → Core plugins → Web viewer is on. Do not sign in to sensitive sites inside the in-app browser.
+## 用户设置步骤
 
-## Security posture
-- Loopback only. Never set `bindingHost` (REST API) or `DANGER_httpHost` (Omnisearch).
-- HTTP on 27123 is used because HTTPS (27124) needs every member to import a self-signed certificate that expires after 365 days; that is recurring support load. HTTPS remains available for anyone who wants it.
-- The API key is a password to read and write the vault. Do not share screenshots of the Local REST API settings page. Vault Lens stores it in the browser's synced extension storage. "Reset all cryptography" in the plugin rotates key and certificate.
-- Edits from the browser replace the whole note; if the same note is open in Obsidian, last write wins.
-- Web viewer: Chromium webview, audited by Cure53, ad-blocking on. While Obsidian runs, third-party plugins can access Web viewer cookies, so use your main browser for anything password protected.
+1. 打开仓库，信任仓库作者并启用第三方插件。
+2. 在“设置 → Local REST API”确认“未加密 HTTP 服务”运行于 27123，复制显示的 API 密钥。
+3. 按 [Vault Lens 安装说明](https://vaultlens.com/getting-started.html) 安装对应浏览器扩展。
+4. 扩展设置的“Obsidian Connection”选择 Local REST API，协议 `http`，端口 `27123`，填入密钥；仓库名称填当前打开的文件夹名称。
+5. 等待绿色“连接成功”提示。
+6. 用 `Guide/00 Start Here.md` 中的一个词进行网页搜索，检查扩展图标是否变绿并列出该笔记。
+7. 在扩展侧栏点日记按钮，检查新笔记是否位于 `01 Journal/Daily/`。若笔记为空且缺少属性，可对活动文件运行一次“Templater: Replace templates in the active file”；QuickAdd 捕获命令仍可使用。
+8. 可选：确认内置网页查看器已开启；不要在内置浏览器登录敏感网站。
 
-## Owner's release gate
-`scripts/verify_template.py` refuses to ship a copy whose Local REST API settings contain a generated key or certificate; `scripts/build_template.py` resets that file to `{"enableInsecureServer": true}` on every build. See `scripts/RELEASE.md`.
+## 数据与安全
 
-## Dissent recorded
-1. Turning on a listening server for every member, including those who never install the extension, is a policy choice; the more conservative posture is "installed, not enabled" at the cost of one more checklist step.
-2. Pre-enabling HTTP overrides the plugin author's secure-by-default stance (HTTPS on, HTTP off). Loopback plus bearer key is acceptable on a single-user desktop; weaker on shared machines.
+- 服务只绑定回环地址；不要设置 REST API 的 `bindingHost` 或 Omnisearch 的 `DANGER_httpHost`。
+- 默认使用 27123 上的 HTTP，是为避免每个用户都需导入约 365 天后到期的自签名证书。需要 HTTPS 的用户可以用 27124。
+- API 密钥相当于仓库的读写密码。不要分享显示密钥的设置截图。Vault Lens 把密钥存入浏览器同步扩展存储。可在插件里使用“Reset all cryptography”轮换密钥与证书。
+- 浏览器端编辑会替换整篇笔记；同一文件若也在 Obsidian 中编辑，最后写入者覆盖先前内容。
+- 网页查看器基于 Chromium webview；原项目记载接受过 Cure53 审计。Obsidian 运行时，第三方插件仍可能访问网页查看器 cookie，因此密码保护的网站宜在常用浏览器中打开。
+
+## 发布检查与取舍
+
+`scripts/verify_template.py` 会拒绝包含生成密钥或证书的 Local REST API 设置；`scripts/build_template.py` 每次构建都会重置为 `{"enableInsecureServer": true}`，见 `scripts/RELEASE.md`。
+
+默认为所有用户开启本机服务是一项取舍：即使未安装浏览器扩展也会启动服务。更保守的做法是只安装、不启用，代价是多一步设置。预启用 HTTP 也偏离插件默认的 HTTPS 配置；单人电脑上回环地址加 bearer 密钥可接受，共用电脑则需自行评估。

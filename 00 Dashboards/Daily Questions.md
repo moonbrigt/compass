@@ -1,28 +1,29 @@
-"Did I do my best to ..." rated 1 to 10, from Marshall Goldsmith's *Triggers*. Effort, not results: a slow 3-mile run while sick can be a 10; cutting a planned 12-miler to 6 because you did not feel like it can be a 5.
+“今天我是否尽力……”以 1 到 10 分评价，来自 Marshall Goldsmith 的《Triggers》。评价的是努力程度，而非结果：生病时慢跑 3 英里可以是 10 分；只因不想跑，就把计划的 12 英里缩短到 6 英里，可能只有 5 分。
 
-Questions are the `dq_*` number properties in the daily note. Edit the `questions` list in [[Compass Config]]; new daily notes and the end-of-day prompt follow it.
+每日问题存储在日记的 `dq_*` 数值属性中。可在 [[Compass Config|Compass 配置]] 中编辑 `questions` 列表；新日记和晚间提示词会使用更新后的列表。
 
-## Trend
+## 趋势
 ```dataviewjs
 await dv.view("Meta/views/dailyquestions", { days: 90 });
 ```
 
-## Days answered
+## 已填写日期
 ```dataviewjs
 const cfg = dv.page("Meta/Compass Config") || {};
 const folder = cfg.daily_folder || "01 Journal/Daily", pre = cfg.dq_prefix || "dq_";
 const pages = dv.pages(`"${folder}"`).where(p => /^\d{4}-\d{2}-\d{2}$/.test(p.file.name)).sort(p => p.file.name, "desc").array();
 const keys = [...new Set(pages.flatMap(p => Object.keys(p.file.frontmatter || {}).filter(k => k.startsWith(pre))))].sort();
-const label = k => k.slice(pre.length).replace(/[_-]+/g, " ").replace(/\b\w/g, c => c.toUpperCase());
+const labels = { dq_goals: "目标", dq_progress: "进展", dq_meaning: "意义", dq_happy: "快乐", dq_relationships: "积极关系", dq_engaged: "全心投入" };
+const label = k => labels[k] || k.slice(pre.length).replace(/[_-]+/g, " ");
 const val = (p, k) => { const v = (p.file.frontmatter || {})[k]; return v === null || v === undefined || v === "" ? "" : String(v); };
 const rows = pages.filter(p => keys.some(k => val(p, k) !== "")).slice(0, 30).map(p => [p.file.link, ...keys.map(k => val(p, k))]);
-if (keys.length) dv.table(["Day", ...keys.map(label)], rows); else dv.paragraph(`No ${pre}* properties found yet.`);
+if (keys.length) dv.table(["日期", ...keys.map(label)], rows); else dv.paragraph(`尚未找到 ${pre}* 属性。`);
 ```
 
-## Ask
+## 询问助手
 ```agent
 type: button
-text: "Trends in my questions and habits"
-prompt: "Read Prompts/13 Trend Analysis.md with vault_read and follow its Prompt section for the note I have open (or the current period if none applies)."
+text: "分析每日问题与习惯趋势"
+prompt: "请用 vault_read 阅读 Prompts/13 Trend Analysis.md，并针对当前打开的笔记执行其中的“## 提示词”部分；如果当前笔记不适用，则使用当前时间段。"
 viewType: right-pane
 ```
