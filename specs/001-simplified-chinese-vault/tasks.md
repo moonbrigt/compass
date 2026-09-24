@@ -95,4 +95,4 @@
 
 ## Phase 8: Convergence
 
-- [ ] T031 在用户允许打开中文目录候选、且不会留下额外测试仓库列表项时，对 `Compass-zh-CN-personal-v4` 执行 Life OS、设置清单、Compass 仪表盘、日记和项目创建的 Obsidian 原生验收，并将具体观察追加到 `acceptance.md`。完成前保持该版本为候选状态。
+- [ ] T031 在用户允许打开中文目录候选、且不会留下额外测试仓库列表项时，对 `Compass-zh-CN-personal-v5` 执行 Life OS、设置清单、Compass 仪表盘、日记和项目创建的 Obsidian 原生验收，并将具体观察追加到 `acceptance.md`。完成前保持该版本为候选状态。

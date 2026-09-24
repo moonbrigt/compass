@@ -22,7 +22,7 @@ Compass 是一个完整的 Obsidian 仓库模板，独立实现 Mike Schmitz 在
 
 ## 快速开始
 
-1. 使用本地交付的中文版 ZIP，或克隆本仓库的 `zh-CN` 分支；解压后的根目录本身就是 Obsidian 仓库。
+1. 使用本地交付的中文版 ZIP；解压后的根目录本身就是 Obsidian 仓库。
 2. 在 Obsidian 中选择“将文件夹作为仓库打开”。
 3. Obsidian 询问信任仓库作者时，确认后启用第三方插件。在命令面板运行“重新加载 Obsidian（不保存当前编辑内容）”，使十个社区插件和 Life OS 生效；加载完成后 Life OS 会自动打开。
 4. 阅读[入门指南](指南/00%20Start%20Here.md)，打开 `00 仪表盘/Setup.md`，按照自检提示完成设置。
@@ -101,11 +101,11 @@ scripts/         阅读计划生成、经文拆分、模板构建与验证
 
 ![验证状态](https://github.com/AgriciDaniel/compass/actions/workflows/verify.yml/badge.svg)
 
-从维护者源仓库构建模板候选，构建副本不会反写源仓库：
+`zh-CN` 分支是维护者源码，含 `specs/`、`.specify/` 等开发过程文件。个人使用请采用打包后的 ZIP。构建副本不会反写源仓库：
 
 ```bash
 python3 scripts/verify_release_safety.py
-python3 scripts/build_template.py --live . --out ../compass-builds --name Compass-zh-CN-personal --version 1.1.0-zh.9 --zip
+python3 scripts/build_template.py --live . --out ../compass-builds --name Compass-zh-CN-personal --version 1.1.0-zh.10 --zip
 python3 scripts/verify_template.py ../compass-builds/Compass-zh-CN-personal
 ```
 

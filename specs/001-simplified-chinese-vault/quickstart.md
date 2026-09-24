@@ -24,7 +24,7 @@ Get-ChildItem 元数据/视图/*.js | ForEach-Object { node --check $_.FullName 
 使用一个不存在的输出路径；构建程序会拒绝覆盖已有目录：
 
 ```powershell
-python scripts/build_template.py --live F:\compass-zh-cn --out F:\compass-zh-cn-candidates --name Compass-zh-CN-personal-v4 --version 1.1.0-zh.9 --zip
+python scripts/build_template.py --live F:\compass-zh-cn --out F:\compass-zh-cn-candidates --name Compass-zh-CN-personal-v5 --version 1.1.0-zh.10 --zip
 ```
 
 预期：构建程序调用 `verify_template.py` 成功，输出候选目录、ZIP 及外置 `.sha256` 文件。输出名称必须是未使用过的新名称。不要把含个人笔记或密钥的现用仓库打包。

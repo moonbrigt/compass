@@ -42,11 +42,11 @@
 - 未测试移动端、真实 AI 服务商请求、Local REST API/MCP 实际连接、外部日历、私人备份恢复和插件上游二进制再分发来源。可选浏览器模拟脚本 `scripts/verify_dashboard_view.mjs` 因本机缺少 `playwright` 模块未运行。
 - 打开过的隔离试用仓库含验收笔记和 Obsidian 本机生成的 Local REST API 状态，不作为交付包。只使用上表 SHA256 对应的原始 ZIP。分支未推送，也未创建公开 Release。
 
-## 中文目录与个人交付包修订（1.1.0-zh.9）
+## 中文目录与个人交付包修订（1.1.0-zh.10）
 
 用户要求把首方内容目录改为中文，并确认开发过程文件与个人使用包分离。源码仍位于 `F:\compass-zh-cn` 的 `zh-CN` 分支；`F:\Memory layer` 未写入项目或过程文件。目录迁移表见 `contracts/directory-migration.md`；`.obsidian/`、`scripts/`、`wiki/`、`inbox/` 等技术路径保留原名。
 
-新版完整包为 `F:\compass-zh-cn-candidates\Compass-zh-CN-personal-v4-template-v1.1.0-zh.9.zip`，SHA256 为 `1777f69594946bbf6aa1ac90a522fdeb1c4d453a42e6bc934704729fc7b8f2dd`，相邻目录为未打开的构建副本。包内没有 `specs/`、`.specify/`、`.agents/`、维护者验证脚本、维护说明、更新日志或相关断链；保留 `AGENTS.md`、只读 Claude 设置、知识层标记、两项阅读工具、用户指南和许可文件。
+新版完整包为 `F:\compass-zh-cn-candidates\Compass-zh-CN-personal-v5-template-v1.1.0-zh.10.zip`，SHA256 为 `9ce4a35eee6e280a8545b1d2d7bbc2ae9e71b1b930daab1376f2087a619e29d7`，相邻目录为未打开的构建副本。包内没有 `specs/`、`.specify/`、`.agents/`、维护者验证脚本、维护说明、更新日志或相关断链；保留 `AGENTS.md`、只读 Claude 设置、知识层标记、两项阅读工具、用户指南和许可文件。README 仅引导使用干净 ZIP，不再把源码分支当作个人包。
 
 | 检查 | 结果 |
 | --- | --- |
@@ -56,4 +56,4 @@
 | 归档恢复 | 外置 SHA256 与内置清单一致；临时解压的 195 个文件逐一匹配 |
 | 目录及链接 | 旧首方目录引用未出现在个人包；3 个本地 Markdown/HTML 路径链接可解析，仪表盘 `dv.view` 路径逐项通过验证 |
 
-本版没有在 Obsidian 中作为新仓库打开，以免增加用户的仓库列表项。因此旧候选的原生试用结果不能证明目录迁移后的运行行为。`verify_brain_view.mjs` 因本机缺少 `playwright` 模块未运行；移动端、真实 AI 连接和私人备份恢复仍未验证。精简版未重新构建。此前 `v2` 和 `v3` 均为中间候选，不是本次交付物。清理 `v2` 的删除命令被自动审批拦截，故中间候选仍留在候选目录，但未进入本版 ZIP。
+本版没有在 Obsidian 中作为新仓库打开，以免增加用户的仓库列表项。因此旧候选的原生试用结果不能证明目录迁移后的运行行为。`verify_brain_view.mjs` 因本机缺少 `playwright` 模块未运行；移动端、真实 AI 连接和私人备份恢复仍未验证。精简版未重新构建。此前 `v2`、`v3` 和 `v4` 均为中间候选，不是本次交付物。清理 `v2` 的删除命令被自动审批拦截，故中间候选仍留在候选目录，但未进入本版 ZIP。
