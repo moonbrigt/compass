@@ -1,10 +1,10 @@
-# Code of Conduct
+# 社区行为准则
 
-This is a community template about running your own life honestly. The same standard applies here.
+Compass 是帮助个人诚实记录生活的社区模板，参与讨论也应遵循同样的尊重原则。
 
-- Be kind and assume good intent. Members share personal setups; do not mock anyone's habits, faith, family situation, or pace.
-- Keep other people's data out of the repo: no journal excerpts, screenshots with personal notes, or keys in issues, pull requests, or discussions.
-- Report problems with the template as issues; report security problems privately (see `SECURITY.md`).
-- Maintainers may edit or remove content that breaks these rules and may block repeat offenders.
+- 尊重他人并善意理解。成员分享的是个人设置，不嘲笑他人的习惯、信仰、家庭状况或进度。
+- 不把他人的数据放进仓库：议题、拉取请求和讨论中不得包含日记摘录、显示私人笔记的截图或密钥。
+- 模板问题用公开议题报告；安全问题按 `SECURITY.md` 私下报告。
+- 维护者可编辑或移除违反规则的内容，并限制屡次违规的参与者。
 
-Adapted in spirit from the Contributor Covenant (https://www.contributor-covenant.org/), version 2.1.
+本准则参考了 [Contributor Covenant 2.1](https://www.contributor-covenant.org/) 的精神。

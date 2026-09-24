@@ -1,7 +1,7 @@
-# Credits
+# 致谢与来源
 
-- **Workflows**: follow Mike Schmitz's public video "How I Run My Whole Life Out of Obsidian" (Practical PKM, https://www.youtube.com/watch?v=-h7ZAuuNDLE, published 2026-06-26): daily questions, personal retreat, multi-scale planning, habit tracking, daily reading, task management, writing boards, and a life dashboard. This template is an independent implementation of what the video describes. It is not affiliated with, endorsed by, or derived from Practical PKM, the LifeHQ vault, or the Obsidian Starter Vault, and contains none of their files or text. The chapter list and short quotes in `Guide/` are used for commentary with attribution.
-- **Daily questions**: Marshall Goldsmith and Mark Reiter, *Triggers* (2015).
-- **Multi-scale planning**: Cal Newport.
-- **Plugins**: see `THIRD_PARTY_NOTICES.md`. Particular thanks to the authors of Dataview, Templater, Periodic Notes, QuickAdd, Tasks, Kanban, Omnisearch, Local REST API, Agent Client, and SEO.
-- **Name**: Compass. Not related to any other product, plugin, or template of the same name. The workflows were shown on video under the working name "LifeOS dashboard"; this template uses its own name.
+- **工作流**：参考 Mike Schmitz（Practical PKM）于 2026-06-26 发布的[公开视频《How I Run My Whole Life Out of Obsidian》](https://www.youtube.com/watch?v=-h7ZAuuNDLE)：每日问题、个人静修、多尺度规划、习惯追踪、每日阅读、任务管理、写作看板与生活仪表盘。本模板是对视频所述方法的独立实现，与 Practical PKM、LifeHQ 仓库或 Obsidian Starter Vault 没有关联，也未获其认可；不包含它们的文件或正文。`指南/` 中的章节和少量引述注明了来源。
+- **每日问题**：Marshall Goldsmith 与 Mark Reiter，《Triggers》（2015）。
+- **多尺度规划**：Cal Newport。
+- **插件**：见 `THIRD_PARTY_NOTICES.md`。感谢 Dataview、Templater、Periodic Notes、QuickAdd、Tasks、Kanban、Omnisearch、Local REST API、Agent Client、SEO 的作者。
+- **名称**：Compass 与其他同名产品、插件或模板无关联。原视频使用“LifeOS dashboard”作为工作名称，本模板采用自己的名称。

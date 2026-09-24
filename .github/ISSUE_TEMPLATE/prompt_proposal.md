@@ -1,6 +1,6 @@
 ---
 name: Prompt proposal
-about: Propose a new recurring job for the Prompts/ library (schema in Guide/20 Prompt Library.md)
+about: Propose a new recurring job for the 提示词/ library (schema in 指南/20 Prompt Library.md)
 labels: prompt, enhancement
 ---
 
@@ -24,7 +24,7 @@ labels: prompt, enhancement
 
 ## Where the button goes
 
-<!-- Which dashboard or template, and the proposed row for the table in Guide/20. -->
+<!-- Which dashboard or template, and the proposed row for the table in 指南/20. -->
 
 ## Checklist
 

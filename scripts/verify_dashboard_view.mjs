@@ -26,19 +26,19 @@ try {
     class ItemView extends Component{constructor(leaf){super();this.app=leaf.app;this.contentEl=document.querySelector('#root');}}
     const files=new Map(), metadata=new Map(), contents=new Map();
     const add=(path,data={},body='')=>{files.set(path,new TFile(path));metadata.set(path,{frontmatter:data,listItems:body.split('\n').flatMap((line,i)=>{const m=line.match(/^- \[(.)\]/);return m?[{task:m[1],position:{start:{line:i}}}]:[];})});contents.set(path,body);};
-    add('Meta/Compass Config.md',{questions:[{key:'dq_focus',text:'Did I focus on what matters?'}],habits:['habit_walk','habit_read']});
-    add('00 Dashboards/Setup.md',{status:'open'});
-    for(const name of ['Assistant','Task Dashboard','Projects Dashboard','Compass Dashboard','Boards'])add(`00 Dashboards/${name}.md`);
-    for(let i=0;i<20;i++){const d=new Date('2026-09-09T12:00:00Z');d.setUTCDate(d.getUTCDate()-i);add(`01 Journal/Daily/${d.toISOString().slice(0,10)}.md`,{dq_focus:4+i%7,habit_walk:i%3!==0,habit_read:i%2===0});}
-    add('02 Retreats/2026-Q3 Personal Retreat.md',{wheel_health:7,wheel_work:6,wheel_relationships:8});
-    add('04 Projects/Synthetic project.md',{type:'project',status:'active'},'- [ ] Review synthetic plan #project/synthetic-project 📅 2026-09-09\n- [ ] Draft outline #project/synthetic-project ⏳ 2026-09-10');
-    add('08 Tasks/Tasks.md',{},'- [ ] Resolve fixture overdue task 📅 2026-09-08\n- [ ] Pick a focus ⏫');
-    add('05 People/Synthetic person.md',{type:'person'},'- [ ] Discuss fixture #p/synthetic-person #discuss');
-    add('07 Library/Book Notes/Synthetic book.md',{type:'book'});
-    add('07 Library/Book Notes/Finished book.md',{type:'book',status:'completed'});
-    add('07 Library/Book Notes/Sample book.md',{type:'book',status:'reading',tags:['example']});
-    add('07 Library/Source.md',{type:'source',cover:'https://example.invalid/cover.png'});
-    const boardPath='06 Writing/Articles/Article Board.md';
+    add('元数据/Compass Config.md',{questions:[{key:'dq_focus',text:'Did I focus on what matters?'}],habits:['habit_walk','habit_read']});
+    add('00 仪表盘/Setup.md',{status:'open'});
+    for(const name of ['Assistant','Task Dashboard','Projects Dashboard','Compass Dashboard','Boards'])add(`00 仪表盘/${name}.md`);
+    for(let i=0;i<20;i++){const d=new Date('2026-09-09T12:00:00Z');d.setUTCDate(d.getUTCDate()-i);add(`01 日记/每日/${d.toISOString().slice(0,10)}.md`,{dq_focus:4+i%7,habit_walk:i%3!==0,habit_read:i%2===0});}
+    add('02 静修/2026-Q3 Personal Retreat.md',{wheel_health:7,wheel_work:6,wheel_relationships:8});
+    add('04 项目/Synthetic project.md',{type:'project',status:'active'},'- [ ] Review synthetic plan #project/synthetic-project 📅 2026-09-09\n- [ ] Draft outline #project/synthetic-project ⏳ 2026-09-10');
+    add('08 任务/Tasks.md',{},'- [ ] Resolve fixture overdue task 📅 2026-09-08\n- [ ] Pick a focus ⏫');
+    add('05 人物/Synthetic person.md',{type:'person'},'- [ ] Discuss fixture #p/synthetic-person #discuss');
+    add('07 资料库/读书笔记/Synthetic book.md',{type:'book'});
+    add('07 资料库/读书笔记/Finished book.md',{type:'book',status:'completed'});
+    add('07 资料库/读书笔记/Sample book.md',{type:'book',status:'reading',tags:['example']});
+    add('07 资料库/Source.md',{type:'source',cover:'https://example.invalid/cover.png'});
+    const boardPath='06 写作/文章/Article Board.md';
     add(boardPath,{'kanban-plugin':'board'},'## Ideas\n- [ ] Fixture idea\n## Drafting\n- [ ] Fixture draft\n- [x] Fixture checked item');
     metadata.get(boardPath).headings=[{level:2,heading:'Ideas',position:{start:{line:0}}},{level:2,heading:'Drafting',position:{start:{line:2}}}];
     window.opened=[];window.commands=[];
@@ -75,7 +75,7 @@ try {
     if(screen==='projects')assert.ok((await page.locator('.life-os-record-metrics').textContent()).includes('2 tagged open'),await page.locator('.life-os-record-metrics').textContent());
     if(screen==='people'){
       await page.locator('.life-os-discussion-queue button').click();
-      assert.equal(await page.evaluate(()=>window.opened.at(-1).path),'05 People/Synthetic person.md');
+      assert.equal(await page.evaluate(()=>window.opened.at(-1).path),'05 人物/Synthetic person.md');
     }
     if(screen==='focus'){
       assert.ok(await page.locator('.life-os-workload-segment').count()>0);
@@ -110,7 +110,7 @@ try {
     if(screen==='plan'){
       assert.equal(await page.locator('.life-os-calendar-day').count(),42);
       await page.getByRole('button',{name:'2026-09-09: Open daily note',exact:true}).click();
-      assert.equal(await page.evaluate(()=>window.opened.at(-1)?.path),'01 Journal/Daily/2026-09-09.md');
+      assert.equal(await page.evaluate(()=>window.opened.at(-1)?.path),'01 日记/每日/2026-09-09.md');
       await page.getByRole('button',{name:'Next month',exact:true}).click();
       assert.ok((await page.locator('.life-os-calendar h2').innerText()).includes('October'));
       await page.getByRole('button',{name:'This month',exact:true}).click();
@@ -119,11 +119,11 @@ try {
       await page.getByRole('button',{name:'7 days',exact:true}).click();
       assert.equal(await page.locator('.life-os-effort-column').count(),7);
       await page.locator('.life-os-effort-column[role="button"]').first().press('Enter');
-      assert.ok(await page.evaluate(()=>window.opened.at(-1)?.path.startsWith('01 Journal/Daily/')));
+      assert.ok(await page.evaluate(()=>window.opened.at(-1)?.path.startsWith('01 日记/每日/')));
       await page.getByText('Read daily values',{exact:true}).click();
       assert.equal(await page.locator('.life-os-chart-table tbody tr').count(),7);
       await page.getByRole('button',{name:/Open scored retreat/}).click();
-      assert.ok(await page.evaluate(()=>window.opened.at(-1)?.path.startsWith('02 Retreats/')));
+      assert.ok(await page.evaluate(()=>window.opened.at(-1)?.path.startsWith('02 静修/')));
     }
   }
   await page.evaluate(()=>{window.view.activeScreen='home';window.view.render();window.previousPreview=window.view.previewBrain;});

@@ -1,50 +1,51 @@
-# Security
+# 安全说明
 
-Life OS is a local-first Obsidian vault. The first-party dashboard makes no network or provider calls. Optional agents, web browsing, external-link checks, and third-party plugins have their own network behavior. This page describes configured defaults, not a guarantee that every installed component is offline.
+Life OS 以本机 Obsidian 仓库为中心。自有仪表盘不会主动向网络或模型服务发送请求；可选智能体、网页浏览、外部链接检查与第三方插件可能有各自的网络行为。下表描述模板预设，不保证每个安装组件都离线。
 
-## What the template ships, network-wise
+## 首次打开时的网络相关设置
 
-| Component | State on first open | Notes |
+| 组件 | 状态 | 说明 |
 | --- | --- | --- |
-| Local REST API 5.1.0 (`obsidian-local-rest-api`) | Enabled, non-encrypted HTTP server on port 27123, bound to 127.0.0.1 | Shipped settings are exactly `{"enableInsecureServer": true}`. The plugin generates a per-install API key and a self-signed certificate on first load and stores them on your machine. The key is a password to read and write the vault: do not share screenshots of the settings page. "Reset all cryptography" rotates key and certificate. The same key authenticates the MCP server at `http://127.0.0.1:27123/mcp`. Never set `bindingHost`. HTTPS on 27124 stays available if you prefer it. |
-| Omnisearch 1.30.1 | Installed and enabled, its HTTP server off | The Omnisearch HTTP endpoint has no authentication and allows any origin, so the template leaves it off. Never set `DANGER_httpHost`. |
-| Agent Client 0.12.1 | Installed, auto-allow off, no sessions, no paths, no keys | Runs a local agent (Claude Code, Codex, Gemini CLI) over the Agent Client Protocol. The agent has the same access as your terminal user; the plugin surfaces approvals. What leaves your machine is what you send: your messages, mentioned notes, attachments. Journal notes mentioned in a chat go to the model provider. |
-| Web viewer (core plugin) | On | A Chromium webview inside Obsidian with ad blocking on. While Obsidian runs, third-party plugins can access its cookies, so use your main browser for anything password protected. |
-| QuickAdd | Online features off, no AI provider keys | Verified by the release gate. |
-| SEO | External link checking off | Needs the network only if you turn it on. |
-| Obsidian Sync (core) | Off | |
+| Local REST API 5.1.0（`obsidian-local-rest-api`） | 已启用，只在 `127.0.0.1:27123` 提供未加密 HTTP 服务 | 模板设置仅为 `{"enableInsecureServer": true}`。插件首次加载时在本机生成 API 密钥及自签名证书。密钥可读写仓库，相当于密码；不要分享设置页截图。“Reset all cryptography”可轮换密钥和证书。同一密钥也用于 `http://127.0.0.1:27123/mcp`。不得设置 `bindingHost`；需要时可使用 27124 上的 HTTPS。 |
+| Omnisearch 1.30.1 | 已安装、启用；其 HTTP 服务关闭 | HTTP 接口无认证且允许任意来源访问，因此模板保持关闭。不得设置 `DANGER_httpHost`。 |
+| Agent Client 0.12.1 | 已安装；自动批准关闭；不附会话、路径或密钥 | 通过 Agent Client Protocol 运行本机智能体。智能体通常拥有当前终端用户权限，插件显示批准界面。发送给模型的内容包括你的消息、引用笔记与附件；引用日记会把相关内容发给服务商。 |
+| 内置网页查看器 | 开启 | 基于 Chromium webview，并预置广告拦截。Obsidian 运行时，第三方插件可能访问其中的 cookie；密码保护的网站宜在常用浏览器中打开。 |
+| QuickAdd | 在线功能关闭，无 AI 密钥 | 由发布检查验证。 |
+| SEO | 外部链接检查关闭 | 手动开启后才需要联网。 |
+| Obsidian Sync | 关闭 |  |
 
-Read `Guide/17 Search Providers.md` and `Guide/19 Obsidian MCP Bridge.md` for the reasoning behind these defaults.
+配置原因见 `指南/17 Search Providers.md` 和 `指南/19 Obsidian MCP Bridge.md`。
 
-## What never ships
+## 模板不得包含
 
-- API keys, bearer tokens, certificates, or private keys of any kind.
-- A real `.mcp.json` (only `.mcp.example.json` with a placeholder) or `.claude/settings.local.json`.
-- Agent Client sessions, exported chats, or `Meta/Agent Chats/`.
-- Journal, retreat, planning, or other personal notes. User folders contain only notes tagged `example`.
-- `.vault-meta/` (claude-obsidian journal), `wiki/` content folders, `inbox/` contents, workspace files.
-- Absolute paths, user names, or email addresses.
+- API 密钥、bearer 令牌、证书或私钥。
+- 真实 `.mcp.json`（只附 `.mcp.example.json` 占位示例）和 `.claude/settings.local.json`。
+- Agent Client 会话、导出的聊天或 `元数据/Agent Chats/`。
+- 个人日记、静修、规划和其他私人笔记；用户目录只保留带 `example` 标签的演示笔记。
+- `.vault-meta/` 运行日志、`wiki/` 内容目录、`inbox/` 内容及工作区文件。
+- 绝对路径、用户名或邮箱。
 
-The builder excludes raw plugin settings from copying and reconstructs allowlisted settings before writing staging files. The verifier rejects machine-local state before its content scan and checks the sanitized candidate. These checks reduce risk; they do not replace reviewing an exact candidate before distribution. Never ZIP the working vault directly.
+构建器先重建允许的插件设置，再写入暂存目录，不复制未经审查的原始设置；验证器会在内容扫描前拒绝机器状态，并检查脱敏候选。这些检查能降低风险，但不能替代对**最终候选**的人工审查。不要直接压缩正在使用的仓库。
 
-## Context and approval
+## 聊天上下文与批准
 
-Assistant workflow buttons explicitly disable automatic sending. Review the prompt and context in the agent composer. The embedded chat uses the hosting Assistant note as context. Agent settings can also include active-note mentions or linked-note expansion; review those settings before sending personal material.
+助手按钮预设为不自动发送。发送前检查提示词及其上下文；嵌入式聊天默认以所在的助手笔记为上下文。智能体设置可能额外引用活动笔记或展开链接笔记，因此分享私人资料前需检查。
 
-The requirement to approve writes is a policy. Agent Client's automatic-approval setting is observable, but Life OS cannot guarantee how another CLI, MCP client, or agent will act. Configured tooling is not proof of authentication or a tested live connection. No provider test is performed automatically.
+写入需批准是操作规则。Life OS 能观察 Agent Client 的自动批准设置，但无法保证其他 CLI、MCP 客户端或智能体遵守。安装了工具不代表已经认证或测试实际连接；系统不会自动发起服务商测试。
 
-## Safe release and recovery
+## 安全发布与恢复
 
-Build only into a fresh directory outside the working vault. Existing destinations are refused. Staging is private and removed on failure. Validate the candidate, archive checksum, and native first-run behavior before sharing it. Keep the working vault and its backups separate from release output.
+只在当前仓库之外的全新目录构建，已存在的目标会被拒绝。暂存目录应保持私有，失败后删除。分享之前，核对候选、归档校验和以及真实 Obsidian 首次运行结果。工作仓库与备份应与发布输出分开保存。
 
-There is no transactional in-place upgrader. Back up the complete vault, extract a new candidate alongside it, and migrate personal content and custom settings with review. Test a restore before retiring an old copy. See `scripts/RELEASE.md`.
+仓库没有原位事务升级器。先备份旧仓库，再把新候选解压到旁边，逐项审查迁移个人内容及自定义设置。停用旧版本前演练一次备份恢复。详见 `scripts/RELEASE.md`。
 
-## Your responsibilities as a member
+## 使用者的注意事项
 
-- Keep the Local REST API key out of the vault folder. Register it in your agent's user-scope config (for Claude Code, `claude mcp add --scope user ...`), never in a `.mcp.json` inside the vault.
-- Keep Agent Client auto-allow off. `AGENTS.md` rule 2 (ask before edit) is the behaviour floor for every agent.
-- Do not sign in to sensitive sites inside the in-app Web viewer.
-- If you publish your own copy, run `python3 scripts/verify_template.py .` first.
+- Local REST API 密钥留在仓库文件夹外，在智能体的用户范围配置中注册；不要写入仓库内的 `.mcp.json`。
+- Agent Client 自动批准保持关闭；所有智能体至少遵守 `AGENTS.md` 中的编辑前询问规则。
+- 不在 Obsidian 内置网页查看器登录敏感网站。
+- 若要发布自己的副本，先运行 `python3 scripts/verify_template.py .`。
 
-## Reporting a problem
-This repository is public. For a security problem (a key or personal data that slipped into the template, a plugin setting that exposes the vault), use GitHub's private vulnerability reporting: Security tab → "Report a vulnerability". It stays private until a fix ships. Do not open a public issue for security problems. For everything else, open a normal issue with the bug template.
+## 私下报告安全问题
+
+本仓库是公开仓库。若发现模板泄露密钥或私人数据，或某项插件设置暴露仓库，请使用 GitHub 仓库 Security 页的“Report a vulnerability”私下报告，修复前不会公开。其他问题可用普通议题及 bug 模板。

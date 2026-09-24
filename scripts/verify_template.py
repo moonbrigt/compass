@@ -10,8 +10,9 @@ FORBIDDEN = [r"agricidaniel", r"/var/home", r"/home/[a-z]", r"/Users/", r"C:\\\\
 # Owner-specific names to forbid can be listed one per line in scripts/template/forbidden.local.txt (never shipped).
 _local = os.path.join(os.path.dirname(os.path.abspath(__file__)), "template", "forbidden.local.txt")
 if os.path.exists(_local):
-    FORBIDDEN += [re.escape(l.strip()) for l in open(_local) if l.strip() and not l.startswith("#")]
-ALLOW_FILES = {"scripts/verify_template.py", "scripts/build_template.py", "scripts/RELEASE.md"}
+    with open(_local, encoding="utf-8") as stream:
+        FORBIDDEN += [re.escape(l.strip()) for l in stream if l.strip() and not l.startswith("#")]
+ALLOW_FILES = set()
 SKIP_DIR_PARTS = ("/.obsidian/plugins/",)
 DATE_LINK = re.compile(r"^\d{4}-(\d\d-\d\d|W\d\d|Q\d( Personal Retreat)?)$")
 
@@ -45,7 +46,7 @@ def main():
         if any(not stat.S_ISREG(os.stat(os.path.join(r, item)).st_mode) for item in fs):
             print("FAIL package contains non-regular files; content scan skipped")
             sys.exit(1)
-        for f in fs: files.append(os.path.relpath(os.path.join(r, f), root))
+        for f in fs: files.append(os.path.relpath(os.path.join(r, f), root).replace("\\", "/"))
     files.sort()
     check("no case-insensitive path collisions", len({p.casefold() for p in files}) == len(files))
     manifest_path = os.path.join(root, "MANIFEST.sha256")
@@ -72,7 +73,9 @@ def main():
     for rel in files:
         if any(p in ("/" + rel) for p in SKIP_DIR_PARTS) and not rel.endswith("data.json"): continue
         if rel.endswith((".md", ".js", ".mjs", ".json", ".css", ".py", ".txt", ".yaml", ".yml")):
-            try: texts[rel] = open(os.path.join(root, rel), encoding="utf-8").read()
+            try:
+                with open(os.path.join(root, rel), encoding="utf-8") as stream:
+                    texts[rel] = stream.read()
             except Exception: pass
     # forbidden strings
     for pat in FORBIDDEN:
@@ -80,29 +83,42 @@ def main():
         check("no forbidden pattern %r" % pat, not hits, ", ".join(hits[:5]))
     # json asserts
     def load(rel):
-        p = os.path.join(root, rel); return json.load(open(p)) if os.path.exists(p) else None
+        p = os.path.join(root, rel)
+        if not os.path.exists(p):
+            return None
+        with open(p, encoding="utf-8") as stream:
+            return json.load(stream)
     ra = load(".obsidian/plugins/obsidian-local-rest-api/data.json"); check("REST API settings are exactly enableInsecureServer:true", ra == {"enableInsecureServer": True}, "Unexpected settings shape" if ra != {"enableInsecureServer": True} else "")
+    claude_settings = load(".claude/settings.json") or {}
+    claude_allow = (claude_settings.get("permissions") or {}).get("allow") or []
+    check("Claude Code settings allow read-only Obsidian tools only", bool(claude_allow) and all(isinstance(command, str) and command.startswith("mcp__obsidian__") and not any(word in command for word in ("write", "append", "patch", "delete", "move", "copy", "execute")) for command in claude_allow))
+    workspace_marker = load(".claude-obsidian.json") or {}
+    check("claude-obsidian workspace marker is local", workspace_marker.get("role") == "vault" and workspace_marker.get("vault") == "." and workspace_marker.get("source_inbox") == "inbox")
     ac = load(".obsidian/plugins/agent-client/data.json")
     check("agent-client: no sessions, auto-allow off, no absolute command", ac is not None and ac.get("savedSessions") == [] and ac.get("autoAllowPermissions") is False and not any(str((pa or {}).get("command", "")).startswith("/") for pa in (ac.get("presetAgents") or {}).values()))
-    seo = load(".obsidian/plugins/seo/data.json"); check("seo: no scan cache, scan dir set", seo is not None and "cachedGlobalResults" not in seo and "06 Writing" in seo.get("scanDirectories", ""))
+    seo = load(".obsidian/plugins/seo/data.json"); check("seo: no scan cache, scan dir set", seo is not None and "cachedGlobalResults" not in seo and "06 写作" in seo.get("scanDirectories", ""))
     om = load(".obsidian/plugins/omnisearch/data.json"); check("omnisearch: http server off", om is None or (om.get("httpApiEnabled") is False and om.get("DANGER_httpHost") in (None, "")))
     qa = load(".obsidian/plugins/quickadd/data.json"); check("quickadd: no AI keys, online off", qa is not None and qa.get("disableOnlineFeatures") is True and all((p or {}).get("apiKey", "") == "" for p in (qa.get("ai", {}) or {}).get("providers", []) or []))
     cp = load(".obsidian/core-plugins.json"); check("core-plugins: sync off, webviewer on, bases on", cp is not None and cp.get("sync") is False and cp.get("webviewer") is True and cp.get("bases") is True)
     app = load(".obsidian/app.json"); check("app.json: new files in current folder", app is not None and app.get("newFileLocation") == "current")
+    appearance = load(".obsidian/appearance.json") or {}
+    check("CSS snippets enabled", {"lifeos", "vault-colors"}.issubset(set(appearance.get("enabledCssSnippets", []))))
+    hotkeys = load(".obsidian/hotkeys.json") or {}
+    check("daily note and check-in hotkeys configured", all(hotkeys.get(key) for key in ("quickadd:choice:lifeos-daily", "templater-obsidian:模板/Daily Questions Prompt.md")))
     # plugin folders
     ids = load(".obsidian/community-plugins.json") or []
     for pid in ids:
         d = os.path.join(root, ".obsidian/plugins", pid)
         check("plugin %s has main.js, manifest.json, LICENSE" % pid, all(os.path.exists(os.path.join(d, f)) for f in ["main.js", "manifest.json", "LICENSE"]))
-    lifeos_verify = os.path.join(root, "scripts", "verify_life_os_app.mjs")
+    lifeos_verify = os.path.join(os.path.dirname(os.path.abspath(__file__)), "verify_life_os_app.mjs")
     if os.path.exists(lifeos_verify):
-        r = subprocess.run(["node", lifeos_verify, root], capture_output=True, text=True)
+        r = subprocess.run(["node", lifeos_verify, root], capture_output=True, text=True, encoding="utf-8", errors="replace")
         check("Life OS application gate", r.returncode == 0, (r.stdout + r.stderr)[-500:])
     else:
         check("Life OS application gate", False, "scripts/verify_life_os_app.mjs missing")
-    assistant_verify = os.path.join(root, "scripts", "verify_assistant_contracts.mjs")
+    assistant_verify = os.path.join(os.path.dirname(os.path.abspath(__file__)), "verify_assistant_contracts.mjs")
     if os.path.exists(assistant_verify):
-        r = subprocess.run(["node", assistant_verify, root], capture_output=True, text=True)
+        r = subprocess.run(["node", assistant_verify, root], capture_output=True, text=True, encoding="utf-8", errors="replace")
         check("Assistant context and send gate", r.returncode == 0, (r.stdout + r.stderr)[-500:])
     else:
         check("Assistant context and send gate", False, "Assistant contract verifier missing")
@@ -111,10 +127,14 @@ def main():
     for pid in ids:
         m = os.path.join(root, ".obsidian/plugins", pid, "manifest.json")
         if os.path.exists(m):
-            v = json.load(open(m))["version"]; check("notices list %s %s" % (pid, v), ("| %s | %s |" % (pid, v)) in notices)
+            with open(m, encoding="utf-8") as stream:
+                v = json.load(stream)["version"]
+            check("notices list %s %s" % (pid, v), ("| %s | %s |" % (pid, v)) in notices)
     # referenced paths resolve
     def exists(rel): return os.path.exists(os.path.join(root, rel))
     tp = load(".obsidian/plugins/templater-obsidian/data.json") or {}
+    check("templater template folder exists", tp.get("templates_folder") == "模板" and exists("模板"))
+    check("quickadd template folders exist", (qa or {}).get("templateFolderPaths") == ["模板"])
     for ft in tp.get("folder_templates", []): check("templater folder template %s" % ft.get("template"), exists(ft.get("template", "")) and exists(ft.get("folder", "")))
     pn = load(".obsidian/plugins/periodic-notes/data.json") or {}
     for k in ["daily", "weekly", "quarterly"]:
@@ -128,38 +148,46 @@ def main():
     for rel, t in texts.items():
         if not rel.endswith(".md"): continue
         for m in re.finditer(r'"new-note-template":"([^"]+)"', t): check("kanban template in %s" % rel, exists(m.group(1)), m.group(1))
+        if rel.startswith("00 仪表盘/"):
+            for view in re.findall(r'dv\.view\(\s*"([^"]+)"', t):
+                check("dataview script in %s" % rel, exists(view + ".js"), view)
     wv = load(".obsidian/webviewer.json") or {}
     if wv.get("markdownPath"): check("webviewer markdownPath exists", exists(wv["markdownPath"]))
     # content asserts
     for rel in files:
-        if rel.endswith(".md") and any(rel.startswith(u) for u in ["01 Journal/", "02 Retreats/", "04 Projects/", "05 People/", "06 Writing/", "07 Library/"]) and not rel.endswith(" Board.md"):
+        if rel.endswith(".md") and any(rel.startswith(u) for u in ["01 日记/", "02 静修/", "04 项目/", "05 人物/", "06 写作/", "07 资料库/"]) and not rel.endswith(" Board.md"):
             t = texts.get(rel, ""); fm = re.match(r"^---\n(.*?)\n---", t, re.S)
             check("user-folder note tagged example: %s" % rel, bool(fm) and re.search(r"^\s*-\s*example\s*$", fm.group(1), re.M) is not None)
-    cfg = texts.get("Meta/Compass Config.md", ""); check("config birthdate empty", re.search(r"^birthdate:\s*$", cfg, re.M) is not None)
-    check("Life Theme is template text", "Replace this line with your life theme" in texts.get("03 Planning/Life Theme.md", ""))
-    check("Core Values is template text", "**Value one**" in texts.get("03 Planning/Core Values.md", ""))
-    check("wiki log empty", re.sub(r"^---.*?---\n", "", texts.get("wiki/log.md", ""), flags=re.S).strip().endswith("Newest completed operations appear first."))
-    plan_body = re.sub(r"```.*?```", "", texts.get("09 Reading/Reading Plan.md", ""), flags=re.S)
+    cfg = texts.get("元数据/Compass Config.md", ""); check("config birthdate empty", re.search(r"^birthdate:\s*$", cfg, re.M) is not None)
+    check("Life Theme is template text", "请在此写下你的生活主题" in texts.get("03 规划/Life Theme.md", ""))
+    check("Core Values is template text", "**价值一**" in texts.get("03 规划/Core Values.md", ""))
+    check("wiki log empty", re.sub(r"^---.*?---\n", "", texts.get("wiki/log.md", ""), flags=re.S).strip().endswith("最近完成的操作排在最前面。"))
+    plan_body = re.sub(r"```.*?```", "", texts.get("09 阅读/Reading Plan.md", ""), flags=re.S)
     check("reading plan has no tasks", not re.search(r"^- \[ \]", plan_body, re.M))
     for rel, t in texts.items():
-        if rel.startswith("01 Journal/Weekly/"):
+        if rel.startswith("01 日记/每周/"):
             m = re.search(r"^week:\s*(\S+)", t, re.M); check("weekly note week property matches name: %s" % rel, m and m.group(1) == os.path.basename(rel)[:-3])
-    for bad in ["wiki/concepts", "wiki/sources", "wiki/entities", "wiki/questions", ".vault-meta", ".raw", ".mcp.json", ".claude/settings.local.json", ".obsidian/plugins/agent-client/sessions", "Untitled.canvas", "08 Tasks/Untitled.base", "Guide/18 Distribution Checklist.md"]:
+    for bad in ["wiki/concepts", "wiki/sources", "wiki/entities", "wiki/questions", ".vault-meta", ".raw", ".mcp.json", ".claude/settings.local.json", ".obsidian/plugins/agent-client/sessions", "Untitled.canvas", "08 任务/Untitled.base", "指南/18 Distribution Checklist.md", "指南/23 Native Acceptance.md", "指南/Source - Video Analysis.md", "CHANGELOG.md", "CONTRIBUTING.md", "CODE_OF_CONDUCT.md", "SECURITY.md", "scripts/build_template.py", "scripts/RELEASE.md", "scripts/verify_template.py", "scripts/verify_life_os_app.mjs", "scripts/verify_assistant_contracts.mjs", "scripts/verify_release_safety.py", ".specify", "specs", ".agents"]:
         check("absent: %s" % bad, not exists(bad))
+    utility_scripts = {"scripts/generate_reading_plan.py", "scripts/split_bible.py"}
+    check("package scripts are user utilities only", all(rel in utility_scripts for rel in files if rel.startswith("scripts/")))
+    development_refs = ("scripts/build_template.py", "scripts/verify_template.py", "scripts/verify_life_os_app.mjs", "scripts/RELEASE.md", "specs/001-simplified-chinese-vault/", "[[23 Native Acceptance")
+    check("user guides contain no missing development references", not any(token in body for rel, body in texts.items() if rel == "README.md" or rel.startswith("指南/") for token in development_refs))
     for led in ["wiki/meta/ledgers/source-ledger.json", "wiki/meta/ledgers/claim-ledger.json"]:
         d = load(led); check("ledger empty: %s" % led, d is not None and not (d.get("sources") or d.get("claims")))
     check("inbox empty", [f for f in files if f.startswith("inbox/") and not f.endswith(".gitkeep")] == [])
-    if ".obsidian/workspace.json" in texts: check("workspace.json opens Setup", "00 Dashboards/Setup.md" in texts[".obsidian/workspace.json"])
-    for must in ["AGENTS.md", "CLAUDE.md", "GEMINI.md", ".mcp.example.json", "LICENSE", "THIRD_PARTY_NOTICES.md", "CREDITS.md", "CHANGELOG.md", "Meta/version.md", "00 Dashboards/Setup.md", "Prompts/16 Onboarding Assistant.md"]:
+    if ".obsidian/workspace.json" in texts: check("workspace.json opens Setup", "00 仪表盘/Setup.md" in texts[".obsidian/workspace.json"])
+    for must in ["AGENTS.md", "CLAUDE.md", "GEMINI.md", ".mcp.example.json", ".claude/settings.json", ".claude-obsidian.json", "LICENSE", "THIRD_PARTY_NOTICES.md", "CREDITS.md", "元数据/version.md", "00 仪表盘/Setup.md", "提示词/16 Onboarding Assistant.md"]:
         check("present: %s" % must, exists(must))
     check("CLAUDE.md and GEMINI.md import AGENTS.md", "@AGENTS.md" in texts.get("CLAUDE.md", "") and "@AGENTS.md" in texts.get("GEMINI.md", ""))
-    # wikilinks resolve (by basename; Templates/ skipped because their targets are generated) and heading fragments exist
+    # wikilinks resolve (by basename; 模板/ skipped because their targets are generated) and heading fragments exist
     names = {os.path.basename(f)[:-3] for f in files if f.endswith(".md")}
     by_name = {os.path.basename(f)[:-3]: f for f in files if f.endswith(".md")}
     unresolved, badfrag = {}, {}
     for rel, t in texts.items():
-        if not rel.endswith(".md") or rel.startswith("Guide/Source") or rel.startswith("Templates/"): continue
+        if not rel.endswith(".md") or rel.startswith("指南/Source") or rel.startswith("模板/"): continue
         body = re.sub(r"```.*?```", "", t, flags=re.S); body = re.sub(r"`[^`\n]*`", "", body); body = re.sub(r"<%.*?%>", "", body, flags=re.S)
+        body = body.replace(r"\|", "|")  # Obsidian aliases escape the pipe inside Markdown tables.
         for m in re.finditer(r"\[\[([^\]\|#]*)(?:#([^\]\|]*))?(?:\|[^\]]*)?\]\]", body):
             tgt = m.group(1).strip().rstrip("/"); frag = (m.group(2) or "").strip()
             base = tgt.split("/")[-1] if tgt else os.path.basename(rel)[:-3]
@@ -173,9 +201,9 @@ def main():
     check("all wikilinks resolve (except periodic dates)", not unresolved, "; ".join("%s <- %s" % (k, v[0]) for k, v in list(unresolved.items())[:8]))
     # js syntax
     for rel in files:
-        if rel.startswith("Meta/views/") and rel.endswith(".js"):
+        if rel.startswith("元数据/视图/") and rel.endswith(".js"):
             src = texts.get(rel, "")
-            r = subprocess.run(["node", "-e", "new (Object.getPrototypeOf(async function(){}).constructor)('dv','input','moment','app','Notice', require('fs').readFileSync(process.argv[1],'utf8'))", os.path.join(root, rel)], capture_output=True, text=True)
+            r = subprocess.run(["node", "-e", "new (Object.getPrototypeOf(async function(){}).constructor)('dv','input','moment','app','Notice', require('fs').readFileSync(process.argv[1],'utf8'))", os.path.join(root, rel)], capture_output=True, text=True, encoding="utf-8", errors="replace")
             check("js syntax %s" % rel, r.returncode == 0, r.stderr[-200:])
     # templater property generators must produce valid property lines (config path and fallback)
     sim = r"""
@@ -185,9 +213,9 @@ for(const p of process.argv.slice(1)){const s=fs.readFileSync(p,'utf8');const m=
  if(m[1].includes('\n')){console.log('NEWLINE '+p);process.exit(3)}
  for(const c of [cfg,null]){const out=new Function('app','tR',m[1]+'; return tR;')(mk(c),'');if(!out.split('\n').every(l=>/^(dq_|habit_|wheel_)\w+: (false)?$/.test(l))){console.log('BAD '+p+' '+JSON.stringify(out));process.exit(4)}}}
 console.log('ok');"""
-    tpls = [os.path.join(root, t) for t in ["Templates/Daily Note.md", "Templates/Personal Retreat.md"] if exists(t)]
+    tpls = [os.path.join(root, t) for t in ["模板/Daily Note.md", "模板/Personal Retreat.md"] if exists(t)]
     if tpls:
-        r = subprocess.run(["node", "-e", sim] + tpls, capture_output=True, text=True)
+        r = subprocess.run(["node", "-e", sim] + tpls, capture_output=True, text=True, encoding="utf-8", errors="replace")
         check("templater property generators produce valid properties", r.returncode == 0 and "ok" in r.stdout, (r.stdout + r.stderr)[-200:])
     total = sum(os.path.getsize(os.path.join(root, f)) for f in files)
     check("total size under 20 MB", total < 20e6, "%.1f MB" % (total / 1e6))

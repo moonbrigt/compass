@@ -1,0 +1,23 @@
+---
+type: bible-chapter
+book: Genesis
+chapter: 1
+tags:
+  - bible/chapter
+  - example
+---
+> 本页按章节存放经文，供每日阅读计划使用。下方是中文示例译文，并非正式译本。可替换为有权使用的经文，或用 `scripts/split_bible.py` 生成章节笔记。
+
+## 经文
+1. 起初，神创造天地。
+2. 大地空虚混沌，深渊上是一片黑暗；神的灵运行在水面上。
+3. 神说：“要有光。”于是就有了光。
+
+## 经节
+[[Genesis 1.1|创世记 1:1]] · [[Genesis 1.2|创世记 1:2]] · [[Genesis 1.3|创世记 1:3]]
+
+## 链接到此处的笔记与讲章
+```dataview
+LIST
+WHERE contains(file.outlinks, this.file.link) AND !contains(file.folder, "09 阅读/章节")
+```

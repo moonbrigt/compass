@@ -1,0 +1,14 @@
+---
+type: bible-verse
+book: Genesis
+chapter: 1
+verse: 3
+tags:
+  - bible/verse
+  - example
+---
+# 创世记 1:3
+
+神说：“要有光。”于是就有了光。
+
+章节：[[Genesis 1|创世记第 1 章]] · 上一节：[[Genesis 1.2|创世记 1:2]]

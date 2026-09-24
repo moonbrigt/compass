@@ -14,8 +14,16 @@ Thumbs.db
 # Agent Client chat sessions and exports contain conversation text.
 .obsidian/plugins/agent-client/sessions/
 Agent Client/
-Meta/Agent Chats/
+元数据/Agent Chats/
 
 # Local Claude Code settings and build output.
 .claude/settings.local.json
 build/
+
+# Local development output.
+__pycache__/
+*.pyc
+.venv/
+node_modules/
+*.log
+.env*
