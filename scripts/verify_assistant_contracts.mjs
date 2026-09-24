@@ -5,7 +5,7 @@ import path from "node:path";
 import assert from "node:assert/strict";
 
 const root = path.resolve(process.argv[2] || ".");
-const source = fs.readFileSync(path.join(root, "00 仪表盘/Assistant.md"), "utf8");
+const source = fs.readFileSync(path.join(root, "00 仪表盘/Assistant.md"), "utf8").replace(/\r\n?/g, "\n");
 const buttons = [...source.matchAll(/```agent\n([\s\S]*?)```/g)];
 assert.equal(buttons.length, 16, "All 16 assistant workflows must remain available");
 for (const [, block] of buttons) {

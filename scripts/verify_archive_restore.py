@@ -19,7 +19,7 @@ def safe_name(name):
 def verify_archive(archive):
     archive = pathlib.Path(archive)
     digest = hashlib.sha256(archive.read_bytes()).hexdigest()
-    checksum = pathlib.Path(str(archive) + ".sha256").read_text().strip().split("  ", 1)
+    checksum = pathlib.Path(str(archive) + ".sha256").read_text(encoding="utf-8").strip().split("  ", 1)
     if checksum != [digest, archive.name]:
         raise ValueError("Archive checksum mismatch")
     with zipfile.ZipFile(archive) as bundle:
@@ -43,7 +43,7 @@ def verify_archive(archive):
             root = pathlib.Path(target, next(iter(roots)))
             manifest = root / "MANIFEST.sha256"
             expected = {}
-            for line in manifest.read_text().splitlines():
+            for line in manifest.read_text(encoding="utf-8").splitlines():
                 match = re.fullmatch(r"([a-f0-9]{64})  (.+)", line)
                 if not match or not safe_name(match[2]) or match[2] in expected:
                     raise ValueError("Invalid embedded manifest")

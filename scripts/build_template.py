@@ -84,17 +84,17 @@ def copy_tree(live, out):
                 elif name == "appearance.json": settings = {"enabledCssSnippets": ["lifeos", "vault-colors"]}
                 elif name in ("types.json", "webviewer.json"): settings = {}
                 elif name == "core-plugins.json":
-                    original = json.loads(Path(source).read_text())
+                    original = json.loads(Path(source).read_text(encoding="utf-8"))
                     if not isinstance(original, dict): raise ValueError("Unsupported core plugin settings")
                     settings = {key: value for key, value in original.items() if isinstance(value, bool)}
                     settings["sync"] = False
                 elif name == "community-plugins.json":
-                    original = json.loads(Path(source).read_text())
+                    original = json.loads(Path(source).read_text(encoding="utf-8"))
                     if not isinstance(original, list) or any(not isinstance(value, str) or not re.fullmatch(r"[a-z0-9-]+", value) for value in original):
                         raise ValueError("Unsupported plugin inventory")
                     settings = original
                 elif name == "hotkeys.json":
-                    original = json.loads(Path(source).read_text())
+                    original = json.loads(Path(source).read_text(encoding="utf-8"))
                     allowed_hotkeys = {
                         "life-os-app:open-home", "life-os-app:open-capture",
                         "quickadd:choice:lifeos-daily", "quickadd:choice:lifeos-weekly",
@@ -341,7 +341,7 @@ def manifest(out):
             p = os.path.join(root, f)
             h = hashlib.sha256(Path(p).read_bytes()).hexdigest()
             lines.append("%s  %s" % (h, os.path.relpath(p, out).replace("\\", "/")))
-    Path(out, "MANIFEST.sha256").write_text("\n".join(sorted(lines)) + "\n")
+    Path(out, "MANIFEST.sha256").write_text("\n".join(sorted(lines)) + "\n", encoding="utf-8")
 
 def main():
     ap = argparse.ArgumentParser()
