@@ -19,4 +19,4 @@
 
 ## 生成关系
 
-`scripts/template/defaults/` 会覆盖或恢复若干笔记；QuickAdd 和 Templater 会生成用户笔记；`Meta/views/` 从属性与现有笔记生成仪表盘；Life OS 读取同一批笔记与命令。因此译文必须在各生成来源同步更新，不能只改最终页面。
+`scripts/template/defaults/` 会覆盖或恢复若干笔记；QuickAdd 和 Templater 会生成用户笔记；`元数据/视图/` 从属性与现有笔记生成仪表盘；Life OS 读取同一批笔记与命令。因此译文必须在各生成来源同步更新，不能只改最终页面。

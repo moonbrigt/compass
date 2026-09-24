@@ -8,5 +8,5 @@
   "quickadd:choice:lifeos-win": [{"modifiers": ["Mod", "Shift"], "key": "W"}],
   "quickadd:choice:lifeos-gratitude": [{"modifiers": ["Mod", "Shift"], "key": "G"}],
   "quickadd:choice:lifeos-task": [{"modifiers": ["Mod", "Shift"], "key": "T"}],
-  "templater-obsidian:Templates/Daily Questions Prompt.md": [{"modifiers": ["Mod", "Shift"], "key": "Q"}]
+  "templater-obsidian:模板/Daily Questions Prompt.md": [{"modifiers": ["Mod", "Shift"], "key": "Q"}]
 }

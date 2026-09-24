@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
-"""生成 09 Reading/Reading Plan.md：每章一项 Obsidian Tasks 任务，分配到指定天数。
+"""生成 09 阅读/Reading Plan.md：每章一项 Obsidian Tasks 任务，分配到指定天数。
 
 Usage:
-  python3 scripts/generate_reading_plan.py --start 2026-09-01 --days 365 > "09 Reading/Reading Plan.md"
-  python3 scripts/generate_reading_plan.py --start 2026-09-01 --order chronological > "09 Reading/Reading Plan.md"
+  python3 scripts/generate_reading_plan.py --start 2026-09-01 --days 365 > "09 阅读/Reading Plan.md"
+  python3 scripts/generate_reading_plan.py --start 2026-09-01 --order chronological > "09 阅读/Reading Plan.md"
 
-每项任务链接到章节笔记（09 Reading/Chapters/<Book> <N>.md）。
+每项任务链接到章节笔记（09 阅读/章节/<Book> <N>.md）。
 日记中的阅读提示框会查询今天及更早安排、尚未完成的章节。
 """
 import argparse

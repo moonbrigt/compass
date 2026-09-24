@@ -83,3 +83,16 @@
 ## Implementation Strategy
 
 先完成可独立试用的中文 Life OS 与仪表盘，再完成笔记生成和中文指南，最后从隔离候选仓库验证完整交付。用户已授权完整汉化，MVP 检查点是过程验证，不是最终交付边界。
+
+## Phase 7: 用户反馈后的中文目录与个人交付包
+
+- [X] T025 [US1] 按 `contracts/directory-migration.md` 迁移首方目录及 `scripts/template/defaults/` 中的对应目录；保持 `F:\Memory layer` 和原英文仓库内容不变。
+- [X] T026 [US1] 更新 `.obsidian/`、首方 Life OS、`元数据/视图/`、`元数据/Compass Config.md` 与 `scripts/` 中的路径消费者、生成位置和热键命令路径。
+- [X] T027 [US2] 更新 `指南/`、`模板/`、`提示词/`、仪表盘、示例笔记及根目录文档的路径和内部链接；核对所有目标文件仍存在。
+- [X] T028 [US3] 收紧 `scripts/build_template.py` 的个人使用包清单，排除 Spec Kit 过程文件、维护者验证脚本和只供开发的说明；更新个人版中的引用及 `scripts/verify_template.py` 的清单检查。
+- [X] T029 运行静态路径、JSON、JavaScript、打包与归档验证，从新构建目录审查实际文件清单和敏感信息，记录结果到 `acceptance.md`。
+- [X] T030 若能在不增加用户的 Obsidian 仓库列表项的情况下进行原生试用，核对 Life OS、设置清单、仪表盘和代表性创建流程；否则在 `acceptance.md` 明确本轮原生验收未执行。
+
+## Phase 8: Convergence
+
+- [ ] T031 在用户允许打开中文目录候选、且不会留下额外测试仓库列表项时，对 `Compass-zh-CN-personal-v4` 执行 Life OS、设置清单、Compass 仪表盘、日记和项目创建的 Obsidian 原生验收，并将具体观察追加到 `acceptance.md`。完成前保持该版本为候选状态。

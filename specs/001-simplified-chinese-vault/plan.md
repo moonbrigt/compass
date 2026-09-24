@@ -6,7 +6,7 @@
 
 ## Summary
 
-在独立工作区中翻译 Compass 自有的界面和仓库内容。保留文件路径、数据键、命令 ID、代码与第三方插件；为首方 Life OS、仪表盘脚本、QuickAdd 显示名称、模板、提示词、指南和示例内容提供一致的简体中文。更新依赖英文占位文案的校验与打包逻辑，并从隔离构建产物进行 Obsidian 实测。
+在独立工作区中翻译 Compass 自有的界面和仓库内容。首方内容目录改为中文并迁移全部路径消费者；保留文件名、数据键、命令 ID 与第三方插件。为首方 Life OS、仪表盘脚本、QuickAdd 显示名称、模板、提示词、指南和示例内容提供一致的简体中文。个人使用版排除开发过程与维护者验证文件，从隔离构建产物进行 Obsidian 实测。
 
 ## Technical Context
 
@@ -24,7 +24,7 @@
 
 **Performance Goals**: 翻译不增加网络请求、扫描轮次或重复数据存储；主要界面加载维持原版行为
 
-**Constraints**: 不复制英文使用仓库中的个人笔记；不改第三方插件二进制或许可证；保留机器标识与链接路径；不提交密钥
+**Constraints**: 不复制英文使用仓库中的个人笔记；不改第三方插件二进制或许可证；保留机器标识并迁移首方目录的全部链接路径；不提交密钥
 
 **Scale/Scope**: 仓库约 100 个可翻译 Markdown 文件、9 个仪表盘视图脚本、20 个 QuickAdd 选项和一个约 116 KB 的首方 Life OS 插件
 
@@ -62,13 +62,13 @@ specs/001-simplified-chinese-vault/
 .obsidian/plugins/life-os-app/main.js       # 首方 UI 文案
 .obsidian/plugins/life-os-app/manifest.json # 首方插件简介
 .obsidian/plugins/quickadd/data.json        # 捕获命令显示名，保留 id
-Meta/views/*.js                             # 仪表盘显示文案与状态判断
-Meta/Compass Config.md                     # 问题、习惯、领域的显示名
-00 Dashboards/*.md                         # 仪表盘与 Setup 页面
-Templates/*.md                             # 新建笔记模板
-Prompts/*.md                               # AI 提示词
-Guide/*.md                                 # 入门与工作流指南
-01 Journal/ ... 09 Reading/                # 仓库自带示例内容
+元数据/视图/*.js                             # 仪表盘显示文案与状态判断
+元数据/Compass Config.md                     # 问题、习惯、领域的显示名
+00 仪表盘/*.md                         # 仪表盘与 Setup 页面
+模板/*.md                             # 新建笔记模板
+提示词/*.md                               # AI 提示词
+指南/*.md                                 # 入门与工作流指南
+01 日记/ ... 09 阅读/                # 仓库自带示例内容
 wiki/*.md, README.md, *.md                 # 自有说明与入口
 scripts/template/defaults/**/*.md         # 打包时恢复的默认笔记
 scripts/build_template.py                  # 打包文本替换

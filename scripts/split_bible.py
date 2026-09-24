@@ -5,7 +5,7 @@ Input format (one verse per line, tab separated; the common format of public-dom
     Genesis 1:1<TAB>In the beginning God created the heaven and the earth.
 
 Usage:
-    python3 scripts/split_bible.py kjv.txt --out "09 Reading"
+    python3 scripts/split_bible.py kjv.txt --out "09 阅读"
 
 Writes:
     <out>/Chapters/<Book> <N>.md     full chapter text + links to every verse note
@@ -25,7 +25,7 @@ LINE = re.compile(r"^(?P<book>[1-3]?\s?[A-Za-z ]+?)\s+(?P<ch>\d+):(?P<v>\d+)\t(?
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("source")
-    ap.add_argument("--out", default="09 Reading")
+    ap.add_argument("--out", default="09 阅读")
     ap.add_argument("--books", default="", help="以逗号分隔的书卷名称")
     ap.add_argument("--translation", default="KJV")
     a = ap.parse_args()
@@ -62,7 +62,7 @@ def main():
             body += [f"{v}. {t}" for v, t in verses.items()]
             body += ["", "## 经节", " · ".join(f"[[{book} {ch}.{v}]]" for v in verses), "",
                      "## 引用本章的笔记与讲道", "```dataview", "LIST",
-                     'WHERE contains(file.outlinks, this.file.link) AND !contains(file.folder, "09 Reading/Chapters")', "```", ""]
+                     'WHERE contains(file.outlinks, this.file.link) AND !contains(file.folder, "09 阅读/章节")', "```", ""]
             with open(os.path.join(chap_dir, cname + ".md"), "w", encoding="utf-8") as f:
                 f.write("\n".join(body))
             n_ch += 1

@@ -5,12 +5,12 @@
       "name": "📝 记录日记",
       "type": "Capture",
       "command": true,
-      "captureTo": "01 Journal/Daily/{{DATE:YYYY-MM-DD}}.md",
+      "captureTo": "01 日记/每日/{{DATE:YYYY-MM-DD}}.md",
       "captureToActiveFile": false,
       "createFileIfItDoesntExist": {
         "enabled": true,
         "createWithTemplate": true,
-        "template": "Templates/Daily Note.md"
+        "template": "模板/Daily Note.md"
       },
       "format": {
         "enabled": true,
@@ -50,12 +50,12 @@
       "name": "🏆 记录一件好事",
       "type": "Capture",
       "command": true,
-      "captureTo": "01 Journal/Daily/{{DATE:YYYY-MM-DD}}.md",
+      "captureTo": "01 日记/每日/{{DATE:YYYY-MM-DD}}.md",
       "captureToActiveFile": false,
       "createFileIfItDoesntExist": {
         "enabled": true,
         "createWithTemplate": true,
-        "template": "Templates/Daily Note.md"
+        "template": "模板/Daily Note.md"
       },
       "format": {
         "enabled": true,
@@ -95,12 +95,12 @@
       "name": "🙏 记录感恩",
       "type": "Capture",
       "command": true,
-      "captureTo": "01 Journal/Daily/{{DATE:YYYY-MM-DD}}.md",
+      "captureTo": "01 日记/每日/{{DATE:YYYY-MM-DD}}.md",
       "captureToActiveFile": false,
       "createFileIfItDoesntExist": {
         "enabled": true,
         "createWithTemplate": true,
-        "template": "Templates/Daily Note.md"
+        "template": "模板/Daily Note.md"
       },
       "format": {
         "enabled": true,
@@ -140,7 +140,7 @@
       "name": "✅ 添加任务（任务总表）",
       "type": "Capture",
       "command": true,
-      "captureTo": "08 Tasks/Tasks.md",
+      "captureTo": "08 任务/Tasks.md",
       "captureToActiveFile": false,
       "createFileIfItDoesntExist": {
         "enabled": true,
@@ -185,7 +185,7 @@
       "name": "✉️ 通讯选题 → 想法",
       "type": "Capture",
       "command": true,
-      "captureTo": "06 Writing/Newsletters/Newsletter Board.md",
+      "captureTo": "06 写作/通讯/Newsletter Board.md",
       "captureToActiveFile": false,
       "createFileIfItDoesntExist": {
         "enabled": false,
@@ -230,7 +230,7 @@
       "name": "🎬 视频选题 → 想法",
       "type": "Capture",
       "command": true,
-      "captureTo": "06 Writing/YouTube Scripts/YouTube Board.md",
+      "captureTo": "06 写作/YouTube 脚本/YouTube Board.md",
       "captureToActiveFile": false,
       "createFileIfItDoesntExist": {
         "enabled": false,
@@ -275,7 +275,7 @@
       "name": "📰 文章选题 → 想法",
       "type": "Capture",
       "command": true,
-      "captureTo": "06 Writing/Articles/Article Board.md",
+      "captureTo": "06 写作/文章/Article Board.md",
       "captureToActiveFile": false,
       "createFileIfItDoesntExist": {
         "enabled": false,
@@ -320,7 +320,7 @@
       "name": "💡 项目想法 → 项目看板",
       "type": "Capture",
       "command": true,
-      "captureTo": "04 Projects/Projects Board.md",
+      "captureTo": "04 项目/Projects Board.md",
       "captureToActiveFile": false,
       "createFileIfItDoesntExist": {
         "enabled": false,
@@ -365,11 +365,11 @@
       "name": "📅 打开今日笔记",
       "type": "Template",
       "command": true,
-      "templatePath": "Templates/Daily Note.md",
+      "templatePath": "模板/Daily Note.md",
       "folder": {
         "enabled": true,
         "folders": [
-          "01 Journal/Daily"
+          "01 日记/每日"
         ],
         "chooseWhenCreatingNote": false,
         "createInSameFolderAsActiveFile": false,
@@ -395,11 +395,11 @@
       "name": "🗓️ 打开本周笔记",
       "type": "Template",
       "command": true,
-      "templatePath": "Templates/Weekly Note.md",
+      "templatePath": "模板/Weekly Note.md",
       "folder": {
         "enabled": true,
         "folders": [
-          "01 Journal/Weekly"
+          "01 日记/每周"
         ],
         "chooseWhenCreatingNote": false,
         "createInSameFolderAsActiveFile": false,
@@ -425,11 +425,11 @@
       "name": "🧭 打开本季度笔记",
       "type": "Template",
       "command": true,
-      "templatePath": "Templates/Quarterly Note.md",
+      "templatePath": "模板/Quarterly Note.md",
       "folder": {
         "enabled": true,
         "folders": [
-          "01 Journal/Quarterly"
+          "01 日记/季度"
         ],
         "chooseWhenCreatingNote": false,
         "createInSameFolderAsActiveFile": false,
@@ -455,11 +455,11 @@
       "name": "🏕️ 新建本季度个人静修笔记",
       "type": "Template",
       "command": true,
-      "templatePath": "Templates/Personal Retreat.md",
+      "templatePath": "模板/Personal Retreat.md",
       "folder": {
         "enabled": true,
         "folders": [
-          "02 Retreats"
+          "02 静修"
         ],
         "chooseWhenCreatingNote": false,
         "createInSameFolderAsActiveFile": false,
@@ -485,11 +485,11 @@
       "name": "📁 新建项目",
       "type": "Template",
       "command": true,
-      "templatePath": "Templates/Project.md",
+      "templatePath": "模板/Project.md",
       "folder": {
         "enabled": true,
         "folders": [
-          "04 Projects"
+          "04 项目"
         ],
         "chooseWhenCreatingNote": false,
         "createInSameFolderAsActiveFile": false,
@@ -515,11 +515,11 @@
       "name": "👤 新建人物笔记",
       "type": "Template",
       "command": true,
-      "templatePath": "Templates/Person.md",
+      "templatePath": "模板/Person.md",
       "folder": {
         "enabled": true,
         "folders": [
-          "05 People"
+          "05 人物"
         ],
         "chooseWhenCreatingNote": false,
         "createInSameFolderAsActiveFile": false,
@@ -545,11 +545,11 @@
       "name": "✉️ 新建通讯",
       "type": "Template",
       "command": true,
-      "templatePath": "Templates/Newsletter.md",
+      "templatePath": "模板/Newsletter.md",
       "folder": {
         "enabled": true,
         "folders": [
-          "06 Writing/Newsletters"
+          "06 写作/通讯"
         ],
         "chooseWhenCreatingNote": false,
         "createInSameFolderAsActiveFile": false,
@@ -575,11 +575,11 @@
       "name": "🎬 新建视频脚本",
       "type": "Template",
       "command": true,
-      "templatePath": "Templates/YouTube Script.md",
+      "templatePath": "模板/YouTube Script.md",
       "folder": {
         "enabled": true,
         "folders": [
-          "06 Writing/YouTube Scripts"
+          "06 写作/YouTube 脚本"
         ],
         "chooseWhenCreatingNote": false,
         "createInSameFolderAsActiveFile": false,
@@ -605,11 +605,11 @@
       "name": "📰 新建文章",
       "type": "Template",
       "command": true,
-      "templatePath": "Templates/Article.md",
+      "templatePath": "模板/Article.md",
       "folder": {
         "enabled": true,
         "folders": [
-          "06 Writing/Articles"
+          "06 写作/文章"
         ],
         "chooseWhenCreatingNote": false,
         "createInSameFolderAsActiveFile": false,
@@ -635,11 +635,11 @@
       "name": "🎓 新建课程课时",
       "type": "Template",
       "command": true,
-      "templatePath": "Templates/Course Lesson.md",
+      "templatePath": "模板/Course Lesson.md",
       "folder": {
         "enabled": true,
         "folders": [
-          "06 Writing/Course Content"
+          "06 写作/课程内容"
         ],
         "chooseWhenCreatingNote": false,
         "createInSameFolderAsActiveFile": false,
@@ -665,11 +665,11 @@
       "name": "📚 新建读书笔记",
       "type": "Template",
       "command": true,
-      "templatePath": "Templates/Book Note.md",
+      "templatePath": "模板/Book Note.md",
       "folder": {
         "enabled": true,
         "folders": [
-          "07 Library/Book Notes"
+          "07 资料库/读书笔记"
         ],
         "chooseWhenCreatingNote": false,
         "createInSameFolderAsActiveFile": false,
@@ -695,11 +695,11 @@
       "name": "📖 新建研读笔记",
       "type": "Template",
       "command": true,
-      "templatePath": "Templates/Study Note.md",
+      "templatePath": "模板/Study Note.md",
       "folder": {
         "enabled": true,
         "folders": [
-          "09 Reading/Study Notes"
+          "09 阅读/研读笔记"
         ],
         "chooseWhenCreatingNote": false,
         "createInSameFolderAsActiveFile": false,
@@ -722,7 +722,7 @@
     }
   ],
   "templateFolderPaths": [
-    "Templates"
+    "模板"
   ],
   "migrations": {
     "migrateToMacroIDFromEmbeddedMacro": true,

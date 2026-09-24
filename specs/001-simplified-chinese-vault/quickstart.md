@@ -14,7 +14,7 @@
 python scripts/locale_audit.py
 python scripts/verify_release_safety.py
 node --check .obsidian/plugins/life-os-app/main.js
-Get-ChildItem Meta/views/*.js | ForEach-Object { node --check $_.FullName }
+Get-ChildItem 元数据/视图/*.js | ForEach-Object { node --check $_.FullName }
 ```
 
 预期：没有遗漏的首方可见英文文案、意外标识改动、脚本语法错误或发布安全失败。检查范围和保留规则见 [localization-contract.md](contracts/localization-contract.md)。
@@ -24,7 +24,7 @@ Get-ChildItem Meta/views/*.js | ForEach-Object { node --check $_.FullName }
 使用一个不存在的输出路径；构建程序会拒绝覆盖已有目录：
 
 ```powershell
-python scripts/build_template.py --live F:\compass-zh-cn --out F:\compass-zh-cn-candidates --name Compass-zh-CN-personal --version 1.1.0-zh.6 --zip
+python scripts/build_template.py --live F:\compass-zh-cn --out F:\compass-zh-cn-candidates --name Compass-zh-CN-personal-v4 --version 1.1.0-zh.9 --zip
 ```
 
 预期：构建程序调用 `verify_template.py` 成功，输出候选目录、ZIP 及外置 `.sha256` 文件。输出名称必须是未使用过的新名称。不要把含个人笔记或密钥的现用仓库打包。

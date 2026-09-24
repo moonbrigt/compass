@@ -14,13 +14,13 @@ Life OS 以本机 Obsidian 仓库为中心。自有仪表盘不会主动向网�
 | SEO | 外部链接检查关闭 | 手动开启后才需要联网。 |
 | Obsidian Sync | 关闭 |  |
 
-配置原因见 `Guide/17 Search Providers.md` 和 `Guide/19 Obsidian MCP Bridge.md`。
+配置原因见 `指南/17 Search Providers.md` 和 `指南/19 Obsidian MCP Bridge.md`。
 
 ## 模板不得包含
 
 - API 密钥、bearer 令牌、证书或私钥。
 - 真实 `.mcp.json`（只附 `.mcp.example.json` 占位示例）和 `.claude/settings.local.json`。
-- Agent Client 会话、导出的聊天或 `Meta/Agent Chats/`。
+- Agent Client 会话、导出的聊天或 `元数据/Agent Chats/`。
 - 个人日记、静修、规划和其他私人笔记；用户目录只保留带 `example` 标签的演示笔记。
 - `.vault-meta/` 运行日志、`wiki/` 内容目录、`inbox/` 内容及工作区文件。
 - 绝对路径、用户名或邮箱。

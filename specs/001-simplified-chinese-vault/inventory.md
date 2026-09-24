@@ -10,139 +10,139 @@
 
 ## 仪表盘脚本（9）
 
-- [x] `Meta/views/boards.js`
-- [x] `Meta/views/dailyquestions.js`
-- [x] `Meta/views/habits.js`
-- [x] `Meta/views/lib.js`
-- [x] `Meta/views/memento.js`
-- [x] `Meta/views/quicklinks.js`
-- [x] `Meta/views/setup.js`
-- [x] `Meta/views/week.js`
-- [x] `Meta/views/wheel.js`
+- [x] `元数据/视图/boards.js`
+- [x] `元数据/视图/dailyquestions.js`
+- [x] `元数据/视图/habits.js`
+- [x] `元数据/视图/lib.js`
+- [x] `元数据/视图/memento.js`
+- [x] `元数据/视图/quicklinks.js`
+- [x] `元数据/视图/setup.js`
+- [x] `元数据/视图/week.js`
+- [x] `元数据/视图/wheel.js`
 
 ## 仪表盘笔记（8）
 
-- [x] `00 Dashboards/Assistant.md`
-- [x] `00 Dashboards/Boards.md`
-- [x] `00 Dashboards/Compass Dashboard.md`
-- [x] `00 Dashboards/Daily Questions.md`
-- [x] `00 Dashboards/Habit Canvas.md`
-- [x] `00 Dashboards/Projects Dashboard.md`
-- [x] `00 Dashboards/Setup.md`
-- [x] `00 Dashboards/Task Dashboard.md`
+- [x] `00 仪表盘/Assistant.md`
+- [x] `00 仪表盘/Boards.md`
+- [x] `00 仪表盘/Compass Dashboard.md`
+- [x] `00 仪表盘/Daily Questions.md`
+- [x] `00 仪表盘/Habit Canvas.md`
+- [x] `00 仪表盘/Projects Dashboard.md`
+- [x] `00 仪表盘/Setup.md`
+- [x] `00 仪表盘/Task Dashboard.md`
 
 ## 配置与版本（2）
 
-- [x] `Meta/Compass Config.md`
-- [x] `Meta/version.md`
+- [x] `元数据/Compass Config.md`
+- [x] `元数据/version.md`
 
 ## 封面素材（1）
 
-- [x] `Meta/attachments/cover.svg`
+- [x] `元数据/附件/cover.svg`
 
 ## 笔记模板（13）
 
-- [x] `Templates/Article.md`
-- [x] `Templates/Book Note.md`
-- [x] `Templates/Course Lesson.md`
-- [x] `Templates/Daily Note.md`
-- [x] `Templates/Daily Questions Prompt.md`
-- [x] `Templates/Newsletter.md`
-- [x] `Templates/Person.md`
-- [x] `Templates/Personal Retreat.md`
-- [x] `Templates/Project.md`
-- [x] `Templates/Quarterly Note.md`
-- [x] `Templates/Study Note.md`
-- [x] `Templates/Weekly Note.md`
-- [x] `Templates/YouTube Script.md`
+- [x] `模板/Article.md`
+- [x] `模板/Book Note.md`
+- [x] `模板/Course Lesson.md`
+- [x] `模板/Daily Note.md`
+- [x] `模板/Daily Questions Prompt.md`
+- [x] `模板/Newsletter.md`
+- [x] `模板/Person.md`
+- [x] `模板/Personal Retreat.md`
+- [x] `模板/Project.md`
+- [x] `模板/Quarterly Note.md`
+- [x] `模板/Study Note.md`
+- [x] `模板/Weekly Note.md`
+- [x] `模板/YouTube Script.md`
 
 ## 提示词（16）
 
-- [x] `Prompts/01 Morning Start.md`
-- [x] `Prompts/02 End of Day Coaching.md`
-- [x] `Prompts/03 Weekly Review.md`
-- [x] `Prompts/04 Retreat Prep.md`
-- [x] `Prompts/05 Retreat Facilitation.md`
-- [x] `Prompts/06 Task Triage.md`
-- [x] `Prompts/07 Meeting Prep.md`
-- [x] `Prompts/08 Project Kickoff.md`
-- [x] `Prompts/09 Board Grooming.md`
-- [x] `Prompts/10 Writing Pipeline.md`
-- [x] `Prompts/11 SEO Pre-publish Audit.md`
-- [x] `Prompts/12 Research Capture.md`
-- [x] `Prompts/13 Trend Analysis.md`
-- [x] `Prompts/14 What Matters Today.md`
-- [x] `Prompts/15 Vault Health Check.md`
-- [x] `Prompts/16 Onboarding Assistant.md`
+- [x] `提示词/01 Morning Start.md`
+- [x] `提示词/02 End of Day Coaching.md`
+- [x] `提示词/03 Weekly Review.md`
+- [x] `提示词/04 Retreat Prep.md`
+- [x] `提示词/05 Retreat Facilitation.md`
+- [x] `提示词/06 Task Triage.md`
+- [x] `提示词/07 Meeting Prep.md`
+- [x] `提示词/08 Project Kickoff.md`
+- [x] `提示词/09 Board Grooming.md`
+- [x] `提示词/10 Writing Pipeline.md`
+- [x] `提示词/11 SEO Pre-publish Audit.md`
+- [x] `提示词/12 Research Capture.md`
+- [x] `提示词/13 Trend Analysis.md`
+- [x] `提示词/14 What Matters Today.md`
+- [x] `提示词/15 Vault Health Check.md`
+- [x] `提示词/16 Onboarding Assistant.md`
 
 ## 使用指南（24）
 
-- [x] `Guide/00 Start Here.md`
-- [x] `Guide/01 Principles.md`
-- [x] `Guide/02 Plugins.md`
-- [x] `Guide/03 Workflow - Journaling and Daily Questions.md`
-- [x] `Guide/04 Workflow - Personal Retreat.md`
-- [x] `Guide/05 Workflow - Multi-Scale Planning.md`
-- [x] `Guide/06 Workflow - Habit Tracking.md`
-- [x] `Guide/07 Workflow - Daily Reading.md`
-- [x] `Guide/08 Workflow - Task Management.md`
-- [x] `Guide/09 Workflow - Writing.md`
-- [x] `Guide/10 Compass Dashboard.md`
-- [x] `Guide/11 Build Order.md`
-- [x] `Guide/12 Resources and Links.md`
-- [x] `Guide/13 Kanban Boards.md`
-- [x] `Guide/14 Agent Client and Claude Code.md`
-- [x] `Guide/15 claude-obsidian.md`
-- [x] `Guide/16 SEO, Web Viewer, and Vault Lens.md`
-- [x] `Guide/17 Search Providers.md`
-- [x] `Guide/19 Obsidian MCP Bridge.md`
-- [x] `Guide/20 Prompt Library.md`
-- [x] `Guide/21 Life OS Application.md`
-- [x] `Guide/22 Data Definitions.md`
-- [x] `Guide/23 Native Acceptance.md`
-- [x] `Guide/Source - Video Analysis.md`
+- [x] `指南/00 Start Here.md`
+- [x] `指南/01 Principles.md`
+- [x] `指南/02 Plugins.md`
+- [x] `指南/03 Workflow - Journaling and Daily Questions.md`
+- [x] `指南/04 Workflow - Personal Retreat.md`
+- [x] `指南/05 Workflow - Multi-Scale Planning.md`
+- [x] `指南/06 Workflow - Habit Tracking.md`
+- [x] `指南/07 Workflow - Daily Reading.md`
+- [x] `指南/08 Workflow - Task Management.md`
+- [x] `指南/09 Workflow - Writing.md`
+- [x] `指南/10 Compass Dashboard.md`
+- [x] `指南/11 Build Order.md`
+- [x] `指南/12 Resources and Links.md`
+- [x] `指南/13 Kanban Boards.md`
+- [x] `指南/14 Agent Client and Claude Code.md`
+- [x] `指南/15 claude-obsidian.md`
+- [x] `指南/16 SEO, Web Viewer, and Vault Lens.md`
+- [x] `指南/17 Search Providers.md`
+- [x] `指南/19 Obsidian MCP Bridge.md`
+- [x] `指南/20 Prompt Library.md`
+- [x] `指南/21 Life OS Application.md`
+- [x] `指南/22 Data Definitions.md`
+- [x] `指南/23 Native Acceptance.md`
+- [x] `指南/Source - Video Analysis.md`
 
 ## 示例及初始笔记（39）
 
-- [x] `01 Journal/Daily/2025-08-26.md`
-- [x] `01 Journal/Daily/2026-08-13.md`
-- [x] `01 Journal/Daily/2026-08-14.md`
-- [x] `01 Journal/Daily/2026-08-15.md`
-- [x] `01 Journal/Daily/2026-08-16.md`
-- [x] `01 Journal/Daily/2026-08-17.md`
-- [x] `01 Journal/Daily/2026-08-18.md`
-- [x] `01 Journal/Daily/2026-08-19.md`
-- [x] `01 Journal/Daily/2026-08-20.md`
-- [x] `01 Journal/Daily/2026-08-21.md`
-- [x] `01 Journal/Daily/2026-08-22.md`
-- [x] `01 Journal/Daily/2026-08-23.md`
-- [x] `01 Journal/Daily/2026-08-24.md`
-- [x] `01 Journal/Daily/2026-08-25.md`
-- [x] `01 Journal/Quarterly/2026-Q3.md`
-- [x] `01 Journal/Weekly/2026-W33.md`
-- [x] `01 Journal/Weekly/2026-W34.md`
-- [x] `01 Journal/Weekly/2026-W35.md`
-- [x] `02 Retreats/2026-Q3 Personal Retreat.md`
-- [x] `03 Planning/Core Values.md`
-- [x] `03 Planning/Ideal Week.md`
-- [x] `03 Planning/Life Theme.md`
-- [x] `04 Projects/Example Project - Compass Vault.md`
-- [x] `04 Projects/Projects Board.md`
-- [x] `05 People/Example Person - Alex Rivera.md`
-- [x] `06 Writing/Articles/Article Board.md`
-- [x] `06 Writing/Course Content/Course Board.md`
-- [x] `06 Writing/Newsletters/Example Newsletter - Effort not results.md`
-- [x] `06 Writing/Newsletters/Newsletter Board.md`
-- [x] `06 Writing/YouTube Scripts/YouTube Board.md`
-- [x] `07 Library/Book Notes/Triggers (Marshall Goldsmith).md`
-- [x] `08 Tasks/Tasks.md`
-- [x] `09 Reading/Chapters/Genesis 1.md`
-- [x] `09 Reading/Reading Plan.md`
-- [x] `09 Reading/Study Notes/Example Study Note - In the Beginning.md`
-- [x] `09 Reading/Topics/Creation.md`
-- [x] `09 Reading/Verses/Genesis 1.1.md`
-- [x] `09 Reading/Verses/Genesis 1.2.md`
-- [x] `09 Reading/Verses/Genesis 1.3.md`
+- [x] `01 日记/每日/2025-08-26.md`
+- [x] `01 日记/每日/2026-08-13.md`
+- [x] `01 日记/每日/2026-08-14.md`
+- [x] `01 日记/每日/2026-08-15.md`
+- [x] `01 日记/每日/2026-08-16.md`
+- [x] `01 日记/每日/2026-08-17.md`
+- [x] `01 日记/每日/2026-08-18.md`
+- [x] `01 日记/每日/2026-08-19.md`
+- [x] `01 日记/每日/2026-08-20.md`
+- [x] `01 日记/每日/2026-08-21.md`
+- [x] `01 日记/每日/2026-08-22.md`
+- [x] `01 日记/每日/2026-08-23.md`
+- [x] `01 日记/每日/2026-08-24.md`
+- [x] `01 日记/每日/2026-08-25.md`
+- [x] `01 日记/季度/2026-Q3.md`
+- [x] `01 日记/每周/2026-W33.md`
+- [x] `01 日记/每周/2026-W34.md`
+- [x] `01 日记/每周/2026-W35.md`
+- [x] `02 静修/2026-Q3 Personal Retreat.md`
+- [x] `03 规划/Core Values.md`
+- [x] `03 规划/Ideal Week.md`
+- [x] `03 规划/Life Theme.md`
+- [x] `04 项目/Example Project - Compass Vault.md`
+- [x] `04 项目/Projects Board.md`
+- [x] `05 人物/Example Person - Alex Rivera.md`
+- [x] `06 写作/文章/Article Board.md`
+- [x] `06 写作/课程内容/Course Board.md`
+- [x] `06 写作/通讯/Example Newsletter - Effort not results.md`
+- [x] `06 写作/通讯/Newsletter Board.md`
+- [x] `06 写作/YouTube 脚本/YouTube Board.md`
+- [x] `07 资料库/读书笔记/Triggers (Marshall Goldsmith).md`
+- [x] `08 任务/Tasks.md`
+- [x] `09 阅读/章节/Genesis 1.md`
+- [x] `09 阅读/Reading Plan.md`
+- [x] `09 阅读/研读笔记/Example Study Note - In the Beginning.md`
+- [x] `09 阅读/主题/Creation.md`
+- [x] `09 阅读/经文/Genesis 1.1.md`
+- [x] `09 阅读/经文/Genesis 1.2.md`
+- [x] `09 阅读/经文/Genesis 1.3.md`
 
 ## 知识层（5）
 
@@ -154,12 +154,12 @@
 
 ## 打包默认笔记（11）
 
-- [x] `scripts/template/defaults/03 Planning/Core Values.md`
-- [x] `scripts/template/defaults/03 Planning/Ideal Week.md`
-- [x] `scripts/template/defaults/03 Planning/Life Theme.md`
-- [x] `scripts/template/defaults/08 Tasks/Tasks.md`
-- [x] `scripts/template/defaults/09 Reading/Reading Plan.md`
-- [x] `scripts/template/defaults/Meta/Compass Config.md`
+- [x] `scripts/template/defaults/03 规划/Core Values.md`
+- [x] `scripts/template/defaults/03 规划/Ideal Week.md`
+- [x] `scripts/template/defaults/03 规划/Life Theme.md`
+- [x] `scripts/template/defaults/08 任务/Tasks.md`
+- [x] `scripts/template/defaults/09 阅读/Reading Plan.md`
+- [x] `scripts/template/defaults/元数据/Compass Config.md`
 - [x] `scripts/template/defaults/wiki/hot.md`
 - [x] `scripts/template/defaults/wiki/index.md`
 - [x] `scripts/template/defaults/wiki/log.md`
@@ -190,6 +190,6 @@
 - `.obsidian/plugins/` 中除 `life-os-app` 和 QuickAdd 设置以外的第三方插件文件。
 - 路径、属性键、命令 ID、模板表达式、代码、原文引用及专有名称。
 
-原英文封面 `Meta/attachments/cover.png` 已由可编辑的中文版 SVG 替换，不再作为发行素材。
+原英文封面 `元数据/附件/cover.png` 已由可编辑的中文版 SVG 替换，不再作为发行素材。
 
 目标文件总数：143。

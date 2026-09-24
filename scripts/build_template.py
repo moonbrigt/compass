@@ -14,32 +14,36 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 LIVE = os.path.dirname(HERE)
 
 DROP_GLOBS = [
-    ".directory", ".claude", ".claude/*", ".claude-obsidian.json", ".github", ".github/*",
+    ".directory", ".github", ".github/*",
     ".agents", ".agents/*", ".specify", ".specify/*", "specs", "specs/*", ".venv", ".venv/*",
-    "Guide/18 Distribution Checklist.md",
+    "指南/18 Distribution Checklist.md", "指南/23 Native Acceptance.md", "指南/Source - Video Analysis.md",
     ".git", ".git/*", ".vault-meta", ".vault-meta/*", ".raw", ".raw/*", ".trash", ".trash/*",
     ".claude/settings.local.json", ".mcp.json", ".obsidian/workspace*.json", ".obsidian/graph.json",
     ".obsidian/plugins/agent-client/sessions", ".obsidian/plugins/agent-client/sessions/*",
-    ".obsidian/plugins/*/data.json.bak", "Meta/Agent Chats", "Meta/Agent Chats/*", "Agent Client", "Agent Client/*",
-    "scripts/template", "scripts/template/*", "scripts/locale_audit.py", "build", "build/*",
+    ".obsidian/plugins/*/data.json.bak", "元数据/Agent Chats", "元数据/Agent Chats/*", "Agent Client", "Agent Client/*",
+    "scripts/template", "scripts/template/*", "scripts/locale_audit.py", "scripts/build_template.py",
+    "scripts/RELEASE.md", "scripts/verify_*", "CHANGELOG.md", "CONTRIBUTING.md", "CODE_OF_CONDUCT.md", "SECURITY.md",
+    "build", "build/*",
     "wiki/concepts", "wiki/concepts/*", "wiki/sources", "wiki/sources/*", "wiki/entities", "wiki/entities/*", "wiki/questions", "wiki/questions/*", "wiki/log/*", "inbox/*",
     "Untitled*", "*/Untitled*", "*.canvas", ".DS_Store", "*/.DS_Store", "Thumbs.db", "*/Thumbs.db",
     "__pycache__", "*/__pycache__", "*.pyc", "*.png.bak", "*.html", "*.log",
 ]
-USER_CONTENT = ["01 Journal/", "02 Retreats/", "04 Projects/", "05 People/", "06 Writing/", "07 Library/",
-                "09 Reading/Chapters/", "09 Reading/Verses/", "09 Reading/Study Notes/", "09 Reading/Topics/"]
+USER_CONTENT = ["01 日记/", "02 静修/", "04 项目/", "05 人物/", "06 写作/", "07 资料库/",
+                "09 阅读/章节/", "09 阅读/经文/", "09 阅读/研读笔记/", "09 阅读/主题/"]
 KEEP_IN_USER_FOLDERS = re.compile(r".* Board\.md$")
 BOARD_DEFAULTS = {
-    "04 Projects/Projects Board.md": "项目看板",
-    "06 Writing/Newsletters/Newsletter Board.md": "通讯看板",
-    "06 Writing/YouTube Scripts/YouTube Board.md": "视频看板",
-    "06 Writing/Articles/Article Board.md": "文章看板",
-    "06 Writing/Course Content/Course Board.md": "课程看板",
+    "04 项目/Projects Board.md": "项目看板",
+    "06 写作/通讯/Newsletter Board.md": "通讯看板",
+    "06 写作/YouTube 脚本/YouTube Board.md": "视频看板",
+    "06 写作/文章/Article Board.md": "文章看板",
+    "06 写作/课程内容/Course Board.md": "课程看板",
 }
-READING_PATHS = ["09 Reading", "Guide/07 Workflow - Daily Reading.md", "scripts/generate_reading_plan.py", "scripts/split_bible.py", "Templates/Study Note.md"]
+READING_PATHS = ["09 阅读", "指南/07 Workflow - Daily Reading.md", "scripts/generate_reading_plan.py", "scripts/split_bible.py", "模板/Study Note.md"]
 
 def dropped(rel):
-    if rel.startswith("Meta/attachments/"):
+    if rel.startswith(".claude/"):
+        return rel != ".claude/settings.json"
+    if rel.startswith("元数据/附件/"):
         return not (os.path.basename(rel) in (".gitkeep",) or os.path.basename(rel).startswith("cover."))
     return any(fnmatch.fnmatch(rel, g) for g in DROP_GLOBS)
 
@@ -70,7 +74,7 @@ def copy_tree(live, out):
             if default.is_file():
                 # Never stage personal values before replacing them with defaults.
                 continue
-            if rel.startswith(("03 Planning/", "08 Tasks/", "wiki/")):
+            if rel.startswith(("03 规划/", "08 任务/", "wiki/")):
                 # Only reviewed defaults populate these personal-state folders.
                 continue
             if rel.startswith(".obsidian/") and not rel.startswith(".obsidian/plugins/"):
@@ -97,7 +101,7 @@ def copy_tree(live, out):
                         "quickadd:choice:lifeos-quarterly", "quickadd:choice:lifeos-journal",
                         "quickadd:choice:lifeos-win", "quickadd:choice:lifeos-gratitude",
                         "quickadd:choice:lifeos-task",
-                        "templater-obsidian:Templates/Daily Questions Prompt.md",
+                        "templater-obsidian:模板/Daily Questions Prompt.md",
                     }
                     settings = {key: value for key, value in original.items() if key in allowed_hotkeys}
                 if settings is not None:
@@ -124,6 +128,19 @@ def copy_tree(live, out):
             if any(rel.startswith(u) for u in USER_CONTENT):
                 if not rel.endswith(".md") or not has_example_tag(os.path.join(root, f)):
                     continue
+            if rel == ".claude/settings.json":
+                original = json.loads(Path(source).read_text(encoding="utf-8"))
+                allow = (original.get("permissions") or {}).get("allow")
+                if not isinstance(allow, list) or not allow or any(not isinstance(command, str) or not command.startswith("mcp__obsidian__") or any(word in command for word in ("write", "append", "patch", "delete", "move", "copy", "execute")) for command in allow):
+                    raise ValueError("Unsafe Claude Code permissions in source settings")
+                target = Path(out, rel)
+                target.parent.mkdir(parents=True, exist_ok=True)
+                target.write_text(json.dumps({"permissions": {"allow": allow, "deny": []}}, indent=2) + "\n", encoding="utf-8")
+                continue
+            if rel == ".claude-obsidian.json":
+                target = Path(out, rel)
+                target.write_text(json.dumps({"legacy_raw": ".raw", "role": "vault", "schema": "claude-obsidian.workspace.v1", "source_inbox": "inbox", "vault": "."}, indent=2) + "\n", encoding="utf-8")
+                continue
             dst = os.path.join(out, rel)
             os.makedirs(os.path.dirname(dst), exist_ok=True)
             shutil.copy2(os.path.join(root, f), dst)
@@ -132,7 +149,7 @@ def safe_plugin_settings(plugin, source):
     fixed = {
         "obsidian-local-rest-api": {"enableInsecureServer": True},
         "agent-client": {"savedSessions": [], "autoAllowPermissions": False, "customAgents": [], "presetAgents": {}, "autoMentionActiveNote": False, "expandWikilinkContext": False},
-        "seo": {"scanDirectories": "06 Writing", "checkExternalLinks": False},
+        "seo": {"scanDirectories": "06 写作", "checkExternalLinks": False},
         "omnisearch": {"httpApiEnabled": False, "DANGER_httpHost": None},
         "life-os-app": {},
     }
@@ -180,7 +197,7 @@ def validate_destination(live, output_root, name):
 
 def reset_defaults(out):
     src = os.path.join(HERE, "template", "defaults")
-    required = ["Meta/Compass Config.md", "03 Planning/Life Theme.md", "03 Planning/Core Values.md", "03 Planning/Ideal Week.md", "08 Tasks/Tasks.md"]
+    required = ["元数据/Compass Config.md", "03 规划/Life Theme.md", "03 规划/Core Values.md", "03 规划/Ideal Week.md", "08 任务/Tasks.md"]
     if any(not Path(src, rel).is_file() or Path(src, rel).is_symlink() for rel in required):
         raise ValueError("Clean source defaults are missing or unsafe")
     for root, _, files in os.walk(src):
@@ -221,7 +238,7 @@ def json_surgery(out):
     p, d = load(".obsidian/plugins/seo/data.json")
     if d is not None:
         d.pop("cachedGlobalResults", None); d.pop("lastScanTimestamp", None)
-        d["scanDirectories"] = "06 Writing"; d["checkExternalLinks"] = False
+        d["scanDirectories"] = "06 写作"; d["checkExternalLinks"] = False
         save(p, d)
     p, d = load(".obsidian/plugins/omnisearch/data.json")
     if d is not None:
@@ -235,27 +252,29 @@ def json_surgery(out):
     if d is not None: d["sync"] = False; save(p, d)
     p, d = load(".obsidian/app.json")
     if d is not None: d["newFileLocation"] = "current"; d.pop("newFileFolderPath", None); save(p, d)
-    workspace = {"main": {"id": "main", "type": "split", "children": [{"id": "leaf", "type": "tabs", "children": [{"id": "setup", "type": "leaf", "state": {"type": "markdown", "state": {"file": "00 Dashboards/Setup.md", "mode": "preview"}}}]}], "direction": "vertical"},
-                 "active": "setup", "lastOpenFiles": ["00 Dashboards/Setup.md"]}
+    workspace = {"main": {"id": "main", "type": "split", "children": [{"id": "leaf", "type": "tabs", "children": [{"id": "setup", "type": "leaf", "state": {"type": "markdown", "state": {"file": "00 仪表盘/Setup.md", "mode": "preview"}}}]}], "direction": "vertical"},
+                 "active": "setup", "lastOpenFiles": ["00 仪表盘/Setup.md"]}
     save(os.path.join(out, ".obsidian/workspace.json"), workspace)
 
 def text_surgery(out, without_reading):
-    p = os.path.join(out, "Guide/Source - Video Analysis.md")
-    if os.path.exists(p):
-        s = Path(p).read_text(encoding="utf-8")
-        i = s.find("\n## 字幕")
-        if i != -1:
-            s = s[:i] + "\n## 字幕\n发行模板未附完整字幕。可通过上方 `source` 链接观看原视频。\n"
-            Path(p).write_text(s, encoding="utf-8")
+    readme = Path(out, "README.md")
+    body = readme.read_text(encoding="utf-8")
+    body = body.replace("检查结果见开发分支的 `specs/001-simplified-chinese-vault/acceptance.md`。", "")
+    body = re.sub(r"(?m)^根目录还包括 .*?\n", "根目录保留 `AGENTS.md`、`CLAUDE.md`、`GEMINI.md`、`.claude/settings.json`、`.claude-obsidian.json`、`.mcp.example.json`、`CREDITS.md` 与许可说明；它们分别用于智能体规则、知识层接入和来源说明。\n", body, count=1)
+    body = re.sub(r"(?ms)^## 构建与发布\n.*?(?=^## 致谢与许可)", "## 备份与更新\n\n更新前先备份完整仓库，在旁边解压新版，再逐项审查并迁移个人笔记与配置。不要直接覆盖正在使用的 `.obsidian`。\n\n", body, count=1)
+    body = re.sub(r"社区规则见 `CODE_OF_CONDUCT.md`；参与方式见 `CONTRIBUTING.md`；安全说明见 `SECURITY.md`。", "", body)
+    body = body.replace("scripts/         阅读计划生成、经文拆分、模板构建与验证", "scripts/         阅读计划生成与经文拆分")
+    body = body.replace(".github/         CI 验证流程及议题模板\n", "")
+    readme.write_text(body, encoding="utf-8")
     if without_reading:
         for rel in READING_PATHS:
             p = os.path.join(out, rel)
             if os.path.isdir(p): shutil.rmtree(p)
             elif os.path.exists(p): os.remove(p)
-        p = os.path.join(out, "Templates/Daily Note.md")
+        p = os.path.join(out, "模板/Daily Note.md")
         s = Path(p).read_text(encoding="utf-8")
         s = re.sub(r"> \[!reading\]- 每日阅读\n(?:> .*\n)+\n", "", s)
-        s = s.replace("path does not include 09 Reading/Reading Plan\n", "")
+        s = s.replace("path does not include 09 阅读/Reading Plan\n", "")
         Path(p).write_text(s, encoding="utf-8")
         def edit(rel, fn):
             q = os.path.join(out, rel)
@@ -263,22 +282,22 @@ def text_surgery(out, without_reading):
                 t = Path(q).read_text(encoding="utf-8")
                 Path(q).write_text(fn(t), encoding="utf-8")
         def remove_setup_reading(t):
-            sentence = "决定是否使用阅读模块：填写 [[Reading Plan|阅读计划]]，或删除 `09 Reading`。"
+            sentence = "决定是否使用阅读模块：填写 [[Reading Plan|阅读计划]]，或删除 `09 阅读`。"
             if t.count(sentence) != 1:
                 raise ValueError("Cannot safely remove reading setup guidance")
             return t.replace(sentence, "")
-        edit("00 Dashboards/Setup.md", remove_setup_reading)
-        edit("Guide/00 Start Here.md", lambda t: re.sub(r"^\| 5 \| 每日阅读.*\n", "", t, flags=re.M))
-        edit("AGENTS.md", lambda t: re.sub(r"^\| `09 Reading/`.*\n", "", t, flags=re.M))
-        edit("README.md", lambda t: re.sub(r"^09 Reading/.*\n", "", t, flags=re.M))
+        edit("00 仪表盘/Setup.md", remove_setup_reading)
+        edit("指南/00 Start Here.md", lambda t: re.sub(r"^\| 5 \| 每日阅读.*\n", "", t, flags=re.M))
+        edit("AGENTS.md", lambda t: re.sub(r"^\| `09 阅读/`.*\n", "", t, flags=re.M))
+        edit("README.md", lambda t: re.sub(r"^09 阅读/.*\n", "", t, flags=re.M))
         edit("README.md", lambda t: re.sub(r"^\| 5 \| 每日阅读.*\n", "", t, flags=re.M))
-        edit("00 Dashboards/Task Dashboard.md", lambda t: t.replace("path does not include 09 Reading/Reading Plan\n", ""))
-        edit("Guide/02 Plugins.md", lambda t: t.replace("共有 20 个选项", "共有 19 个选项").replace("8 个按模板新建", "7 个按模板新建").replace("其余 12 个是模板选项", "其余 11 个是模板选项").replace("| 📖 新建研读笔记 | `09 Reading/Study Notes/{{VALUE}}.md` | `Templates/Study Note.md` |\n", ""))
-        edit("Guide/21 Life OS Application.md", lambda t: t.replace("`07 Library/` 与 `09 Reading/`", "`07 Library/`").replace("、读书与研读笔记", "与读书笔记"))
+        edit("00 仪表盘/Task Dashboard.md", lambda t: t.replace("path does not include 09 阅读/Reading Plan\n", ""))
+        edit("指南/02 Plugins.md", lambda t: t.replace("共有 20 个选项", "共有 19 个选项").replace("8 个按模板新建", "7 个按模板新建").replace("其余 12 个是模板选项", "其余 11 个是模板选项").replace("| 📖 新建研读笔记 | `09 阅读/研读笔记/{{VALUE}}.md` | `模板/Study Note.md` |\n", ""))
+        edit("指南/21 Life OS Application.md", lambda t: t.replace("`07 资料库/` 与 `09 阅读/`", "`07 资料库/`").replace("、读书与研读笔记", "与读书笔记"))
         life_os = Path(out, ".obsidian/plugins/life-os-app/main.js")
         source = life_os.read_text(encoding="utf-8")
         study_action = r'(?m)^\s*\{\n\s*icon: "book-open-check",\n\s*label: "新建研读笔记",\n\s*description: "[^"]+",\n\s*command: "quickadd:choice:lifeos-new-study-note",\n\s*\},\n'
-        reading_action = r'(?m)^\s*\{\n\s*icon: "book-open",\n\s*label: "阅读计划",\n\s*description: "[^"]+",\n\s*path: "09 Reading/Reading Plan.md",\n\s*\},\n'
+        reading_action = r'(?m)^\s*\{\n\s*icon: "book-open",\n\s*label: "阅读计划",\n\s*description: "[^"]+",\n\s*path: "09 阅读/Reading Plan.md",\n\s*\},\n'
         source, removed_study = re.subn(study_action, "", source)
         source, removed_plan = re.subn(reading_action, "", source)
         if (removed_study, removed_plan) != (2, 1):
@@ -292,7 +311,7 @@ def text_surgery(out, without_reading):
         if os.path.exists(tj):
             with open(tj, encoding="utf-8") as stream:
                 d = json.load(stream)
-            d["folder_templates"] = [x for x in d.get("folder_templates", []) if not x.get("folder", "").startswith("09 Reading")]
+            d["folder_templates"] = [x for x in d.get("folder_templates", []) if not x.get("folder", "").startswith("09 阅读")]
             with open(tj, "w", encoding="utf-8") as stream:
                 json.dump(d, stream, indent=2, ensure_ascii=False)
                 stream.write("\n")
@@ -305,8 +324,8 @@ def version_stamp(out, version):
         if os.path.exists(m):
             with open(m, encoding="utf-8") as stream:
                 plugins[d] = json.load(stream)["version"]
-    Path(out, "Meta/version.md").write_text(
-        "---\ntemplate_version: %s\nbuilt: %s\nrelease_status: candidate\nmin_obsidian: 1.13.1\nplugins:\n%s---\n# 版本\n\n这是本机候选，不能据此认定已完成 Obsidian 原生验收或公开发布。仓库没有原位升级器。请先备份旧仓库，再把个人内容与自定义配置逐项审查后迁入旁边的新副本。详见 `scripts/RELEASE.md`。\n"
+    Path(out, "元数据/version.md").write_text(
+        "---\ntemplate_version: %s\nbuilt: %s\nrelease_status: candidate\nmin_obsidian: 1.13.1\nplugins:\n%s---\n# 版本\n\n这是本机候选，不能据此认定已完成 Obsidian 原生验收或公开发布。仓库没有原位升级器。请先备份旧仓库，再把个人内容与自定义配置逐项审查后迁入旁边的新副本。\n"
         % (version, datetime.date.today().isoformat(), "".join('  %s: "%s"\n' % kv for kv in plugins.items())), encoding="utf-8")
 
 def chmod_all(out):
@@ -351,8 +370,8 @@ def main():
         text_surgery(out, a.without_reading)
         version_stamp(out, version)
         os.makedirs(os.path.join(out, "inbox"), exist_ok=True); open(os.path.join(out, "inbox/.gitkeep"), "a").close()
-        os.makedirs(os.path.join(out, "Meta/attachments"), exist_ok=True)
-        open(os.path.join(out, "Meta/attachments/.gitkeep"), "a").close()
+        os.makedirs(os.path.join(out, "元数据/附件"), exist_ok=True)
+        open(os.path.join(out, "元数据/附件/.gitkeep"), "a").close()
         chmod_all(out)
         manifest(out)
         rc = subprocess.call([sys.executable, os.path.join(HERE, "verify_template.py"), out])

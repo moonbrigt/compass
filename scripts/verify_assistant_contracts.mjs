@@ -5,13 +5,13 @@ import path from "node:path";
 import assert from "node:assert/strict";
 
 const root = path.resolve(process.argv[2] || ".");
-const source = fs.readFileSync(path.join(root, "00 Dashboards/Assistant.md"), "utf8");
+const source = fs.readFileSync(path.join(root, "00 仪表盘/Assistant.md"), "utf8");
 const buttons = [...source.matchAll(/```agent\n([\s\S]*?)```/g)];
 assert.equal(buttons.length, 16, "All 16 assistant workflows must remain available");
 for (const [, block] of buttons) {
   assert.match(block, /^autoSend: false$/m, "Workflow must require a separate send action");
   assert.match(block, /^type: button$/m);
-  const promptPath = block.match(/vault_read 阅读 (Prompts\/[^"\n，；]+?\.md)/);
+  const promptPath = block.match(/vault_read 阅读 (提示词\/[^"\n，；]+?\.md)/);
   assert.ok(promptPath, "Workflow must name a local prompt");
   assert.ok(fs.existsSync(path.join(root, promptPath[1])), "Named prompt must exist");
 }

@@ -6,9 +6,11 @@
 
 ### 简体中文候选
 
-- 将 Life OS 界面、仪表盘、QuickAdd 选项、模板、提示词、示例笔记、指南、封面和仓库说明改为简体中文；可见内部链接使用中文名称，技术路径、属性键、命令 ID 与占位符保持稳定。
+- 将 Life OS 界面、仪表盘、QuickAdd 选项、模板、提示词、示例笔记、指南、封面和仓库说明改为简体中文；可见内部链接使用中文名称，属性键、命令 ID 与占位符保持稳定。
+- 将首方内容目录改为中文，并同步更新 Life OS、仪表盘、插件设置、脚本及内链。`wiki/` 与 `inbox/` 保留为可选 claude-obsidian 的技术路径。
+- 个人使用版排除 Spec Kit 过程文件、维护者验证脚本和开发说明；保留智能体规则、只读 Claude 设置、知识层标记、阅读工具与许可文件。目录迁移版通过静态与归档检查，尚未完成 Obsidian 原生验收。
 - 写作看板使用“想法、进行中、已完成”列，QuickAdd 捕获目标与实际标题一致。
-- 构建与验证脚本更新为识别中文标题、链接别名及默认文件。完整与精简候选通过静态检查；Windows Obsidian 1.13.7 已试用首页、设置、仪表盘、日记和项目创建，未测试范围见 `Guide/23 Native Acceptance.md`。
+- 构建与验证脚本更新为识别中文标题、链接别名及默认文件。完整与精简候选通过静态检查；Windows Obsidian 1.13.7 已试用首页、设置、仪表盘、日记和项目创建，未测试范围见 `指南/23 Native Acceptance.md`。
 
 ### 发布准备加固
 
@@ -65,7 +67,7 @@
 
 ### 修复
 
-- 恢复顶层 `04 Projects` 文件夹，使 Templater、QuickAdd、仪表盘链接、Kanban 笔记创建与文档中的目录约定一致；原项目内容迁移时未重写。
+- 恢复顶层 `04 项目` 文件夹，使 Templater、QuickAdd、仪表盘链接、Kanban 笔记创建与文档中的目录约定一致；原项目内容迁移时未重写。
 
 ## 1.0.2（2026-08-27）
 
@@ -77,9 +79,9 @@
 
 ### 其他修复
 
-- `Templates/Daily Note.md` 与 `Templates/Personal Retreat.md` 的属性生成器在 JavaScript 字符串中包含实际换行，导致 Templater 失败，新笔记缺少 `dq_*`、`habit_*`、`wheel_*`。验证器现会模拟这两处生成器。
+- `模板/Daily Note.md` 与 `模板/Personal Retreat.md` 的属性生成器在 JavaScript 字符串中包含实际换行，导致 Templater 失败，新笔记缺少 `dq_*`、`habit_*`、`wheel_*`。验证器现会模拟这两处生成器。
 - 季记曾嵌入 `#Intentions for next quarter`，而静修笔记实际标题为 `## 5. Intentions for next quarter`；验证器现检查链接中的标题片段。当前汉化版使用相应中文标题。
-- 日记、周记、季记与静修模板的导航链接已带文件夹路径；Templater 文件夹模板覆盖 `01 Journal/Daily`、`Weekly`、`Quarterly`，点击未存在的周期笔记时能在正确文件夹应用模板。
+- 日记、周记、季记与静修模板的导航链接已带文件夹路径；Templater 文件夹模板覆盖 `01 日记/每日`、`Weekly`、`Quarterly`，点击未存在的周期笔记时能在正确文件夹应用模板。
 - 全新副本中的“设置”清单不再把 Agent Client 路径及阅读模块误标为完成。
 - 更新 `SECURITY.md` 报告方式、指南 02 的 QuickAdd 选项数量与按钮机制、指南 14 的 Node.js 前提和 Flatpak 包装脚本、指南 19 的 `AGENTS.md` 引用、提示词 02/07 的输入清单及 README 目录树。
 
@@ -95,15 +97,15 @@
 ### 新增
 
 - 视频中的七项工作流：每日问题、个人静修、多尺度规划、习惯、每日阅读、任务、写作看板；Compass、习惯、每日问题、任务、项目、看板、助手与设置仪表盘。
-- `Meta/Compass Config.md` 作为问题、习惯、生命之轮领域、文件夹、前缀、出生日期的唯一配置。
-- `AGENTS.md` 共用智能体规则、`CLAUDE.md` 与 `GEMINI.md` 指针、16 项 `Prompts/` 提示词以及 `.claude/settings.json` 只读预授权。
+- `元数据/Compass Config.md` 作为问题、习惯、生命之轮领域、文件夹、前缀、出生日期的唯一配置。
+- `AGENTS.md` 共用智能体规则、`CLAUDE.md` 与 `GEMINI.md` 指针、16 项 `提示词/` 提示词以及 `.claude/settings.json` 只读预授权。
 - Obsidian MCP 桥接（Local REST API 的 `/mcp`）、Agent Client、Vault Lens 服务、网页查看器、SEO、Omnisearch 与 claude-obsidian 知识层（`wiki/`）。
 - 发行工具 `scripts/build_template.py`、`scripts/verify_template.py` 及 `THIRD_PARTY_NOTICES.md`、`CREDITS.md`、`LICENSE`。
 
 ### 当时记录的方案决策
 
 - 公开名称从“LifeOS”改为 **Compass**；内部 QuickAdd ID `lifeos-*`、CSS 类和片段名保留不变。
-- 将原《圣经》模块泛化为 `09 Reading`，以《圣经》为示例；当时也有人主张保留 `09 Bible` 并另做构建变体。
+- 将原《圣经》模块泛化为 `09 阅读`，以《圣经》为示例；当时也有人主张保留 `09 Bible` 并另做构建变体。
 - 发行时附带插件二进制与许可副本；另一方案是只列出插件清单。
 - Local REST API 默认在本机回环地址启用，并使用每台电脑独有的密钥；另一方案是只安装、不启用。
 - 日记不放智能体按钮；另一方案是在日记模板放早晚按钮。
@@ -111,4 +113,4 @@
 
 ### 插件
 
-dataview、templater-obsidian、periodic-notes、quickadd、obsidian-tasks-plugin、obsidian-kanban、omnisearch、obsidian-local-rest-api、agent-client、seo；具体版本见 `Meta/version.md`。
+dataview、templater-obsidian、periodic-notes、quickadd、obsidian-tasks-plugin、obsidian-kanban、omnisearch、obsidian-local-rest-api、agent-client、seo；具体版本见 `元数据/version.md`。

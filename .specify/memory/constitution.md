@@ -19,7 +19,7 @@ Static checks MUST verify links, template syntax, JSON, scripts, and release saf
 
 ## Repository Constraints
 
-The repository is an Obsidian vault template. `Meta/Compass Config.md` defines questions, habits, areas, folders, and prefixes; dashboard views under `Meta/views/` depend on those contracts. `AGENTS.md` governs personal note edits. `scripts/verify_template.py` and the release scripts define template packaging and secret checks. Bundled community plugins retain their own licenses; guide prose is CC BY 4.0 and project code is MIT. Do not translate license texts, third-party binaries, command IDs, property keys, or code identifiers.
+The repository is an Obsidian vault template. `元数据/Compass Config.md` defines questions, habits, areas, folders, and prefixes; dashboard views under `元数据/视图/` depend on those contracts. `AGENTS.md` governs personal note edits. `scripts/verify_template.py` and the release scripts define template packaging and secret checks. Bundled community plugins retain their own licenses; guide prose is CC BY 4.0 and project code is MIT. Do not translate license texts, third-party binaries, command IDs, property keys, or code identifiers.
 
 ## Development Workflow
 
@@ -29,4 +29,6 @@ Keep localization on a dedicated branch and working tree. Establish a Spec Kit s
 
 Amend this constitution with a documented reason and version change. MAJOR versions change or remove a principle, MINOR versions add a principle or materially expand scope, and PATCH versions clarify existing rules. Review specifications, plans, tasks, and completed changes against the active constitution. `AGENTS.md` remains the operational rulebook for vault content and user authorization.
 
-**Version**: 1.0.0 | **Ratified**: 2026-09-24 | **Last Amended**: 2026-09-24
+**Version**: 1.0.1 | **Ratified**: 2026-09-24 | **Last Amended**: 2026-09-24
+
+Version 1.0.1 updates repository path examples after the Chinese directory migration; the principles are unchanged.

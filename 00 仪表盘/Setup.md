@@ -1,0 +1,53 @@
+---
+status: open
+setup_claude_login: false
+setup_mcp_registered: false
+setup_vault_lens: false
+setup_backup: false
+tags:
+  - setup
+---
+这个仓库从每晚诚实回答一组问题开始。计划、习惯、任务、写作和 AI 助手会逐步加入。Compass 借鉴了 Mike Schmitz 的视频“How I Run My Whole Life Out of Obsidian”，与 Practical PKM 没有关联。
+
+## 步骤 A：启用插件（先完成）
+首次打开此文件夹时，Obsidian 会询问是否启用第三方插件。确认信任仓库作者并启用插件；若弹窗已关闭，可到“设置 → 第三方插件”中关闭受限模式。仓库内已安装 10 个第三方插件和首方 Life OS 插件。随后按 Ctrl/Cmd+P，搜索并运行 **重新加载 Obsidian（不保存当前编辑内容）**。重新加载后，Life OS 会自动打开。
+
+**如果下方显示代码而非设置清单，说明步骤 A 尚未完成。**
+
+## 设置状态
+```dataviewjs
+await dv.view("元数据/视图/setup");
+```
+有四项只能由你手动确认：代理登录、MCP 注册、浏览器扩展连接和备份。完成后在本笔记属性中勾选对应项目。
+
+## 今天（约 20 分钟）
+1. 完成上方的步骤 A。
+2. 打开 [[Compass Config|Compass 配置]]，设置 `birthdate`。
+3. 在 [[Life Theme|人生主题]] 的 `## 主题` 下先写一句草稿；它会出现在每篇日记中，可在第一次个人静修时完善。
+4. 打开 [[Compass Dashboard|Compass 仪表盘]]；它会使用示例数据展示页面。
+5. 今晚按 Ctrl/Cmd+Shift+D 创建或打开今日笔记，按 Ctrl/Cmd+Shift+Q 回答每日问题。用 1 到 10 分评分，并在 `## 日记` 下写一行即可。
+
+## 本周
+- 每天早晨按 Ctrl/Cmd+Shift+D，每晚按 Ctrl/Cmd+Shift+Q。
+- 第 3 天：打开 [[Compass Config|Compass 配置]]，调整一条不符合自己情况的问题；习惯保持 3 到 5 项。
+- 第 7 天：查看 [[Daily Questions|每日问题]]，暂不调整。粗略填写 [[Ideal Week|理想的一周]]，并删除其中的 `example` 属性。决定是否使用阅读模块：填写 [[Reading Plan|阅读计划]]，或删除 `09 阅读`。
+
+## 本月
+- 第 8 天：删除带 `example` 标签的示例笔记。可搜索 `tag:#example`；[[16 Onboarding Assistant|入门助手]] 也能逐篇协助处理。
+- 第 14 天：打开本周笔记（Ctrl/Cmd+Alt+W），先只填写“做得好的事”。
+- 第 21 天：如需在仓库中使用 AI，阅读 [[14 Agent Client and Claude Code|Agent Client 与 Claude Code]]，然后点击下方的**帮我设置这个仓库**。
+- 第 30 天：如果 30 天中有 25 天完成评分（清单会统计），阅读 [[04 Workflow - Personal Retreat|季度个人静修]]，并安排在第 60 至 90 天进行个人静修。任务、写作看板和浏览器扩展可在之后加入（见 [[11 Build Order|搭建顺序]]）。
+
+## 使用助手
+```agent
+type: button
+text: "帮我设置这个仓库"
+prompt: "请用 vault_read 阅读 提示词/16 Onboarding Assistant.md，从第 0 步开始执行其中的“## 提示词”部分。"
+viewType: right-pane
+```
+
+## 自定义每日问题
+在 [[Compass Config|Compass 配置]] 中编辑每日问题的 `text`。若更改属性键，请保留 `dq_` 前缀，例如 `dq_aprender`；图表会根据该键识别数据。
+
+## 完成设置后
+将本笔记的 `status` 属性设为 `done`，清单就会收起。需要重新查看时，将其改回 `open`。
