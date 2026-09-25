@@ -30,7 +30,7 @@ sort by due
 - [ ] 询问 Alex 如何安排每周复盘 #discuss #p/example-person-alex-rivera #project/example-project-compass-vault
 
 ## 笔记
-- 依据 Guide 文件夹中的指南建立，每次增加一个工作流。
+- 依据指南文件夹中的说明建立，每次增加一个工作流。
 
 ## 日志
 - 2026-08-26 已创建。

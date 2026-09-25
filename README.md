@@ -105,7 +105,7 @@ scripts/         阅读计划生成、经文拆分、模板构建与验证
 
 ```bash
 python3 scripts/verify_release_safety.py
-python3 scripts/build_template.py --live . --out ../compass-builds --name Compass-zh-CN-personal --version 1.1.0-zh.12 --zip
+python3 scripts/build_template.py --live . --out ../compass-builds --name Compass-zh-CN-personal --version 1.1.0-zh.14 --zip
 python3 scripts/verify_template.py ../compass-builds/Compass-zh-CN-personal
 ```
 

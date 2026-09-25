@@ -56,6 +56,8 @@ def baseline_path(path: str, old_paths: list[tuple[str, str]]) -> str:
     prefix = "scripts/template/defaults/"
     under_defaults = path.startswith(prefix)
     rel = path[len(prefix):] if under_defaults else path
+    if rel in ("<项目名>", "<人物名>"):
+        rel = "<Name>"
     for old, new in old_paths:
         if not new.endswith(".md"):
             continue

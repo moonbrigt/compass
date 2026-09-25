@@ -72,3 +72,14 @@ Windows Obsidian 1.13.7 中临时打开 `F:\compass-zh-cn-candidates\Compass-zh-
 | `F:\compass-zh-cn-candidates\Compass-zh-CN-Lite-personal-v8-template-v1.1.0-zh.13-without-reading.zip` | `13fd83e5567e3691ce3ae52e5ef8f3fb0574e54909e7a6e876f3b7a6c3404a58` | 210/210 | 184 个文件与内置清单逐一匹配 |
 
 原生试用的 v7 候选在设置向导修复后，与 v8 完整包的 Life OS 主程序、`setup.js`、`wheel.js`、`quicklinks.js`、智能助手笔记和 Compass 总览笔记逐文件 SHA256 相同。v8 归档本身未作为新仓库打开；精简版未做原生试用。中文目录迁移后的日记与项目创建尚未重新执行，旧 T031 所指 v5 候选也未按原任务打开。可选的浏览器视图脚本因本机缺少 `playwright` 模块未运行。未测试移动端、真实 AI 服务商请求、私人备份恢复或公开发布。
+
+### 自审后的 v9 个人包
+
+修正 `AGENTS.md`、提示词元数据、示例笔记、指南和默认任务清单里残留的旧英文笔记与目录名称。v9 是本轮最新候选；v8 保留为上述检查的历史记录。
+
+| 候选 | SHA256 | 包内验证 | 归档恢复 |
+| --- | --- | --- | --- |
+| `F:\compass-zh-cn-candidates\Compass-zh-CN-personal-v9-template-v1.1.0-zh.14.zip` | `d08fe5196137a4fc72f8367ab0167c212dbda5bcfafa7b421b84ff9671cff819` | 213/213 | 196 个文件逐一匹配 |
+| `F:\compass-zh-cn-candidates\Compass-zh-CN-Lite-personal-v9-template-v1.1.0-zh.14-without-reading.zip` | `04b9d5855fc2c8070719a28f2dd50d773118f642fd0e642e37fbd3f670b2e9c3` | 210/210 | 184 个文件逐一匹配 |
+
+v9 与试用后的 v7 候选的 Life OS 主程序、`setup.js`、`wheel.js`、`quicklinks.js`、Compass 总览笔记逐文件相同；智能助手笔记的 17 个 Agent 代码块相同。v9 完整归档及精简版尚未在 Obsidian 中重新打开；日记和项目创建仍未重新验收。
