@@ -6,7 +6,7 @@
 
 Compass 是一个完整的 Obsidian 仓库模板，独立实现 Mike Schmitz 在《How I Run My Whole Life Out of Obsidian》中介绍的七项工作流：每日问题与日记、季度个人静修、多尺度规划、习惯追踪、每日阅读、任务管理和写作看板。DataviewJS 仪表盘把它们连起来；仓库自带的 Life OS 应用提供统一导航与捕获，AI 助手读取 `AGENTS.md` 并使用需经批准的提示词库。正式数据仍是普通 Markdown 文件与属性。仓库附带十个社区插件及其许可文件，也附带自有的 Life OS 插件。
 
-**状态：简体中文候选，尚未公开发布。** 旧版候选的核心桌面流程曾在 Obsidian 1.13.7 中试用；本版文件名迁移尚未完成 Obsidian 原生验收。要求 Obsidian 1.13.1 或更新版本。检查结果见维护者源码中的 `specs/001-simplified-chinese-vault/acceptance.md`。
+**状态：简体中文候选，尚未公开发布。** 中文文件名迁移已在 Obsidian 1.13.7 的隔离候选中检查 Life OS、设置向导、Compass 总览及助手按钮；日记和项目创建、真实 AI 会话仍待验收。要求 Obsidian 1.13.1 或更新版本。检查结果见维护者源码中的 `specs/001-simplified-chinese-vault/acceptance.md`。
 
 ## 演示视频
 
@@ -99,7 +99,7 @@ scripts/         阅读计划生成、经文拆分、模板构建与验证
 
 ## 构建与发布
 
-![验证状态](https://github.com/AgriciDaniel/compass/actions/workflows/verify.yml/badge.svg)
+![验证状态](https://github.com/moonbrigt/compass-zh-cn/actions/workflows/verify.yml/badge.svg)
 
 `main` 是维护者源码，含 `specs/`、`.specify/` 等开发过程文件。个人使用请采用验证后的打包 ZIP。构建副本不会反写源仓库：
 

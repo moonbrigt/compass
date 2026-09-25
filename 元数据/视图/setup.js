@@ -16,7 +16,7 @@ for (const [id, name] of [["life-os-app", "Life OS"], ["dataview", "Dataview"], 
 add(0, "Life OS 应用命令已注册", !!app.commands?.commands?.["life-os-app:open-home"], "命令面板 → Life OS：打开 Life OS 首页");
 add(0, "Dataview JavaScript 查询已启用", !!(pset("dataview")?.enableDataviewJs), "设置 → Dataview");
 add(0, "lifeos CSS 样式代码片段已启用", (() => { try { return app.customCss.enabledSnippets.has("lifeos"); } catch (e) { return false; } })(), "设置 → 外观 → CSS 样式代码片段");
-add(0, "Periodic Notes 的日记文件夹与配置一致", (() => { const pn = pset("periodic-notes"); return !!pn && pn.daily?.folder === (cfg.daily_folder || "01 日记/每日") && /Daily Note\.md$/.test(pn.daily?.template || ""); })(), "设置 → Periodic Notes");
+add(0, "Periodic Notes 的日记文件夹与配置一致", (() => { const pn = pset("periodic-notes"); return !!pn && pn.daily?.folder === (cfg.daily_folder || "01 日记/每日") && pn.daily?.template === "模板/每日笔记.md"; })(), "设置 → Periodic Notes");
 add(0, "Templater 会在新建文件时运行", (() => { const t = pset("templater-obsidian"); return !!t && (t.trigger_on_file_creation === true || t.trigger_on_file_creation_mode === "folder"); })(), "设置 → Templater");
 add(0, "QuickAdd 记录选项可作为命令运行", (() => { const ch = pset("quickadd")?.choices || []; return ["lifeos-journal", "lifeos-win", "lifeos-gratitude", "lifeos-task"].every(id => ch.find(c => c.id === id)?.command === true); })(), "设置 → QuickAdd（每个选项旁的闪电图标）");
 add(0, "今日笔记和每日问题提示词已设置快捷键", (() => { try { const hk = app.hotkeyManager.customKeys || {}; return ["quickadd:choice:lifeos-daily", "templater-obsidian:模板/每日问题提示.md"].every(id => (hk[id] || []).length > 0); } catch (e) { return false; } })(), "设置 → 快捷键");

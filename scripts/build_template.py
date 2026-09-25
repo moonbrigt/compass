@@ -258,7 +258,10 @@ def json_surgery(out):
 def text_surgery(out, without_reading):
     readme = Path(out, "README.md")
     body = readme.read_text(encoding="utf-8")
-    body = body.replace("检查结果见开发分支的 `specs/001-simplified-chinese-vault/acceptance.md`。", "")
+    acceptance_ref = "检查结果见维护者源码中的 `specs/001-simplified-chinese-vault/acceptance.md`。"
+    if body.count(acceptance_ref) != 1:
+        raise ValueError("Cannot safely remove source-only acceptance reference")
+    body = body.replace(acceptance_ref, "")
     body = re.sub(r"(?m)^根目录还包括 .*?\n", "根目录保留 `AGENTS.md`、`CLAUDE.md`、`GEMINI.md`、`.claude/settings.json`、`.claude-obsidian.json`、`.mcp.example.json`、`CREDITS.md` 与许可说明；它们分别用于智能体规则、知识层接入和来源说明。\n", body, count=1)
     body = re.sub(r"(?ms)^## 构建与发布\n.*?(?=^## 致谢与许可)", "## 备份与更新\n\n更新前先备份完整仓库，在旁边解压新版，再逐项审查并迁移个人笔记与配置。不要直接覆盖正在使用的 `.obsidian`。\n\n", body, count=1)
     body = re.sub(r"社区规则见 `CODE_OF_CONDUCT.md`；参与方式见 `CONTRIBUTING.md`；安全说明见 `SECURITY.md`。", "", body)

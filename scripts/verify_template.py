@@ -137,6 +137,7 @@ def main():
     check("quickadd template folders exist", (qa or {}).get("templateFolderPaths") == ["模板"])
     for ft in tp.get("folder_templates", []): check("templater folder template %s" % ft.get("template"), exists(ft.get("template", "")) and exists(ft.get("folder", "")))
     pn = load(".obsidian/plugins/periodic-notes/data.json") or {}
+    check("periodic-notes daily template matches setup", pn.get("daily", {}).get("template") == "模板/每日笔记.md")
     for k in ["daily", "weekly", "quarterly"]:
         c = pn.get(k, {}); check("periodic-notes %s folder and template exist" % k, (not c.get("enabled")) or (exists(c.get("folder", "")) and exists(c.get("template", ""))))
     for ch in (qa or {}).get("choices", []):

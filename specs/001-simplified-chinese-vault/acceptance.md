@@ -57,3 +57,18 @@
 | 目录及链接 | 旧首方目录引用未出现在个人包；3 个本地 Markdown/HTML 路径链接可解析，仪表盘 `dv.view` 路径逐项通过验证 |
 
 本版没有在 Obsidian 中作为新仓库打开，以免增加用户的仓库列表项。因此旧候选的原生试用结果不能证明目录迁移后的运行行为。`verify_brain_view.mjs` 因本机缺少 `playwright` 模块未运行；移动端、真实 AI 连接和私人备份恢复仍未验证。精简版未重新构建。此前 `v2`、`v3` 和 `v4` 均为中间候选，不是本次交付物。清理 `v2` 的删除命令被自动审批拦截，故中间候选仍留在候选目录，但未进入本版 ZIP。
+
+## 中文文件名迁移与主分支候选（2026-09-25）
+
+本轮以 `F:\compass-zh-cn` 的 `main` 为源码，迁移首方面向用户的文件名和引用，并保留机器标识、第三方插件文件和原有的八项 `.obsidian` 本机设置改动。早前 Agent Client 按钮修复包含在 `00 仪表盘/智能助手.md`。`scripts/locale_audit.py --english` 完成 143/143 项；仅提示保留的资料专有名称 `NeuYear Personal Retreat Planner`。Life OS 验证为 62/62，助手契约检查覆盖 16 项工作流，发布安全测试为 11/11。
+
+Windows Obsidian 1.13.7 中临时打开 `F:\compass-zh-cn-candidates\Compass-zh-CN-personal-v7`，由用户亲自信任仓库并启用插件。Life OS 首页、中文导航、设置向导和 Compass 总览均显示。总览的生活之轮、每日问题、习惯、看板、人生时间和询问助手组件在原生视图中出现，观察时没有可见 Dataview 错误。首次检查设置向导时，Periodic Notes 路径项未通过：插件配置已指向 `模板/每日笔记.md`，`元数据/视图/setup.js` 却仍检验英文 `Daily Note.md`。修复该判断并将同一视图文件同步到隔离候选、重新加载 Obsidian 后，该项显示通过，必需项目从 14/26 变为 15/26；其余未完成项涉及个人设置和真实记录。
+
+在 `00 仪表盘/智能助手.md` 点击“开始今天”，右侧聊天页打开，中文提示词进入输入框且未自动发送；没有出现 `No embedded chat block found in this note`。候选仓库的 Claude Code ACP 会话另报 `Session Creation Failed: ACP connection closed`，因此真实代理连接和发送后的行为未通过验收。候选仓库随后关闭，并经用户确认从 Obsidian 仓库列表移除；仅移除列表项，磁盘候选和 ZIP 保留。
+
+| 本轮最终本地候选 | SHA256 | 包内验证 | 归档恢复 |
+| --- | --- | --- | --- |
+| `F:\compass-zh-cn-candidates\Compass-zh-CN-personal-v8-template-v1.1.0-zh.13.zip` | `d9aedffb93c428f4a27a95e7d75919f5f869ea9de2af66f556306df94fa960f3` | 213/213 | 196 个文件与内置清单逐一匹配 |
+| `F:\compass-zh-cn-candidates\Compass-zh-CN-Lite-personal-v8-template-v1.1.0-zh.13-without-reading.zip` | `13fd83e5567e3691ce3ae52e5ef8f3fb0574e54909e7a6e876f3b7a6c3404a58` | 210/210 | 184 个文件与内置清单逐一匹配 |
+
+原生试用的 v7 候选在设置向导修复后，与 v8 完整包的 Life OS 主程序、`setup.js`、`wheel.js`、`quicklinks.js`、智能助手笔记和 Compass 总览笔记逐文件 SHA256 相同。v8 归档本身未作为新仓库打开；精简版未做原生试用。中文目录迁移后的日记与项目创建尚未重新执行，旧 T031 所指 v5 候选也未按原任务打开。可选的浏览器视图脚本因本机缺少 `playwright` 模块未运行。未测试移动端、真实 AI 服务商请求、私人备份恢复或公开发布。
