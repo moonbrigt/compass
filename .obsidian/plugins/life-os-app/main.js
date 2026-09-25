@@ -251,25 +251,25 @@ const DESTINATIONS = [
     icon: "layout-dashboard",
     label: "Compass",
     description: "汇总方向、习惯、每日问题和生活之轮。",
-    path: "00 仪表盘/Compass Dashboard.md",
+    path: "00 仪表盘/Compass 总览.md",
   },
   {
     icon: "list-checks",
     label: "任务",
     description: "查看完整的任务系统。",
-    path: "00 仪表盘/Task Dashboard.md",
+    path: "00 仪表盘/任务仪表盘.md",
   },
   {
     icon: "folder-kanban",
     label: "项目",
     description: "查看进行中的项目和想法。",
-    path: "00 仪表盘/Projects Dashboard.md",
+    path: "00 仪表盘/项目仪表盘.md",
   },
   {
     icon: "columns-3",
     label: "看板",
     description: "打开写作和项目看板。",
-    path: "00 仪表盘/Boards.md",
+    path: "00 仪表盘/看板总览.md",
   },
 ];
 
@@ -300,13 +300,13 @@ const MODULES = {
         icon: "list-checks",
         label: "今日任务",
         description: "打开任务建议仪表盘。",
-        path: "00 仪表盘/Task Dashboard.md",
+        path: "00 仪表盘/任务仪表盘.md",
       },
       {
         icon: "activity",
         label: "习惯",
         description: "查看近期习惯坚持情况。",
-        path: "00 仪表盘/Habit Canvas.md",
+        path: "00 仪表盘/习惯画布.md",
       },
     ],
   },
@@ -321,13 +321,13 @@ const MODULES = {
         icon: "folder-kanban",
         label: "项目",
         description: "检查进行中的项目是否符合季度方向。",
-        path: "00 仪表盘/Projects Dashboard.md",
+        path: "00 仪表盘/项目仪表盘.md",
       },
       {
         icon: "clock-3",
         label: "理想一周",
         description: "检查计划是否安排进了时间表。",
-        path: "03 规划/Ideal Week.md",
+        path: "03 规划/理想一周.md",
       },
     ],
   },
@@ -341,25 +341,25 @@ const MODULES = {
         icon: "compass",
         label: "Compass",
         description: "返回整体生活概览。",
-        path: "00 仪表盘/Compass Dashboard.md",
+        path: "00 仪表盘/Compass 总览.md",
       },
       {
         icon: "list-checks",
         label: "任务建议",
         description: "查看到期、已安排、高优先级和待讨论任务。",
-        path: "00 仪表盘/Task Dashboard.md",
+        path: "00 仪表盘/任务仪表盘.md",
       },
       {
         icon: "folder-kanban",
         label: "项目进展",
         description: "找出需要下一步行动的进行中项目。",
-        path: "00 仪表盘/Projects Dashboard.md",
+        path: "00 仪表盘/项目仪表盘.md",
       },
       {
         icon: "activity",
         label: "习惯记录",
         description: "结合具体日期查看习惯的持续情况。",
-        path: "00 仪表盘/Habit Canvas.md",
+        path: "00 仪表盘/习惯画布.md",
       },
     ],
   },
@@ -373,13 +373,13 @@ const MODULES = {
         icon: "line-chart",
         label: "每日问题",
         description: "查看努力程度评分和趋势。",
-        path: "00 仪表盘/Daily Questions.md",
+        path: "00 仪表盘/每日问题.md",
       },
       {
         icon: "activity",
         label: "习惯画布",
         description: "查看连续记录、空缺和完成情况。",
-        path: "00 仪表盘/Habit Canvas.md",
+        path: "00 仪表盘/习惯画布.md",
       },
       PERIOD_ACTIONS[1],
       PERIOD_ACTIONS[2],
@@ -388,7 +388,7 @@ const MODULES = {
         icon: "compass",
         label: "整体生活复盘",
         description: "打开 Compass 仪表盘和生活之轮。",
-        path: "00 仪表盘/Compass Dashboard.md",
+        path: "00 仪表盘/Compass 总览.md",
       },
     ],
   },
@@ -402,13 +402,13 @@ const MODULES = {
         icon: "layout-dashboard",
         label: "项目仪表盘",
         description: "查看所有进行中的项目。",
-        path: "00 仪表盘/Projects Dashboard.md",
+        path: "00 仪表盘/项目仪表盘.md",
       },
       {
         icon: "columns-3",
         label: "项目看板",
         description: "在看板中推进想法和项目。",
-        path: "04 项目/Projects Board.md",
+        path: "04 项目/项目看板.md",
       },
       {
         icon: "lightbulb",
@@ -446,7 +446,7 @@ const MODULES = {
         icon: "messages-square",
         label: "待讨论事项",
         description: "按人物和讨论背景查看任务。",
-        path: "00 仪表盘/Task Dashboard.md",
+        path: "00 仪表盘/任务仪表盘.md",
       },
       {
         icon: "search",
@@ -466,7 +466,7 @@ const MODULES = {
         icon: "columns-3",
         label: "创作看板",
         description: "打开所有写作流程看板。",
-        path: "00 仪表盘/Boards.md",
+        path: "00 仪表盘/看板总览.md",
       },
       ...CAPTURE_MENU_ACTIONS.filter((action) =>
         [
@@ -503,7 +503,7 @@ const MODULES = {
         icon: "book-open",
         label: "阅读计划",
         description: "打开当前阅读计划。",
-        path: "09 阅读/Reading Plan.md",
+        path: "09 阅读/阅读计划.md",
       },
       {
         icon: "search",
@@ -515,7 +515,7 @@ const MODULES = {
         icon: "pen-tool",
         label: "写作流程",
         description: "在创作中使用资料库。",
-        path: "00 仪表盘/Boards.md",
+        path: "00 仪表盘/看板总览.md",
       },
     ],
   },
@@ -529,25 +529,25 @@ const MODULES = {
         icon: "sparkles",
         label: "打开助手",
         description: "使用完整的提示词库。",
-        path: "00 仪表盘/Assistant.md",
+        path: "00 仪表盘/智能助手.md",
       },
       {
         icon: "sun",
         label: "今日要事",
         description: "打开 Compass 简报和每日背景。",
-        path: "00 仪表盘/Compass Dashboard.md",
+        path: "00 仪表盘/Compass 总览.md",
       },
       {
         icon: "list-checks",
         label: "任务整理",
         description: "打开任务仪表盘及其 AI 工作流。",
-        path: "00 仪表盘/Task Dashboard.md",
+        path: "00 仪表盘/任务仪表盘.md",
       },
       {
         icon: "shield-check",
         label: "设置与权限",
         description: "检查 AI、MCP 和备份的准备情况。",
-        path: "00 仪表盘/Setup.md",
+        path: "00 仪表盘/设置向导.md",
       },
     ],
   },
@@ -752,7 +752,7 @@ class LifeOSHomeView extends ItemView {
       icon: "sparkles",
       label: "询问 Life OS",
       description: "打开受控的 AI 工作区。",
-      onClick: () => this.openPath("00 仪表盘/Assistant.md"),
+      onClick: () => this.openPath("00 仪表盘/智能助手.md"),
     });
 
     this.renderSetupBanner(shell);
@@ -991,7 +991,7 @@ class LifeOSHomeView extends ItemView {
       this.runCommand("global-search:open", "搜索");
     });
     this.addTopbarButton(actions, "settings-2", "配置", () => {
-      void this.openPath("元数据/Compass Config.md");
+      void this.openPath("元数据/Compass 配置.md");
     });
     const display = actions.createEl("details", { cls: "life-os-display-options" });
     display.createEl("summary", { text: "视图" });
@@ -1161,7 +1161,7 @@ class LifeOSHomeView extends ItemView {
       primary: true,
       onClick: () =>
         this.runCommand(
-          "templater-obsidian:模板/Daily Questions Prompt.md",
+          "templater-obsidian:模板/每日问题提示.md",
           "每日问题"
         ),
     });
@@ -1350,7 +1350,7 @@ class LifeOSHomeView extends ItemView {
         icon: "tent-tree",
         label: "个人静修",
         period: moment().format("YYYY-[Q]Q"),
-        path: `${paths.retreats}/${moment().format("YYYY-[Q]Q")} Personal Retreat.md`,
+        path: `${paths.retreats}/${moment().format("YYYY-[Q]Q")} 个人静修.md`,
         command: "quickadd:choice:lifeos-retreat",
       },
     ];
@@ -1465,10 +1465,10 @@ class LifeOSHomeView extends ItemView {
 
   renderPipelineLive(parent) {
     const pipelines = [
-      { type: "newsletter", label: "通讯", icon: "mail", path: "06 写作/通讯/Newsletter Board.md" },
-      { type: "youtube-script", label: "视频", icon: "video", path: "06 写作/YouTube 脚本/YouTube Board.md" },
-      { type: "article", label: "文章", icon: "newspaper", path: "06 写作/文章/Article Board.md" },
-      { type: "course-lesson", label: "课程", icon: "graduation-cap", path: "06 写作/课程内容/Course Board.md" },
+      { type: "newsletter", label: "通讯", icon: "mail", path: "06 写作/通讯/通讯看板.md" },
+      { type: "youtube-script", label: "视频", icon: "video", path: "06 写作/YouTube 脚本/YouTube 看板.md" },
+      { type: "article", label: "文章", icon: "newspaper", path: "06 写作/文章/文章看板.md" },
+      { type: "course-lesson", label: "课程", icon: "graduation-cap", path: "06 写作/课程内容/课程看板.md" },
     ];
     const files = this.app.vault.getMarkdownFiles();
     const section = parent.createEl("section", { cls: "life-os-pipeline-live" });
@@ -1732,7 +1732,7 @@ class LifeOSHomeView extends ItemView {
 
   getConfigFrontmatter() {
     return this.getFrontmatter(
-      this.app.vault.getAbstractFileByPath("元数据/Compass Config.md")
+      this.app.vault.getAbstractFileByPath("元数据/Compass 配置.md")
     );
   }
 
@@ -1836,7 +1836,7 @@ class LifeOSHomeView extends ItemView {
   async loadTaskSnapshot() {
     const paths = this.getConfiguredFolders();
     const sources = [
-      "08 任务/Tasks.md",
+      "08 任务/任务总表.md",
       `${paths.projects}/`,
       "05 人物/",
       "06 写作/",
@@ -2072,7 +2072,7 @@ class LifeOSHomeView extends ItemView {
       }
       this.registerDomEvent(button, "click", () => void this.openPath(task.path, task.line));
     }
-    this.addButton(section, { icon: "list-checks", label: "所有任务", description: !selected.length ? `查看全部 ${snapshot.tasks.length} 项已索引未完成任务。` : `显示 ${Math.min(selected.length, limit)}/${selected.length} 项匹配任务。`, onClick: () => this.openPath("00 仪表盘/Task Dashboard.md") });
+    this.addButton(section, { icon: "list-checks", label: "所有任务", description: !selected.length ? `查看全部 ${snapshot.tasks.length} 项已索引未完成任务。` : `显示 ${Math.min(selected.length, limit)}/${selected.length} 项匹配任务。`, onClick: () => this.openPath("00 仪表盘/任务仪表盘.md") });
   }
 
   getTaskContext(task) {
@@ -2111,7 +2111,7 @@ class LifeOSHomeView extends ItemView {
   }
 
   renderSetupBanner(parent) {
-    const setupPath = "00 仪表盘/Setup.md";
+    const setupPath = "00 仪表盘/设置向导.md";
     const setupFile = this.app.vault.getAbstractFileByPath(setupPath);
     const status = String(this.getFrontmatter(setupFile).status || "open").toLowerCase();
     if (status === "done" || status === "complete" || status === "completed") {
@@ -2250,8 +2250,8 @@ class LifeOSHomeView extends ItemView {
   }
 
   async openPath(path, line = null) {
-    if (path === `${DEFAULT_FOLDERS.projects}/Projects Board.md`) {
-      path = `${this.getConfiguredFolders().projects}/Projects Board.md`;
+    if (path === `${DEFAULT_FOLDERS.projects}/项目看板.md`) {
+      path = `${this.getConfiguredFolders().projects}/项目看板.md`;
     }
     const file = this.app.vault.getAbstractFileByPath(path);
 
@@ -2726,7 +2726,7 @@ module.exports = class LifeOSPlugin extends Plugin {
     this.addCommand({
       id: "open-configuration",
       name: "打开 Life OS 配置",
-      callback: () => this.app.workspace.openLinkText("元数据/Compass Config", "", true),
+      callback: () => this.app.workspace.openLinkText("元数据/Compass 配置", "", true),
     });
 
     for (const item of NAV_ITEMS.filter((item) => item.id !== "home")) {

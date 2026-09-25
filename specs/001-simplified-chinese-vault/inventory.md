@@ -22,18 +22,18 @@
 
 ## 仪表盘笔记（8）
 
-- [x] `00 仪表盘/Assistant.md`
-- [x] `00 仪表盘/Boards.md`
-- [x] `00 仪表盘/Compass Dashboard.md`
-- [x] `00 仪表盘/Daily Questions.md`
-- [x] `00 仪表盘/Habit Canvas.md`
-- [x] `00 仪表盘/Projects Dashboard.md`
-- [x] `00 仪表盘/Setup.md`
-- [x] `00 仪表盘/Task Dashboard.md`
+- [x] `00 仪表盘/智能助手.md`
+- [x] `00 仪表盘/看板总览.md`
+- [x] `00 仪表盘/Compass 总览.md`
+- [x] `00 仪表盘/每日问题.md`
+- [x] `00 仪表盘/习惯画布.md`
+- [x] `00 仪表盘/项目仪表盘.md`
+- [x] `00 仪表盘/设置向导.md`
+- [x] `00 仪表盘/任务仪表盘.md`
 
 ## 配置与版本（2）
 
-- [x] `元数据/Compass Config.md`
+- [x] `元数据/Compass 配置.md`
 - [x] `元数据/version.md`
 
 ## 封面素材（1）
@@ -42,65 +42,65 @@
 
 ## 笔记模板（13）
 
-- [x] `模板/Article.md`
-- [x] `模板/Book Note.md`
-- [x] `模板/Course Lesson.md`
-- [x] `模板/Daily Note.md`
-- [x] `模板/Daily Questions Prompt.md`
-- [x] `模板/Newsletter.md`
-- [x] `模板/Person.md`
-- [x] `模板/Personal Retreat.md`
-- [x] `模板/Project.md`
-- [x] `模板/Quarterly Note.md`
-- [x] `模板/Study Note.md`
-- [x] `模板/Weekly Note.md`
-- [x] `模板/YouTube Script.md`
+- [x] `模板/文章.md`
+- [x] `模板/读书笔记.md`
+- [x] `模板/课程课时.md`
+- [x] `模板/每日笔记.md`
+- [x] `模板/每日问题提示.md`
+- [x] `模板/通讯.md`
+- [x] `模板/人物.md`
+- [x] `模板/个人静修.md`
+- [x] `模板/项目.md`
+- [x] `模板/季度笔记.md`
+- [x] `模板/研读笔记.md`
+- [x] `模板/每周笔记.md`
+- [x] `模板/YouTube 脚本.md`
 
 ## 提示词（16）
 
-- [x] `提示词/01 Morning Start.md`
-- [x] `提示词/02 End of Day Coaching.md`
-- [x] `提示词/03 Weekly Review.md`
-- [x] `提示词/04 Retreat Prep.md`
-- [x] `提示词/05 Retreat Facilitation.md`
-- [x] `提示词/06 Task Triage.md`
-- [x] `提示词/07 Meeting Prep.md`
-- [x] `提示词/08 Project Kickoff.md`
-- [x] `提示词/09 Board Grooming.md`
-- [x] `提示词/10 Writing Pipeline.md`
-- [x] `提示词/11 SEO Pre-publish Audit.md`
-- [x] `提示词/12 Research Capture.md`
-- [x] `提示词/13 Trend Analysis.md`
-- [x] `提示词/14 What Matters Today.md`
-- [x] `提示词/15 Vault Health Check.md`
-- [x] `提示词/16 Onboarding Assistant.md`
+- [x] `提示词/01 早晨开始.md`
+- [x] `提示词/02 日终复盘辅导.md`
+- [x] `提示词/03 每周回顾.md`
+- [x] `提示词/04 静修准备.md`
+- [x] `提示词/05 静修引导.md`
+- [x] `提示词/06 任务梳理.md`
+- [x] `提示词/07 会议准备.md`
+- [x] `提示词/08 项目启动.md`
+- [x] `提示词/09 看板整理.md`
+- [x] `提示词/10 写作流程.md`
+- [x] `提示词/11 SEO 发布前检查.md`
+- [x] `提示词/12 研究资料收集.md`
+- [x] `提示词/13 趋势分析.md`
+- [x] `提示词/14 今日要事.md`
+- [x] `提示词/15 仓库健康检查.md`
+- [x] `提示词/16 入门助手.md`
 
 ## 使用指南（24）
 
-- [x] `指南/00 Start Here.md`
-- [x] `指南/01 Principles.md`
-- [x] `指南/02 Plugins.md`
-- [x] `指南/03 Workflow - Journaling and Daily Questions.md`
-- [x] `指南/04 Workflow - Personal Retreat.md`
-- [x] `指南/05 Workflow - Multi-Scale Planning.md`
-- [x] `指南/06 Workflow - Habit Tracking.md`
-- [x] `指南/07 Workflow - Daily Reading.md`
-- [x] `指南/08 Workflow - Task Management.md`
-- [x] `指南/09 Workflow - Writing.md`
-- [x] `指南/10 Compass Dashboard.md`
-- [x] `指南/11 Build Order.md`
-- [x] `指南/12 Resources and Links.md`
-- [x] `指南/13 Kanban Boards.md`
-- [x] `指南/14 Agent Client and Claude Code.md`
-- [x] `指南/15 claude-obsidian.md`
-- [x] `指南/16 SEO, Web Viewer, and Vault Lens.md`
-- [x] `指南/17 Search Providers.md`
-- [x] `指南/19 Obsidian MCP Bridge.md`
-- [x] `指南/20 Prompt Library.md`
-- [x] `指南/21 Life OS Application.md`
-- [x] `指南/22 Data Definitions.md`
-- [x] `指南/23 Native Acceptance.md`
-- [x] `指南/Source - Video Analysis.md`
+- [x] `指南/00 从这里开始.md`
+- [x] `指南/01 原则.md`
+- [x] `指南/02 插件.md`
+- [x] `指南/03 工作流 - 日记与每日问题.md`
+- [x] `指南/04 工作流 - 个人静修.md`
+- [x] `指南/05 工作流 - 多尺度规划.md`
+- [x] `指南/06 工作流 - 习惯追踪.md`
+- [x] `指南/07 工作流 - 每日阅读.md`
+- [x] `指南/08 工作流 - 任务管理.md`
+- [x] `指南/09 工作流 - 写作.md`
+- [x] `指南/10 Compass 仪表盘.md`
+- [x] `指南/11 搭建顺序.md`
+- [x] `指南/12 资源与链接.md`
+- [x] `指南/13 看板.md`
+- [x] `指南/14 Agent Client 与 Claude Code.md`
+- [x] `指南/15 claude-obsidian 知识层.md`
+- [x] `指南/16 SEO、Web Viewer 与 Vault Lens.md`
+- [x] `指南/17 搜索服务.md`
+- [x] `指南/19 Obsidian MCP 桥接.md`
+- [x] `指南/20 提示词库.md`
+- [x] `指南/21 Life OS 应用.md`
+- [x] `指南/22 数据定义.md`
+- [x] `指南/23 原生验收.md`
+- [x] `指南/来源 - 视频分析.md`
 
 ## 示例及初始笔记（39）
 
@@ -122,27 +122,27 @@
 - [x] `01 日记/每周/2026-W33.md`
 - [x] `01 日记/每周/2026-W34.md`
 - [x] `01 日记/每周/2026-W35.md`
-- [x] `02 静修/2026-Q3 Personal Retreat.md`
-- [x] `03 规划/Core Values.md`
-- [x] `03 规划/Ideal Week.md`
-- [x] `03 规划/Life Theme.md`
-- [x] `04 项目/Example Project - Compass Vault.md`
-- [x] `04 项目/Projects Board.md`
-- [x] `05 人物/Example Person - Alex Rivera.md`
-- [x] `06 写作/文章/Article Board.md`
-- [x] `06 写作/课程内容/Course Board.md`
-- [x] `06 写作/通讯/Example Newsletter - Effort not results.md`
-- [x] `06 写作/通讯/Newsletter Board.md`
-- [x] `06 写作/YouTube 脚本/YouTube Board.md`
+- [x] `02 静修/2026-Q3 个人静修.md`
+- [x] `03 规划/核心价值观.md`
+- [x] `03 规划/理想一周.md`
+- [x] `03 规划/人生主题.md`
+- [x] `04 项目/示例项目 - Compass 仓库.md`
+- [x] `04 项目/项目看板.md`
+- [x] `05 人物/示例人物 - Alex Rivera.md`
+- [x] `06 写作/文章/文章看板.md`
+- [x] `06 写作/课程内容/课程看板.md`
+- [x] `06 写作/通讯/示例通讯 - 重在努力而非结果.md`
+- [x] `06 写作/通讯/通讯看板.md`
+- [x] `06 写作/YouTube 脚本/YouTube 看板.md`
 - [x] `07 资料库/读书笔记/Triggers (Marshall Goldsmith).md`
-- [x] `08 任务/Tasks.md`
-- [x] `09 阅读/章节/Genesis 1.md`
-- [x] `09 阅读/Reading Plan.md`
-- [x] `09 阅读/研读笔记/Example Study Note - In the Beginning.md`
-- [x] `09 阅读/主题/Creation.md`
-- [x] `09 阅读/经文/Genesis 1.1.md`
-- [x] `09 阅读/经文/Genesis 1.2.md`
-- [x] `09 阅读/经文/Genesis 1.3.md`
+- [x] `08 任务/任务总表.md`
+- [x] `09 阅读/章节/创世记 1.md`
+- [x] `09 阅读/阅读计划.md`
+- [x] `09 阅读/研读笔记/示例研读笔记 - 起初.md`
+- [x] `09 阅读/主题/创造.md`
+- [x] `09 阅读/经文/创世记 1.1.md`
+- [x] `09 阅读/经文/创世记 1.2.md`
+- [x] `09 阅读/经文/创世记 1.3.md`
 
 ## 知识层（5）
 
@@ -154,12 +154,12 @@
 
 ## 打包默认笔记（11）
 
-- [x] `scripts/template/defaults/03 规划/Core Values.md`
-- [x] `scripts/template/defaults/03 规划/Ideal Week.md`
-- [x] `scripts/template/defaults/03 规划/Life Theme.md`
-- [x] `scripts/template/defaults/08 任务/Tasks.md`
-- [x] `scripts/template/defaults/09 阅读/Reading Plan.md`
-- [x] `scripts/template/defaults/元数据/Compass Config.md`
+- [x] `scripts/template/defaults/03 规划/核心价值观.md`
+- [x] `scripts/template/defaults/03 规划/理想一周.md`
+- [x] `scripts/template/defaults/03 规划/人生主题.md`
+- [x] `scripts/template/defaults/08 任务/任务总表.md`
+- [x] `scripts/template/defaults/09 阅读/阅读计划.md`
+- [x] `scripts/template/defaults/元数据/Compass 配置.md`
 - [x] `scripts/template/defaults/wiki/hot.md`
 - [x] `scripts/template/defaults/wiki/index.md`
 - [x] `scripts/template/defaults/wiki/log.md`

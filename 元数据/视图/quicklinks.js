@@ -1,6 +1,6 @@
 // Compass 快捷链接：QuickAdd 记录按钮与多时间跨度计划笔记入口。
 // Usage: await dv.view("元数据/视图/quicklinks")
-const cfg = dv.page("元数据/Compass Config") || {};
+const cfg = dv.page("元数据/Compass 配置") || {};
 const DAILY = cfg.daily_folder || "01 日记/每日";
 const WEEKLY = cfg.weekly_folder || "01 日记/每周";
 const QUARTERLY = cfg.quarterly_folder || "01 日记/季度";
@@ -12,7 +12,7 @@ const links = [
   ["今日", `${DAILY}/${now.format("YYYY-MM-DD")}`, now.format("YYYY-MM-DD")],
   ["本周", `${WEEKLY}/${now.format("gggg-[W]ww")}`, now.format("gggg-[W]ww")],
   ["本季度", `${QUARTERLY}/${now.format("YYYY-[Q]Q")}`, now.format("YYYY-[Q]Q")],
-  ["个人静修", `${RETREATS}/${now.format("YYYY-[Q]Q")} Personal Retreat`, `${now.format("YYYY-[Q]Q")} Personal Retreat`],
+  ["个人静修", `${RETREATS}/${now.format("YYYY-[Q]Q")} 个人静修`, `${now.format("YYYY-[Q]Q")} 个人静修`],
 ];
 const p = root.createEl("p");
 p.appendText("快速跳转：");

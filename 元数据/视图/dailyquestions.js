@@ -2,7 +2,7 @@
 // Usage:
 //   await dv.view("元数据/视图/dailyquestions", { days: 30 })              interactive (dropdown + toggles)
 //   await dv.view("元数据/视图/dailyquestions", { from: "2026-07-01", to: "2026-09-30" })  fixed range
-const cfg = dv.page("元数据/Compass Config") || {};
+const cfg = dv.page("元数据/Compass 配置") || {};
 const FOLDER = cfg.daily_folder || "01 日记/每日";
 const PREFIX = cfg.dq_prefix || "dq_";
 const DEFAULT_RANGE = (input && input.days) || 30;
@@ -28,7 +28,7 @@ const label = k => QUESTION_LABELS[k] || k.slice(PREFIX.length).replace(/[_-]+/g
 
 const root = dv.container.createEl("div", { cls: "lifeos-widget" });
 if (keys.length === 0) {
-  root.createEl("p", { text: `尚未在 ${FOLDER} 中找到以“${PREFIX}”开头的数值属性。填写每日问题（模板/Daily Questions Prompt.md）后，数据会显示在这里。` });
+  root.createEl("p", { text: `尚未在 ${FOLDER} 中找到以“${PREFIX}”开头的数值属性。填写每日问题（模板/每日问题提示.md）后，数据会显示在这里。` });
 } else {
   const controls = root.createEl("div", { cls: "lifeos-controls" });
   let sel = null;

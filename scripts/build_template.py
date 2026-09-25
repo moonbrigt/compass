@@ -16,7 +16,7 @@ LIVE = os.path.dirname(HERE)
 DROP_GLOBS = [
     ".directory", ".github", ".github/*",
     ".agents", ".agents/*", ".specify", ".specify/*", "specs", "specs/*", ".venv", ".venv/*",
-    "指南/18 Distribution Checklist.md", "指南/23 Native Acceptance.md", "指南/Source - Video Analysis.md",
+    "指南/18 Distribution Checklist.md", "指南/23 原生验收.md", "指南/来源 - 视频分析.md",
     ".git", ".git/*", ".vault-meta", ".vault-meta/*", ".raw", ".raw/*", ".trash", ".trash/*",
     ".claude/settings.local.json", ".mcp.json", ".obsidian/workspace*.json", ".obsidian/graph.json",
     ".obsidian/plugins/agent-client/sessions", ".obsidian/plugins/agent-client/sessions/*",
@@ -30,15 +30,14 @@ DROP_GLOBS = [
 ]
 USER_CONTENT = ["01 日记/", "02 静修/", "04 项目/", "05 人物/", "06 写作/", "07 资料库/",
                 "09 阅读/章节/", "09 阅读/经文/", "09 阅读/研读笔记/", "09 阅读/主题/"]
-KEEP_IN_USER_FOLDERS = re.compile(r".* Board\.md$")
 BOARD_DEFAULTS = {
-    "04 项目/Projects Board.md": "项目看板",
-    "06 写作/通讯/Newsletter Board.md": "通讯看板",
-    "06 写作/YouTube 脚本/YouTube Board.md": "视频看板",
-    "06 写作/文章/Article Board.md": "文章看板",
-    "06 写作/课程内容/Course Board.md": "课程看板",
+    "04 项目/项目看板.md": "项目看板",
+    "06 写作/通讯/通讯看板.md": "通讯看板",
+    "06 写作/YouTube 脚本/YouTube 看板.md": "视频看板",
+    "06 写作/文章/文章看板.md": "文章看板",
+    "06 写作/课程内容/课程看板.md": "课程看板",
 }
-READING_PATHS = ["09 阅读", "指南/07 Workflow - Daily Reading.md", "scripts/generate_reading_plan.py", "scripts/split_bible.py", "模板/Study Note.md"]
+READING_PATHS = ["09 阅读", "指南/07 工作流 - 每日阅读.md", "scripts/bible_books.py", "scripts/generate_reading_plan.py", "scripts/split_bible.py", "模板/研读笔记.md"]
 
 def dropped(rel):
     if rel.startswith(".claude/"):
@@ -101,7 +100,7 @@ def copy_tree(live, out):
                         "quickadd:choice:lifeos-quarterly", "quickadd:choice:lifeos-journal",
                         "quickadd:choice:lifeos-win", "quickadd:choice:lifeos-gratitude",
                         "quickadd:choice:lifeos-task",
-                        "templater-obsidian:模板/Daily Questions Prompt.md",
+                        "templater-obsidian:模板/每日问题提示.md",
                     }
                     settings = {key: value for key, value in original.items() if key in allowed_hotkeys}
                 if settings is not None:
@@ -197,7 +196,7 @@ def validate_destination(live, output_root, name):
 
 def reset_defaults(out):
     src = os.path.join(HERE, "template", "defaults")
-    required = ["元数据/Compass Config.md", "03 规划/Life Theme.md", "03 规划/Core Values.md", "03 规划/Ideal Week.md", "08 任务/Tasks.md"]
+    required = ["元数据/Compass 配置.md", "03 规划/人生主题.md", "03 规划/核心价值观.md", "03 规划/理想一周.md", "08 任务/任务总表.md"]
     if any(not Path(src, rel).is_file() or Path(src, rel).is_symlink() for rel in required):
         raise ValueError("Clean source defaults are missing or unsafe")
     for root, _, files in os.walk(src):
@@ -252,8 +251,8 @@ def json_surgery(out):
     if d is not None: d["sync"] = False; save(p, d)
     p, d = load(".obsidian/app.json")
     if d is not None: d["newFileLocation"] = "current"; d.pop("newFileFolderPath", None); save(p, d)
-    workspace = {"main": {"id": "main", "type": "split", "children": [{"id": "leaf", "type": "tabs", "children": [{"id": "setup", "type": "leaf", "state": {"type": "markdown", "state": {"file": "00 仪表盘/Setup.md", "mode": "preview"}}}]}], "direction": "vertical"},
-                 "active": "setup", "lastOpenFiles": ["00 仪表盘/Setup.md"]}
+    workspace = {"main": {"id": "main", "type": "split", "children": [{"id": "leaf", "type": "tabs", "children": [{"id": "setup", "type": "leaf", "state": {"type": "markdown", "state": {"file": "00 仪表盘/设置向导.md", "mode": "preview"}}}]}], "direction": "vertical"},
+                 "active": "setup", "lastOpenFiles": ["00 仪表盘/设置向导.md"]}
     save(os.path.join(out, ".obsidian/workspace.json"), workspace)
 
 def text_surgery(out, without_reading):
@@ -271,10 +270,10 @@ def text_surgery(out, without_reading):
             p = os.path.join(out, rel)
             if os.path.isdir(p): shutil.rmtree(p)
             elif os.path.exists(p): os.remove(p)
-        p = os.path.join(out, "模板/Daily Note.md")
+        p = os.path.join(out, "模板/每日笔记.md")
         s = Path(p).read_text(encoding="utf-8")
         s = re.sub(r"> \[!reading\]- 每日阅读\n(?:> .*\n)+\n", "", s)
-        s = s.replace("path does not include 09 阅读/Reading Plan\n", "")
+        s = s.replace("path does not include 09 阅读/阅读计划\n", "")
         Path(p).write_text(s, encoding="utf-8")
         def edit(rel, fn):
             q = os.path.join(out, rel)
@@ -282,22 +281,22 @@ def text_surgery(out, without_reading):
                 t = Path(q).read_text(encoding="utf-8")
                 Path(q).write_text(fn(t), encoding="utf-8")
         def remove_setup_reading(t):
-            sentence = "决定是否使用阅读模块：填写 [[Reading Plan|阅读计划]]，或删除 `09 阅读`。"
+            sentence = "决定是否使用阅读模块：填写 [[阅读计划]]，或删除 `09 阅读`。"
             if t.count(sentence) != 1:
                 raise ValueError("Cannot safely remove reading setup guidance")
             return t.replace(sentence, "")
-        edit("00 仪表盘/Setup.md", remove_setup_reading)
-        edit("指南/00 Start Here.md", lambda t: re.sub(r"^\| 5 \| 每日阅读.*\n", "", t, flags=re.M))
+        edit("00 仪表盘/设置向导.md", remove_setup_reading)
+        edit("指南/00 从这里开始.md", lambda t: re.sub(r"^\| 5 \| 每日阅读.*\n", "", t, flags=re.M))
         edit("AGENTS.md", lambda t: re.sub(r"^\| `09 阅读/`.*\n", "", t, flags=re.M))
         edit("README.md", lambda t: re.sub(r"^09 阅读/.*\n", "", t, flags=re.M))
         edit("README.md", lambda t: re.sub(r"^\| 5 \| 每日阅读.*\n", "", t, flags=re.M))
-        edit("00 仪表盘/Task Dashboard.md", lambda t: t.replace("path does not include 09 阅读/Reading Plan\n", ""))
-        edit("指南/02 Plugins.md", lambda t: t.replace("共有 20 个选项", "共有 19 个选项").replace("8 个按模板新建", "7 个按模板新建").replace("其余 12 个是模板选项", "其余 11 个是模板选项").replace("| 📖 新建研读笔记 | `09 阅读/研读笔记/{{VALUE}}.md` | `模板/Study Note.md` |\n", ""))
-        edit("指南/21 Life OS Application.md", lambda t: t.replace("`07 资料库/` 与 `09 阅读/`", "`07 资料库/`").replace("、读书与研读笔记", "与读书笔记"))
+        edit("00 仪表盘/任务仪表盘.md", lambda t: t.replace("path does not include 09 阅读/阅读计划\n", ""))
+        edit("指南/02 插件.md", lambda t: t.replace("共有 20 个选项", "共有 19 个选项").replace("8 个按模板新建", "7 个按模板新建").replace("其余 12 个是模板选项", "其余 11 个是模板选项").replace("| 📖 新建研读笔记 | `09 阅读/研读笔记/{{VALUE}}.md` | `模板/研读笔记.md` |\n", ""))
+        edit("指南/21 Life OS 应用.md", lambda t: t.replace("`07 资料库/` 与 `09 阅读/`", "`07 资料库/`").replace("、读书与研读笔记", "与读书笔记"))
         life_os = Path(out, ".obsidian/plugins/life-os-app/main.js")
         source = life_os.read_text(encoding="utf-8")
         study_action = r'(?m)^\s*\{\n\s*icon: "book-open-check",\n\s*label: "新建研读笔记",\n\s*description: "[^"]+",\n\s*command: "quickadd:choice:lifeos-new-study-note",\n\s*\},\n'
-        reading_action = r'(?m)^\s*\{\n\s*icon: "book-open",\n\s*label: "阅读计划",\n\s*description: "[^"]+",\n\s*path: "09 阅读/Reading Plan.md",\n\s*\},\n'
+        reading_action = r'(?m)^\s*\{\n\s*icon: "book-open",\n\s*label: "阅读计划",\n\s*description: "[^"]+",\n\s*path: "09 阅读/阅读计划.md",\n\s*\},\n'
         source, removed_study = re.subn(study_action, "", source)
         source, removed_plan = re.subn(reading_action, "", source)
         if (removed_study, removed_plan) != (2, 1):

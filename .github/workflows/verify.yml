@@ -17,6 +17,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Set up Python 3.12
         uses: actions/setup-python@v5
@@ -30,6 +32,7 @@ jobs:
 
       - name: Check application and release contracts
         run: |
+          python3 scripts/locale_audit.py
           node scripts/verify_life_os_app.mjs .
           node scripts/verify_assistant_contracts.mjs .
           python3 scripts/verify_release_safety.py

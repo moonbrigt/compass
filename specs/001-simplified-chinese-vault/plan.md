@@ -1,12 +1,12 @@
 # Implementation Plan: Compass 简体中文版
 
-**Branch**: `zh-CN` | **Date**: 2026-09-24 | **Spec**: [spec.md](spec.md)
+**Branch**: `main` | **Date**: 2026-09-24 | **Spec**: [spec.md](spec.md)
 
 **Input**: Feature specification from `specs/001-simplified-chinese-vault/spec.md`
 
 ## Summary
 
-在独立工作区中翻译 Compass 自有的界面和仓库内容。首方内容目录改为中文并迁移全部路径消费者；保留文件名、数据键、命令 ID 与第三方插件。为首方 Life OS、仪表盘脚本、QuickAdd 显示名称、模板、提示词、指南和示例内容提供一致的简体中文。个人使用版排除开发过程与维护者验证文件，从隔离构建产物进行 Obsidian 实测。
+在 `main` 上维护 Compass 中文版。首方内容目录和用户可见笔记文件名改为中文，并迁移全部路径消费者；保留数据键、命令 ID、日期格式与第三方插件。个人使用版排除开发过程与维护者验证文件，从隔离构建产物进行 Obsidian 实测。
 
 ## Technical Context
 
@@ -24,7 +24,7 @@
 
 **Performance Goals**: 翻译不增加网络请求、扫描轮次或重复数据存储；主要界面加载维持原版行为
 
-**Constraints**: 不复制英文使用仓库中的个人笔记；不改第三方插件二进制或许可证；保留机器标识并迁移首方目录的全部链接路径；不提交密钥
+**Constraints**: 不复制正在使用的个人仓库笔记；不改第三方插件二进制或许可证；保留机器标识并迁移首方目录及文件的全部路径引用；不提交密钥
 
 **Scale/Scope**: 仓库约 100 个可翻译 Markdown 文件、9 个仪表盘视图脚本、20 个 QuickAdd 选项和一个约 116 KB 的首方 Life OS 插件
 
@@ -35,7 +35,7 @@
 | Principle | Gate | Result |
 | --- | --- | --- |
 | Markdown is the source of truth | 保留属性、命令、模板和链接契约 | 通过；契约见 `contracts/localization-contract.md` |
-| Personal data stays under user control | 独立工作区只含上游模板数据 | 通过；`F:\compass` 的使用数据不进入分支 |
+| Personal data stays under user control | 源码提交只含模板数据 | 通过；使用仓库的私人记录不进入提交 |
 | Runtime compatibility comes before presentation | 首方插件改动可静态检查，第三方二进制不改 | 通过；原生验收见 `quickstart.md` |
 | Chinese copy is complete and consistent | 建立术语表与覆盖清单 | 通过；遗漏要在收敛阶段列为任务 |
 | Claims follow observed evidence | 区分静态验证与 Obsidian 实测 | 通过；验收步骤见 `quickstart.md` |
@@ -63,7 +63,7 @@ specs/001-simplified-chinese-vault/
 .obsidian/plugins/life-os-app/manifest.json # 首方插件简介
 .obsidian/plugins/quickadd/data.json        # 捕获命令显示名，保留 id
 元数据/视图/*.js                             # 仪表盘显示文案与状态判断
-元数据/Compass Config.md                     # 问题、习惯、领域的显示名
+元数据/Compass 配置.md                     # 问题、习惯、领域的显示名
 00 仪表盘/*.md                         # 仪表盘与 Setup 页面
 模板/*.md                             # 新建笔记模板
 提示词/*.md                               # AI 提示词
@@ -76,7 +76,7 @@ scripts/verify_template.py                # 依赖占位文案的验收
 scripts/locale_audit.py                    # 翻译覆盖与技术标识审计
 ```
 
-**Structure Decision**: 原有仓库就是可运行模板；直接翻译首方源文件和自有 Markdown，不另建一套平行笔记或运行时数据库。原英文版本由 Git 历史和英文工作区保留。
+**Structure Decision**: 原有仓库就是可运行模板；在 `main` 迁移首方文件名与所有路径消费者，不另建一套平行笔记或运行时数据库。旧版本可从 Git 历史查看。
 
 ## Design Sequence
 

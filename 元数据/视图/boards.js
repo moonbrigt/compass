@@ -3,7 +3,7 @@
 //   await dv.view("元数据/视图/boards")                       all boards, all lanes
 //   await dv.view("元数据/视图/boards", { compact: true })    one line per board: open cards + the lane that needs attention
 //   await dv.view("元数据/视图/boards", { folder: "06 写作" })
-const cfg = dv.page("元数据/Compass Config") || {};
+const cfg = dv.page("元数据/Compass 配置") || {};
 const FOLDER = input && input.folder ? input.folder : null;
 const COMPACT = !!(input && input.compact);
 const DONE_LANES = (cfg.board_done_lanes || "已完成,已发布,归档,Done,Published,Archive").split(",").map(s => s.trim().toLowerCase());

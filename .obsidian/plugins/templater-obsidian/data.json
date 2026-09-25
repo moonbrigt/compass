@@ -5,55 +5,55 @@
   "folder_templates": [
     {
       "folder": "01 日记/季度",
-      "template": "模板/Quarterly Note.md"
+      "template": "模板/季度笔记.md"
     },
     {
       "folder": "01 日记/每周",
-      "template": "模板/Weekly Note.md"
+      "template": "模板/每周笔记.md"
     },
     {
       "folder": "01 日记/每日",
-      "template": "模板/Daily Note.md"
+      "template": "模板/每日笔记.md"
     },
     {
       "folder": "02 静修",
-      "template": "模板/Personal Retreat.md"
+      "template": "模板/个人静修.md"
     },
     {
       "folder": "04 项目",
-      "template": "模板/Project.md"
+      "template": "模板/项目.md"
     },
     {
       "folder": "05 人物",
-      "template": "模板/Person.md"
+      "template": "模板/人物.md"
     },
     {
       "folder": "06 写作/通讯",
-      "template": "模板/Newsletter.md"
+      "template": "模板/通讯.md"
     },
     {
       "folder": "06 写作/YouTube 脚本",
-      "template": "模板/YouTube Script.md"
+      "template": "模板/YouTube 脚本.md"
     },
     {
       "folder": "06 写作/文章",
-      "template": "模板/Article.md"
+      "template": "模板/文章.md"
     },
     {
       "folder": "06 写作/课程内容",
-      "template": "模板/Course Lesson.md"
+      "template": "模板/课程课时.md"
     },
     {
       "folder": "07 资料库/读书笔记",
-      "template": "模板/Book Note.md"
+      "template": "模板/读书笔记.md"
     },
     {
       "folder": "09 阅读/研读笔记",
-      "template": "模板/Study Note.md"
+      "template": "模板/研读笔记.md"
     }
   ],
   "enabled_templates_hotkeys": [
-    "模板/Daily Questions Prompt.md"
+    "模板/每日问题提示.md"
   ],
   "syntax_highlighting": true,
   "syntax_highlighting_mobile": false

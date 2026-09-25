@@ -8,19 +8,19 @@
 
 | 文件夹 | 内容 | 允许的操作 |
 | --- | --- | --- |
-| `00 仪表盘/` | 根据属性生成的 DataviewJS 仪表盘，`Setup.md` 是入门页 | 可读；只有明确要求修改仪表盘时才编辑 |
+| `00 仪表盘/` | 根据属性生成的 DataviewJS 仪表盘，`设置向导.md` 是入门页 | 可读；只有明确要求修改仪表盘时才编辑 |
 | `01 日记/每日`、`Weekly`、`Quarterly` | 命名为 `YYYY-MM-DD`、`gggg-Www`、`YYYY-QN` 的周期笔记 | 可读；经请求可在现有二级标题下追加 |
-| `02 静修/` | `YYYY-QN Personal Retreat` 笔记及 `wheel_*` 分数 | 可读；经请求可用用户自己的话填写段落 |
+| `02 静修/` | `YYYY-QN 个人静修` 笔记及 `wheel_*` 分数 | 可读；经请求可用用户自己的话填写段落 |
 | `03 规划/` | 人生主题、核心价值观（含角色）、理想一周 | 可读；须有明确请求，并逐段批准才编辑 |
-| `04 项目/` | 项目笔记、`#project/<slug>` 任务及 `Projects Board.md` | 可读；经请求编辑 |
+| `04 项目/` | 项目笔记、`#project/<slug>` 任务及 `项目看板.md` | 可读；经请求编辑 |
 | `05 人物/` | 人物笔记、`#p/<slug>` 任务及 `#discuss` 汇总 | 可读；经请求编辑 |
 | `06 写作/` | 各写作类型的文件夹与看板 | 可读；经请求编辑或协助起草 |
 | `07 资料库/读书笔记` | 带 `^block-id` 引文的读书笔记 | 可读；经请求编辑 |
-| `08 任务/Tasks.md` | 捕获到此处、平时不必逐条读的任务总表 | 经请求在 `## 收件箱` 下追加任务 |
+| `08 任务/任务总表.md` | 捕获到此处、平时不必逐条读的任务总表 | 经请求在 `## 收件箱` 下追加任务 |
 | `09 阅读/` | 阅读计划、章节、经节、研读与主题笔记 | 可读 |
 | `提示词/` | 每项重复工作一篇提示词笔记 | 可读；受委托执行时依笔记的 `## 提示词` 段落操作 |
-| `模板/` | Templater 模板，属性列表来自 `元数据/Compass Config.md` | 仅在明确要求修改系统时编辑 |
-| `元数据/Compass Config.md`、`元数据/视图/*.js` | 唯一配置与仪表盘组件 | 可读；仅在用户要求修改问题、习惯、领域或出生日期时编辑配置 |
+| `模板/` | Templater 模板，属性列表来自 `元数据/Compass 配置.md` | 仅在明确要求修改系统时编辑 |
+| `元数据/Compass 配置.md`、`元数据/视图/*.js` | 唯一配置与仪表盘组件 | 可读；仅在用户要求修改问题、习惯、领域或出生日期时编辑配置 |
 | `指南/` | 系统的用法与设计原因 | 不确定时先读 |
 | `wiki/`、`inbox/` | 可选的 claude-obsidian 知识层 | 按 `wiki/routing-map.md` 路由；写入走插件的检查、批准、应用事务 |
 | `scripts/` | 阅读计划生成与模板构建等维护工具 | 可读 |
@@ -28,7 +28,7 @@
 
 ## 数据约定
 
-- 每日问题是 `dq_*` 数字属性（1–10，评价努力而非结果）；习惯是 `habit_*` 复选框属性；静修中的生命之轮是 `wheel_*`。列表放在 `元数据/Compass Config.md` 的 `questions`、`habits`、`wheel_areas`，仪表盘按前缀发现属性。不得重命名或删除旧笔记中的键。
+- 每日问题是 `dq_*` 数字属性（1–10，评价努力而非结果）；习惯是 `habit_*` 复选框属性；静修中的生命之轮是 `wheel_*`。列表放在 `元数据/Compass 配置.md` 的 `questions`、`habits`、`wheel_areas`，仪表盘按前缀发现属性。不得重命名或删除旧笔记中的键。
 - 任务使用 Obsidian Tasks 格式：`- [ ] 内容 📅 YYYY-MM-DD` 表示截止，`⏳` 表示安排，`🔁` 重复，`⏫` 高优先级，`➕` 创建日期。路由标签为 `#project/<slug>`、`#p/<slug>`、`#discuss`。slug 把笔记标题转成小写，并把不合适的字符转为连字符；中文汉字保留。项目和人物模板在顶部打印实际标签。
 - 链接使用 `[[wikilinks]]`。文件名与属性日期使用 ISO 格式。避免使用英文长破折号。
 - 带 `example` 标签的笔记是演示数据，不代表用户的真实生活；已有真实记录后可建议删除这些示例。
@@ -37,10 +37,10 @@
 
 ## 查找资料
 
-- 今天：`01 日记/每日/<today>.md`；本周：`01 日记/每周/<gggg-Www>.md`；本季度与静修：`01 日记/季度/<YYYY-QN>.md`、`02 静修/<YYYY-QN> Personal Retreat.md`。
-- 任务：`00 仪表盘/Task Dashboard.md` 说明查询；数据位于 `08 任务/Tasks.md`、`04 项目/*`、`05 人物/*`。
+- 今天：`01 日记/每日/<today>.md`；本周：`01 日记/每周/<gggg-Www>.md`；本季度与静修：`01 日记/季度/<YYYY-QN>.md`、`02 静修/<YYYY-QN> 个人静修.md`。
+- 任务：`00 仪表盘/任务仪表盘.md` 说明查询；数据位于 `08 任务/任务总表.md`、`04 项目/*`、`05 人物/*`。
 - 看板：带 `kanban-plugin` 属性的笔记；每个 `## 标题` 是一列，`- [ ]` 是卡片。
-- 系统问题：先看 `指南/00 Start Here.md`，再看对应工作流指南。设置状态见 `00 仪表盘/Setup.md`。
+- 系统问题：先看 `指南/00 从这里开始.md`，再看对应工作流指南。设置状态见 `00 仪表盘/设置向导.md`。
 - 知识层归档规则见 `wiki/routing-map.md`。
 
 ## 通过 Obsidian MCP 操作
@@ -51,7 +51,7 @@
 - 读取：`vault_read`、`vault_get_document_map`（读取单节）、`vault_list`、`search_simple`、`search_query`、`tag_list`。
 - 展示：`open_file` 在界面中打开笔记、看板或仪表盘。
 - 写入：在已有标题或 frontmatter 键下用 `vault_append`、`vault_patch`；不能用 `vault_write` 覆盖已有笔记。`vault_move`、`vault_copy`、`vault_delete` 仅在明确要求时逐文件执行，删除会进入回收站。
-- 命令：先用 `command_list` 确认 ID，再用 `command_execute`。已知 QuickAdd 命令 ID 包括 `quickadd:choice:lifeos-journal`、`lifeos-win`、`lifeos-gratitude`、`lifeos-task`、`lifeos-project-idea`、`lifeos-daily`、`lifeos-weekly`、`lifeos-quarterly`、`lifeos-retreat`；还有 Templater 的 `templater-obsidian:模板/Daily Questions Prompt.md` 与 SEO 的 `seo:run-current`、`seo:run-global`。执行前确认该 ID 存在。
+- 命令：先用 `command_list` 确认 ID，再用 `command_execute`。已知 QuickAdd 命令 ID 包括 `quickadd:choice:lifeos-journal`、`lifeos-win`、`lifeos-gratitude`、`lifeos-task`、`lifeos-project-idea`、`lifeos-daily`、`lifeos-weekly`、`lifeos-quarterly`、`lifeos-retreat`；还有 Templater 的 `templater-obsidian:模板/每日问题提示.md` 与 SEO 的 `seo:run-current`、`seo:run-global`。执行前确认该 ID 存在。
 - 移动看板卡片时只对看板文件运行 `vault_patch`，不重写整篇文件。
 
 若 `obsidian` 服务未连接，说明一次，然后改为普通文件读取；没有用户批准时仍不得写入。

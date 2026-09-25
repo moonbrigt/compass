@@ -1,15 +1,18 @@
 #!/usr/bin/env python3
-"""生成 09 阅读/Reading Plan.md：每章一项 Obsidian Tasks 任务，分配到指定天数。
+"""生成 09 阅读/阅读计划.md：每章一项 Obsidian Tasks 任务，分配到指定天数。
 
 Usage:
-  python3 scripts/generate_reading_plan.py --start 2026-09-01 --days 365 > "09 阅读/Reading Plan.md"
-  python3 scripts/generate_reading_plan.py --start 2026-09-01 --order chronological > "09 阅读/Reading Plan.md"
+  python3 scripts/generate_reading_plan.py --start 2026-09-01 --days 365 > "09 阅读/阅读计划.md"
+  python3 scripts/generate_reading_plan.py --start 2026-09-01 --order chronological > "09 阅读/阅读计划.md"
 
-每项任务链接到章节笔记（09 阅读/章节/<Book> <N>.md）。
+每项任务链接到章节笔记（09 阅读/章节/<中文书卷名> <N>.md）。
 日记中的阅读提示框会查询今天及更早安排、尚未完成的章节。
 """
 import argparse
 import datetime as dt
+import sys
+
+from bible_books import display_book
 
 BOOKS = [
     ("Genesis", 50), ("Exodus", 40), ("Leviticus", 27), ("Numbers", 36), ("Deuteronomy", 34),
@@ -48,10 +51,12 @@ def chapters(order):
     names = [b for b, _ in BOOKS] if order == "canonical" else CHRONOLOGICAL_BOOKS
     for b in names:
         for c in range(1, counts[b] + 1):
-            yield f"{b} {c}"
+            yield f"{display_book(b)} {c}"
 
 
 def main():
+    if hasattr(sys.stdout, "reconfigure"):
+        sys.stdout.reconfigure(encoding="utf-8")
     ap = argparse.ArgumentParser()
     ap.add_argument("--start", required=True, help="YYYY-MM-DD")
     ap.add_argument("--days", type=int, default=365)

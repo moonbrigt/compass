@@ -1,6 +1,6 @@
 // Compass 每周复盘表：按日期汇总每日问题评分和完成的习惯。
 // Usage: await dv.view("元数据/视图/week", { week: dv.current().file.name })   // file named gggg-[W]ww
-const cfg = dv.page("元数据/Compass Config") || {};
+const cfg = dv.page("元数据/Compass 配置") || {};
 const FOLDER = cfg.daily_folder || "01 日记/每日";
 const DQ = cfg.dq_prefix || "dq_";
 const HB = cfg.habit_prefix || "habit_";

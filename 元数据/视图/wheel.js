@@ -2,7 +2,7 @@
 // Usage:
 //   await dv.view("元数据/视图/wheel")                                  -> this quarter's retreat (by naming convention), else most recent
 //   await dv.view("元数据/视图/wheel", { page: dv.current().file.path })  -> a specific retreat note (used inside the retreat template)
-const cfg = dv.page("元数据/Compass Config") || {};
+const cfg = dv.page("元数据/Compass 配置") || {};
 const FOLDER = cfg.retreat_folder || "02 静修";
 const PREFIX = cfg.wheel_prefix || "wheel_";
 
@@ -10,18 +10,18 @@ let page = input && input.page ? dv.page(input.page) : null;
 let how = "";
 if (!page) {
   const q = moment().quarter(), yr = moment().year();
-  page = dv.page(`${FOLDER}/${yr}-Q${q} Personal Retreat`);
+  page = dv.page(`${FOLDER}/${yr}-Q${q} 个人静修`);
   how = page ? `本季度（${yr}-Q${q}）` : "";
 }
 if (!page) {
-  const all = dv.pages(`"${FOLDER}"`).where(p => /^\d{4}-Q[1-4] Personal Retreat$/.test(p.file.name)).sort(p => p.file.name, "desc").array();
+  const all = dv.pages(`"${FOLDER}"`).where(p => /^\d{4}-Q[1-4] 个人静修$/.test(p.file.name)).sort(p => p.file.name, "desc").array();
   page = all[0];
   how = page ? "最近一次个人静修" : "";
 }
 
 const root = dv.container.createEl("div", { cls: "lifeos-widget" });
 if (!page) {
-  root.createEl("p", { text: `在 ${FOLDER} 中找不到个人静修笔记。请创建名为“YYYY-QN Personal Retreat”的笔记（例如 ${moment().year()}-Q${moment().quarter()} Personal Retreat），并填写 ${PREFIX}* 属性。` });
+  root.createEl("p", { text: `在 ${FOLDER} 中找不到个人静修笔记。请创建名为“YYYY-QN 个人静修”的笔记（例如 ${moment().year()}-Q${moment().quarter()} 个人静修），并填写 ${PREFIX}* 属性。` });
 } else {
   const fm = page.file.frontmatter || {};
   const axes = Object.keys(fm)

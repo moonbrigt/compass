@@ -8,8 +8,8 @@ Usage:
     python3 scripts/split_bible.py kjv.txt --out "09 阅读"
 
 Writes:
-    <out>/Chapters/<Book> <N>.md     full chapter text + links to every verse note
-    <out>/Verses/<Book> <N>.<V>.md   one verse, previous/next links, frontmatter for Dataview
+    <out>/章节/<中文书卷名> <N>.md     章节正文及经节链接
+    <out>/经文/<中文书卷名> <N>.<V>.md   经节正文、前后链接及 Dataview 属性
 
 已有文件会被覆盖。完整文本约有三万一千篇经节笔记；首次索引需要时间。
 可用 --books 限定书卷，例如 --books "Genesis,John"。
@@ -18,6 +18,8 @@ import argparse
 import os
 import re
 from collections import OrderedDict
+
+from bible_books import display_book
 
 LINE = re.compile(r"^(?P<book>[1-3]?\s?[A-Za-z ]+?)\s+(?P<ch>\d+):(?P<v>\d+)\t(?P<text>.+)$")
 
@@ -43,24 +45,25 @@ def main():
             ch, v = int(m.group("ch")), int(m.group("v"))
             data.setdefault(book, OrderedDict()).setdefault(ch, OrderedDict())[v] = m.group("text").strip()
 
-    chap_dir = os.path.join(a.out, "Chapters")
-    verse_dir = os.path.join(a.out, "Verses")
+    chap_dir = os.path.join(a.out, "章节")
+    verse_dir = os.path.join(a.out, "经文")
     os.makedirs(chap_dir, exist_ok=True)
     os.makedirs(verse_dir, exist_ok=True)
 
     n_ch = n_v = 0
     for book, chapters in data.items():
+        title = display_book(book)
         for ch, verses in chapters.items():
-            cname = f"{book} {ch}"
-            prev_ch = f"{book} {ch - 1}" if ch > 1 else None
-            next_ch = f"{book} {ch + 1}" if (ch + 1) in chapters else None
+            cname = f"{title} {ch}"
+            prev_ch = f"{title} {ch - 1}" if ch > 1 else None
+            next_ch = f"{title} {ch + 1}" if (ch + 1) in chapters else None
             nav = " · ".join(x for x in [f"上一章：[[{prev_ch}]]" if prev_ch else "", f"下一章：[[{next_ch}]]" if next_ch else ""] if x)
             body = [
                 "---", "type: bible-chapter", f"book: {book}", f"chapter: {ch}", f"translation: {a.translation}",
                 "tags:", "  - bible/chapter", "---", f"# {cname}", "", nav, "", "## 正文",
             ]
             body += [f"{v}. {t}" for v, t in verses.items()]
-            body += ["", "## 经节", " · ".join(f"[[{book} {ch}.{v}]]" for v in verses), "",
+            body += ["", "## 经节", " · ".join(f"[[{title} {ch}.{v}]]" for v in verses), "",
                      "## 引用本章的笔记与讲道", "```dataview", "LIST",
                      'WHERE contains(file.outlinks, this.file.link) AND !contains(file.folder, "09 阅读/章节")', "```", ""]
             with open(os.path.join(chap_dir, cname + ".md"), "w", encoding="utf-8") as f:
@@ -69,15 +72,15 @@ def main():
 
             vkeys = list(verses)
             for i, v in enumerate(vkeys):
-                vname = f"{book} {ch}.{v}"
+                vname = f"{title} {ch}.{v}"
                 links = [f"章节：[[{cname}]]"]
                 if i > 0:
-                    links.append(f"上一节：[[{book} {ch}.{vkeys[i - 1]}]]")
+                    links.append(f"上一节：[[{title} {ch}.{vkeys[i - 1]}]]")
                 if i + 1 < len(vkeys):
-                    links.append(f"下一节：[[{book} {ch}.{vkeys[i + 1]}]]")
+                    links.append(f"下一节：[[{title} {ch}.{vkeys[i + 1]}]]")
                 vb = ["---", "type: bible-verse", f"book: {book}", f"chapter: {ch}", f"verse: {v}",
                       f"translation: {a.translation}", "tags:", "  - bible/verse", "---",
-                      f"# {book} {ch}:{v}", "", verses[v], "", " · ".join(links), ""]
+                      f"# {title} {ch}:{v}", "", verses[v], "", " · ".join(links), ""]
                 with open(os.path.join(verse_dir, vname + ".md"), "w", encoding="utf-8") as f:
                     f.write("\n".join(vb))
                 n_v += 1

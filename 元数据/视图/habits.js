@@ -2,7 +2,7 @@
 // Usage:  await dv.view("元数据/视图/habits", { days: 14 })
 // Reads every daily note, finds checkbox properties starting with habit_prefix and
 // renders: last N days grid, current streak, best streak, longest break, completion %, total.
-const cfg = dv.page("元数据/Compass Config") || {};
+const cfg = dv.page("元数据/Compass 配置") || {};
 const FOLDER = cfg.daily_folder || "01 日记/每日";
 const PREFIX = cfg.habit_prefix || "habit_";
 const DAYS = (input && input.days) || 14;
@@ -24,7 +24,7 @@ for (const p of pages) {
 
 const root = dv.container.createEl("div", { cls: "lifeos-widget" });
 if (habits.size === 0) {
-  root.createEl("p", { text: `尚未在 ${FOLDER} 中找到以“${PREFIX}”开头的复选属性。请在 模板/Daily Note.md 中添加习惯并开始记录。` });
+  root.createEl("p", { text: `尚未在 ${FOLDER} 中找到以“${PREFIX}”开头的复选属性。请在 模板/每日笔记.md 中添加习惯并开始记录。` });
 } else {
   const today = moment().startOf("day");
   const fmt = d => d.format("YYYY-MM-DD");

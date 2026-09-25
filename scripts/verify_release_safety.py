@@ -68,7 +68,7 @@ class ReleaseSafety(unittest.TestCase):
         self.assertIn("fixture.txt", (self.live / "MANIFEST.sha256").read_text())
         self.assertFalse((self.base / "MANIFEST.sha256").exists())
     def test_private_defaults_never_staged(self):
-        for rel in ["元数据/Compass Config.md", "03 规划/Life Theme.md", "08 任务/Tasks.md"]:
+        for rel in ["元数据/Compass 配置.md", "03 规划/人生主题.md", "08 任务/任务总表.md"]:
             path = self.live / rel
             path.parent.mkdir(parents=True, exist_ok=True)
             path.write_text("SYNTHETIC_PRIVATE_SENTINEL")
@@ -76,14 +76,14 @@ class ReleaseSafety(unittest.TestCase):
         builder.copy_tree(str(self.live), str(self.output))
         self.assertEqual(list(self.output.rglob("*.md")), [])
     def test_boards_do_not_bypass_personal_content_filter(self):
-        for rel in ["04 项目/Projects Board.md", "04 项目/Private Board.md"]:
+        for rel in ["04 项目/项目看板.md", "04 项目/Private Board.md"]:
             path = self.live / rel
             path.parent.mkdir(parents=True, exist_ok=True)
             path.write_text("## Private lane\n- [ ] SYNTHETIC_PRIVATE_SENTINEL")
         self.output.mkdir()
         builder.copy_tree(str(self.live), str(self.output))
         self.assertFalse((self.output / "04 项目/Private Board.md").exists())
-        self.assertNotIn("SYNTHETIC_PRIVATE_SENTINEL", (self.output / "04 项目/Projects Board.md").read_text(encoding="utf-8"))
+        self.assertNotIn("SYNTHETIC_PRIVATE_SENTINEL", (self.output / "04 项目/项目看板.md").read_text(encoding="utf-8"))
     def test_archive_path_rules(self):
         for path in ["../escape", "/absolute", "root/../escape", "root\\escape", "C:/escape", "root//file"]:
             self.assertFalse(safe_name(path))

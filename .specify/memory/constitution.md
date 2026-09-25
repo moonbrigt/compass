@@ -19,16 +19,16 @@ Static checks MUST verify links, template syntax, JSON, scripts, and release saf
 
 ## Repository Constraints
 
-The repository is an Obsidian vault template. `元数据/Compass Config.md` defines questions, habits, areas, folders, and prefixes; dashboard views under `元数据/视图/` depend on those contracts. `AGENTS.md` governs personal note edits. `scripts/verify_template.py` and the release scripts define template packaging and secret checks. Bundled community plugins retain their own licenses; guide prose is CC BY 4.0 and project code is MIT. Do not translate license texts, third-party binaries, command IDs, property keys, or code identifiers.
+The repository is an Obsidian vault template. `元数据/Compass 配置.md` defines questions, habits, areas, folders, and prefixes; dashboard views under `元数据/视图/` depend on those contracts. `AGENTS.md` governs personal note edits. `scripts/verify_template.py` and the release scripts define template packaging and secret checks. Bundled community plugins retain their own licenses; guide prose is CC BY 4.0 and project code is MIT. Do not translate license texts, third-party binaries, command IDs, property keys, or code identifiers.
 
 ## Development Workflow
 
-Keep localization on a dedicated branch and working tree. Establish a Spec Kit specification, plan, and tasks before implementation. Preserve the English vault as a comparison source. Review every changed Markdown file for links, frontmatter, and executable blocks; review JavaScript changes for syntax and runtime behavior. Run the repository's relevant verification scripts and inspect the translated vault in Obsidian before delivery. Record remaining untranslated strings and unverified behavior explicitly.
+Maintain the Chinese edition on `main`. Before changes, inspect and protect personal workspaces. Record the specification, plan, and tasks with Spec Kit; migrate every path consumer when a user-facing filename changes. Review changed Markdown links, frontmatter, and executable blocks, check JavaScript syntax and behavior, and inspect a candidate vault in Obsidian. Record untranslated strings and unverified behavior explicitly.
 
 ## Governance
 
 Amend this constitution with a documented reason and version change. MAJOR versions change or remove a principle, MINOR versions add a principle or materially expand scope, and PATCH versions clarify existing rules. Review specifications, plans, tasks, and completed changes against the active constitution. `AGENTS.md` remains the operational rulebook for vault content and user authorization.
 
-**Version**: 1.0.1 | **Ratified**: 2026-09-24 | **Last Amended**: 2026-09-24
+**Version**: 1.1.0 | **Ratified**: 2026-09-24 | **Last Amended**: 2026-09-24
 
-Version 1.0.1 updates repository path examples after the Chinese directory migration; the principles are unchanged.
+Version 1.1.0 moves localization maintenance to `main` and extends the Chinese naming requirement to first-party user-facing note files. Technical identifiers and external names remain stable.

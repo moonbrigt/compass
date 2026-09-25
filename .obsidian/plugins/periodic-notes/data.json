@@ -3,13 +3,13 @@
     "enabled": true,
     "format": "YYYY-MM-DD",
     "folder": "01 日记/每日",
-    "template": "模板/Daily Note.md"
+    "template": "模板/每日笔记.md"
   },
   "weekly": {
     "enabled": true,
     "format": "gggg-[W]ww",
     "folder": "01 日记/每周",
-    "template": "模板/Weekly Note.md"
+    "template": "模板/每周笔记.md"
   },
   "monthly": {
     "enabled": false,
@@ -21,7 +21,7 @@
     "enabled": true,
     "format": "YYYY-[Q]Q",
     "folder": "01 日记/季度",
-    "template": "模板/Quarterly Note.md"
+    "template": "模板/季度笔记.md"
   },
   "yearly": {
     "enabled": false,

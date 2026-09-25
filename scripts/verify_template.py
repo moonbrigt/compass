@@ -14,7 +14,7 @@ if os.path.exists(_local):
         FORBIDDEN += [re.escape(l.strip()) for l in stream if l.strip() and not l.startswith("#")]
 ALLOW_FILES = set()
 SKIP_DIR_PARTS = ("/.obsidian/plugins/",)
-DATE_LINK = re.compile(r"^\d{4}-(\d\d-\d\d|W\d\d|Q\d( Personal Retreat)?)$")
+DATE_LINK = re.compile(r"^\d{4}-(\d\d-\d\d|W\d\d|Q\d( 个人静修)?)$")
 
 def main():
     root = sys.argv[1] if len(sys.argv) > 1 else "build/Compass"
@@ -104,7 +104,7 @@ def main():
     appearance = load(".obsidian/appearance.json") or {}
     check("CSS snippets enabled", {"lifeos", "vault-colors"}.issubset(set(appearance.get("enabledCssSnippets", []))))
     hotkeys = load(".obsidian/hotkeys.json") or {}
-    check("daily note and check-in hotkeys configured", all(hotkeys.get(key) for key in ("quickadd:choice:lifeos-daily", "templater-obsidian:模板/Daily Questions Prompt.md")))
+    check("daily note and check-in hotkeys configured", all(hotkeys.get(key) for key in ("quickadd:choice:lifeos-daily", "templater-obsidian:模板/每日问题提示.md")))
     # plugin folders
     ids = load(".obsidian/community-plugins.json") or []
     for pid in ids:
@@ -145,6 +145,8 @@ def main():
         check("quickadd capture target %s" % ch.get("name"), ok, target)
         t = ch.get("createFileIfItDoesntExist", {}).get("template", "")
         if t: check("quickadd template %s" % t, exists(t))
+        t = ch.get("templatePath", "")
+        if t: check("quickadd template choice %s" % t, exists(t))
     for rel, t in texts.items():
         if not rel.endswith(".md"): continue
         for m in re.finditer(r'"new-note-template":"([^"]+)"', t): check("kanban template in %s" % rel, exists(m.group(1)), m.group(1))
@@ -155,29 +157,29 @@ def main():
     if wv.get("markdownPath"): check("webviewer markdownPath exists", exists(wv["markdownPath"]))
     # content asserts
     for rel in files:
-        if rel.endswith(".md") and any(rel.startswith(u) for u in ["01 日记/", "02 静修/", "04 项目/", "05 人物/", "06 写作/", "07 资料库/"]) and not rel.endswith(" Board.md"):
+        if rel.endswith(".md") and any(rel.startswith(u) for u in ["01 日记/", "02 静修/", "04 项目/", "05 人物/", "06 写作/", "07 资料库/"]) and not rel.endswith("看板.md"):
             t = texts.get(rel, ""); fm = re.match(r"^---\n(.*?)\n---", t, re.S)
             check("user-folder note tagged example: %s" % rel, bool(fm) and re.search(r"^\s*-\s*example\s*$", fm.group(1), re.M) is not None)
-    cfg = texts.get("元数据/Compass Config.md", ""); check("config birthdate empty", re.search(r"^birthdate:\s*$", cfg, re.M) is not None)
-    check("Life Theme is template text", "请在此写下你的生活主题" in texts.get("03 规划/Life Theme.md", ""))
-    check("Core Values is template text", "**价值一**" in texts.get("03 规划/Core Values.md", ""))
+    cfg = texts.get("元数据/Compass 配置.md", ""); check("config birthdate empty", re.search(r"^birthdate:\s*$", cfg, re.M) is not None)
+    check("Life Theme is template text", "请在此写下你的生活主题" in texts.get("03 规划/人生主题.md", ""))
+    check("Core Values is template text", "**价值一**" in texts.get("03 规划/核心价值观.md", ""))
     check("wiki log empty", re.sub(r"^---.*?---\n", "", texts.get("wiki/log.md", ""), flags=re.S).strip().endswith("最近完成的操作排在最前面。"))
-    plan_body = re.sub(r"```.*?```", "", texts.get("09 阅读/Reading Plan.md", ""), flags=re.S)
+    plan_body = re.sub(r"```.*?```", "", texts.get("09 阅读/阅读计划.md", ""), flags=re.S)
     check("reading plan has no tasks", not re.search(r"^- \[ \]", plan_body, re.M))
     for rel, t in texts.items():
         if rel.startswith("01 日记/每周/"):
             m = re.search(r"^week:\s*(\S+)", t, re.M); check("weekly note week property matches name: %s" % rel, m and m.group(1) == os.path.basename(rel)[:-3])
-    for bad in ["wiki/concepts", "wiki/sources", "wiki/entities", "wiki/questions", ".vault-meta", ".raw", ".mcp.json", ".claude/settings.local.json", ".obsidian/plugins/agent-client/sessions", "Untitled.canvas", "08 任务/Untitled.base", "指南/18 Distribution Checklist.md", "指南/23 Native Acceptance.md", "指南/Source - Video Analysis.md", "CHANGELOG.md", "CONTRIBUTING.md", "CODE_OF_CONDUCT.md", "SECURITY.md", "scripts/build_template.py", "scripts/RELEASE.md", "scripts/verify_template.py", "scripts/verify_life_os_app.mjs", "scripts/verify_assistant_contracts.mjs", "scripts/verify_release_safety.py", ".specify", "specs", ".agents"]:
+    for bad in ["wiki/concepts", "wiki/sources", "wiki/entities", "wiki/questions", ".vault-meta", ".raw", ".mcp.json", ".claude/settings.local.json", ".obsidian/plugins/agent-client/sessions", "Untitled.canvas", "08 任务/Untitled.base", "指南/18 Distribution Checklist.md", "指南/23 原生验收.md", "指南/来源 - 视频分析.md", "CHANGELOG.md", "CONTRIBUTING.md", "CODE_OF_CONDUCT.md", "SECURITY.md", "scripts/build_template.py", "scripts/RELEASE.md", "scripts/verify_template.py", "scripts/verify_life_os_app.mjs", "scripts/verify_assistant_contracts.mjs", "scripts/verify_release_safety.py", ".specify", "specs", ".agents"]:
         check("absent: %s" % bad, not exists(bad))
-    utility_scripts = {"scripts/generate_reading_plan.py", "scripts/split_bible.py"}
+    utility_scripts = {"scripts/bible_books.py", "scripts/generate_reading_plan.py", "scripts/split_bible.py"}
     check("package scripts are user utilities only", all(rel in utility_scripts for rel in files if rel.startswith("scripts/")))
-    development_refs = ("scripts/build_template.py", "scripts/verify_template.py", "scripts/verify_life_os_app.mjs", "scripts/RELEASE.md", "specs/001-simplified-chinese-vault/", "[[23 Native Acceptance")
+    development_refs = ("scripts/build_template.py", "scripts/verify_template.py", "scripts/verify_life_os_app.mjs", "scripts/RELEASE.md", "specs/001-simplified-chinese-vault/", "[[23 原生验收")
     check("user guides contain no missing development references", not any(token in body for rel, body in texts.items() if rel == "README.md" or rel.startswith("指南/") for token in development_refs))
     for led in ["wiki/meta/ledgers/source-ledger.json", "wiki/meta/ledgers/claim-ledger.json"]:
         d = load(led); check("ledger empty: %s" % led, d is not None and not (d.get("sources") or d.get("claims")))
     check("inbox empty", [f for f in files if f.startswith("inbox/") and not f.endswith(".gitkeep")] == [])
-    if ".obsidian/workspace.json" in texts: check("workspace.json opens Setup", "00 仪表盘/Setup.md" in texts[".obsidian/workspace.json"])
-    for must in ["AGENTS.md", "CLAUDE.md", "GEMINI.md", ".mcp.example.json", ".claude/settings.json", ".claude-obsidian.json", "LICENSE", "THIRD_PARTY_NOTICES.md", "CREDITS.md", "元数据/version.md", "00 仪表盘/Setup.md", "提示词/16 Onboarding Assistant.md"]:
+    if ".obsidian/workspace.json" in texts: check("workspace.json opens Setup", "00 仪表盘/设置向导.md" in texts[".obsidian/workspace.json"])
+    for must in ["AGENTS.md", "CLAUDE.md", "GEMINI.md", ".mcp.example.json", ".claude/settings.json", ".claude-obsidian.json", "LICENSE", "THIRD_PARTY_NOTICES.md", "CREDITS.md", "元数据/version.md", "00 仪表盘/设置向导.md", "提示词/16 入门助手.md"]:
         check("present: %s" % must, exists(must))
     check("CLAUDE.md and GEMINI.md import AGENTS.md", "@AGENTS.md" in texts.get("CLAUDE.md", "") and "@AGENTS.md" in texts.get("GEMINI.md", ""))
     # wikilinks resolve (by basename; 模板/ skipped because their targets are generated) and heading fragments exist
@@ -185,7 +187,7 @@ def main():
     by_name = {os.path.basename(f)[:-3]: f for f in files if f.endswith(".md")}
     unresolved, badfrag = {}, {}
     for rel, t in texts.items():
-        if not rel.endswith(".md") or rel.startswith("指南/Source") or rel.startswith("模板/"): continue
+        if not rel.endswith(".md") or rel.startswith("指南/来源") or rel.startswith("模板/"): continue
         body = re.sub(r"```.*?```", "", t, flags=re.S); body = re.sub(r"`[^`\n]*`", "", body); body = re.sub(r"<%.*?%>", "", body, flags=re.S)
         body = body.replace(r"\|", "|")  # Obsidian aliases escape the pipe inside Markdown tables.
         for m in re.finditer(r"\[\[([^\]\|#]*)(?:#([^\]\|]*))?(?:\|[^\]]*)?\]\]", body):
@@ -213,7 +215,7 @@ for(const p of process.argv.slice(1)){const s=fs.readFileSync(p,'utf8');const m=
  if(m[1].includes('\n')){console.log('NEWLINE '+p);process.exit(3)}
  for(const c of [cfg,null]){const out=new Function('app','tR',m[1]+'; return tR;')(mk(c),'');if(!out.split('\n').every(l=>/^(dq_|habit_|wheel_)\w+: (false)?$/.test(l))){console.log('BAD '+p+' '+JSON.stringify(out));process.exit(4)}}}
 console.log('ok');"""
-    tpls = [os.path.join(root, t) for t in ["模板/Daily Note.md", "模板/Personal Retreat.md"] if exists(t)]
+    tpls = [os.path.join(root, t) for t in ["模板/每日笔记.md", "模板/个人静修.md"] if exists(t)]
     if tpls:
         r = subprocess.run(["node", "-e", sim] + tpls, capture_output=True, text=True, encoding="utf-8", errors="replace")
         check("templater property generators produce valid properties", r.returncode == 0 and "ok" in r.stdout, (r.stdout + r.stderr)[-200:])

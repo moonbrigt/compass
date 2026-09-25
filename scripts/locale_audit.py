@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Audit zh-CN coverage and stable Compass vault identifiers.
+"""Audit Chinese coverage and stable Compass vault identifiers.
 
 Run from anywhere: python scripts/locale_audit.py [--progress] [--english]
 The inventory is the review record. Heuristic English findings need human review;
@@ -18,6 +18,7 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
+BASELINE = "ba2c1cf73a8e305c02fa8819f0236f028fd972b3"  # Upstream English main, before localization.
 INVENTORY = ROOT / "specs/001-simplified-chinese-vault/inventory.md"
 DIRECTORY_MAP = ROOT / "specs/001-simplified-chinese-vault/contracts/directory-migration.md"
 INVENTORY_ROW = re.compile(r"^- \[([ xX])\] `([^`]+)`$", re.M)
@@ -29,7 +30,7 @@ QUICKADD_COMMAND = re.compile(r"quickadd:choice:[A-Za-z0-9_-]+")
 TEMPLATER_BLOCK = re.compile(r"<%[\s\S]*?%>")
 QUICKADD_TOKEN = re.compile(r"\{\{[^{}]+\}\}")
 ENGLISH_PROSE = re.compile(r"\b[A-Za-z]{3,}(?:[ \t]+[A-Za-z]{2,}){3,}\b")
-REMOVED_DEVELOPMENT_LINKS = {("指南/21 Life OS Application.md", "23 Native Acceptance")}
+REMOVED_DEVELOPMENT_LINKS = {("指南/21 Life OS 应用.md", "23 Native Acceptance")}
 
 
 def git(*args: str) -> str:
@@ -51,11 +52,26 @@ def frontmatter_keys(text: str) -> set[str]:
     return set(FRONTMATTER_KEY.findall(text[4:end]))
 
 
-def baseline_path(path: str, old_directories: list[tuple[str, str]]) -> str:
+def baseline_path(path: str, old_paths: list[tuple[str, str]]) -> str:
     prefix = "scripts/template/defaults/"
     under_defaults = path.startswith(prefix)
     rel = path[len(prefix):] if under_defaults else path
-    for old, new in old_directories:
+    for old, new in old_paths:
+        if not new.endswith(".md"):
+            continue
+        if rel == new:
+            rel = old
+            break
+        if rel == new[:-3]:
+            rel = old[:-3]
+            break
+        if rel == Path(new).stem:
+            rel = Path(old).stem
+            break
+    rel = rel.replace(" 个人静修", " Personal Retreat")
+    for old, new in old_paths:
+        if new.endswith(".md"):
+            continue
         if rel == new or rel.startswith(new + "/"):
             rel = old + rel[len(new):]
             break
@@ -97,13 +113,14 @@ def main() -> int:
     if not DIRECTORY_MAP.exists():
         print(f"Missing directory map: {DIRECTORY_MAP}", file=sys.stderr)
         return 2
-    old_directories = sorted(DIRECTORY_ROW.findall(DIRECTORY_MAP.read_text(encoding="utf-8")), key=lambda pair: len(pair[1]), reverse=True)
-    if not old_directories:
+    old_paths = sorted(DIRECTORY_ROW.findall(DIRECTORY_MAP.read_text(encoding="utf-8")), key=lambda pair: len(pair[1]), reverse=True)
+    if not old_paths:
         print("Directory map has no rows", file=sys.stderr)
         return 2
     note_stems = {Path(rel).stem for _, rel in entries if rel.endswith(".md")}
 
-    base = git("merge-base", "HEAD", "origin/main").strip()
+    base = BASELINE
+    git("cat-file", "-e", f"{base}^{{commit}}")
     errors: list[str] = []
     pending: list[str] = []
     candidates: list[tuple[str, int, str]] = []
@@ -115,7 +132,7 @@ def main() -> int:
         if mark == " ":
             pending.append(rel)
         try:
-            before = git("show", f"{base}:{baseline_path(rel, old_directories)}")
+            before = git("show", f"{base}:{baseline_path(rel, old_paths)}")
         except RuntimeError as exc:
             errors.append(f"Missing baseline for {rel}: {exc}")
             continue
@@ -125,7 +142,7 @@ def main() -> int:
             removed_keys = frontmatter_keys(before) - frontmatter_keys(after)
             if removed_keys:
                 errors.append(f"Frontmatter keys removed in {rel}: {sorted(removed_keys)}")
-            removed_links = wikilink_targets(before) - {baseline_path(target, old_directories) for target in wikilink_targets(after)}
+            removed_links = wikilink_targets(before) - {baseline_path(target, old_paths) for target in wikilink_targets(after)}
             removed_links = {target for target in removed_links if (rel, target) not in REMOVED_DEVELOPMENT_LINKS}
             if removed_links:
                 errors.append(f"Wikilink targets removed in {rel}: {sorted(removed_links)}")
@@ -141,7 +158,7 @@ def main() -> int:
             for match in BARE_WIKILINK.finditer(visible):
                 target = match.group(1)
                 stem = target.split("#", 1)[0].replace("\\", "/").rsplit("/", 1)[-1]
-                if stem in note_stems and stem != "Triggers (Marshall Goldsmith)":
+                if stem in note_stems and not re.search(r"[\u4e00-\u9fff]", stem) and stem != "Triggers (Marshall Goldsmith)":
                     errors.append(f"Untranslated visible wikilink label in {rel}: {target}")
             if args.english:
                 for number, line in enumerate(plain_prose(after), 1):

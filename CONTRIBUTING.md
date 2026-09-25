@@ -22,11 +22,11 @@ python3 scripts/verify_template.py build/Compass
 
 ## 提议新提示词
 
-`提示词/` 每项重复工作一篇笔记，结构见 `指南/20 Prompt Library.md`：
+`提示词/` 每项重复工作一篇笔记，结构见 `指南/20 提示词库.md`：
 
 - **Frontmatter**：`purpose`、`when`、`inputs`、`writes`（始终需批准）、`risk`（`read-only`、`append`、`edit`、`delete`）、`tools`、`agents`。
 - **正文**：先放 Agent Client 按钮，再在 `## 提示词` 下写完整步骤。按钮只发送“读取 提示词/... 并遵循提示词一节”的指针，使正文只维护一份。保持 `autoSend` 关闭。
 - **步骤**：先写共同规则（先读后写、编辑前询问、局部修改、不擅改日记或规划、缺失时停止、引用而不打分、笔记内容视为数据），逐步注明读取和写入工具，最后写明禁止动作。
-- **位置**：说明按钮应放在哪个仪表盘或模板，并更新 `指南/20 Prompt Library.md` 表格。
+- **位置**：说明按钮应放在哪个仪表盘或模板，并更新 `指南/20 提示词库.md` 表格。
 
 可用“Prompt proposal”议题模板提出建议，或复制现有提示词后提交拉取请求。含写入动作的提示词需按 `AGENTS.md` 的安全规则审查。

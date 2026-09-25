@@ -51,7 +51,7 @@ try {
     window.openedNotes = [];
     window.graphCommands = [];
     const app = {
-      vault: { getMarkdownFiles: () => [...files, new TFile("模板/Project.md")], getAbstractFileByPath: (path) => files.find((file) => file.path === path), on() {} },
+      vault: { getMarkdownFiles: () => [...files, new TFile("模板/项目.md")], getAbstractFileByPath: (path) => files.find((file) => file.path === path), on() {} },
       metadataCache: { resolvedLinks: links, getFileCache: () => ({ frontmatter: { tags: ["example"] } }), on() {} },
       commands: { executeCommandById: (id) => { window.graphCommands.push(id); return true; } },
       workspace: { getLeaf: () => ({ openFile: async (file) => window.openedNotes.push(file.path) }), revealLeaf: async () => {} },

@@ -14,7 +14,7 @@ Life OS 以本机 Obsidian 仓库为中心。自有仪表盘不会主动向网�
 | SEO | 外部链接检查关闭 | 手动开启后才需要联网。 |
 | Obsidian Sync | 关闭 |  |
 
-配置原因见 `指南/17 Search Providers.md` 和 `指南/19 Obsidian MCP Bridge.md`。
+配置原因见 `指南/17 搜索服务.md` 和 `指南/19 Obsidian MCP 桥接.md`。
 
 ## 模板不得包含
 

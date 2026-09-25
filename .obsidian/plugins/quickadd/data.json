@@ -10,7 +10,7 @@
       "createFileIfItDoesntExist": {
         "enabled": true,
         "createWithTemplate": true,
-        "template": "模板/Daily Note.md"
+        "template": "模板/每日笔记.md"
       },
       "format": {
         "enabled": true,
@@ -55,7 +55,7 @@
       "createFileIfItDoesntExist": {
         "enabled": true,
         "createWithTemplate": true,
-        "template": "模板/Daily Note.md"
+        "template": "模板/每日笔记.md"
       },
       "format": {
         "enabled": true,
@@ -100,7 +100,7 @@
       "createFileIfItDoesntExist": {
         "enabled": true,
         "createWithTemplate": true,
-        "template": "模板/Daily Note.md"
+        "template": "模板/每日笔记.md"
       },
       "format": {
         "enabled": true,
@@ -140,7 +140,7 @@
       "name": "✅ 添加任务（任务总表）",
       "type": "Capture",
       "command": true,
-      "captureTo": "08 任务/Tasks.md",
+      "captureTo": "08 任务/任务总表.md",
       "captureToActiveFile": false,
       "createFileIfItDoesntExist": {
         "enabled": true,
@@ -185,7 +185,7 @@
       "name": "✉️ 通讯选题 → 想法",
       "type": "Capture",
       "command": true,
-      "captureTo": "06 写作/通讯/Newsletter Board.md",
+      "captureTo": "06 写作/通讯/通讯看板.md",
       "captureToActiveFile": false,
       "createFileIfItDoesntExist": {
         "enabled": false,
@@ -230,7 +230,7 @@
       "name": "🎬 视频选题 → 想法",
       "type": "Capture",
       "command": true,
-      "captureTo": "06 写作/YouTube 脚本/YouTube Board.md",
+      "captureTo": "06 写作/YouTube 脚本/YouTube 看板.md",
       "captureToActiveFile": false,
       "createFileIfItDoesntExist": {
         "enabled": false,
@@ -275,7 +275,7 @@
       "name": "📰 文章选题 → 想法",
       "type": "Capture",
       "command": true,
-      "captureTo": "06 写作/文章/Article Board.md",
+      "captureTo": "06 写作/文章/文章看板.md",
       "captureToActiveFile": false,
       "createFileIfItDoesntExist": {
         "enabled": false,
@@ -320,7 +320,7 @@
       "name": "💡 项目想法 → 项目看板",
       "type": "Capture",
       "command": true,
-      "captureTo": "04 项目/Projects Board.md",
+      "captureTo": "04 项目/项目看板.md",
       "captureToActiveFile": false,
       "createFileIfItDoesntExist": {
         "enabled": false,
@@ -365,7 +365,7 @@
       "name": "📅 打开今日笔记",
       "type": "Template",
       "command": true,
-      "templatePath": "模板/Daily Note.md",
+      "templatePath": "模板/每日笔记.md",
       "folder": {
         "enabled": true,
         "folders": [
@@ -395,7 +395,7 @@
       "name": "🗓️ 打开本周笔记",
       "type": "Template",
       "command": true,
-      "templatePath": "模板/Weekly Note.md",
+      "templatePath": "模板/每周笔记.md",
       "folder": {
         "enabled": true,
         "folders": [
@@ -425,7 +425,7 @@
       "name": "🧭 打开本季度笔记",
       "type": "Template",
       "command": true,
-      "templatePath": "模板/Quarterly Note.md",
+      "templatePath": "模板/季度笔记.md",
       "folder": {
         "enabled": true,
         "folders": [
@@ -455,7 +455,7 @@
       "name": "🏕️ 新建本季度个人静修笔记",
       "type": "Template",
       "command": true,
-      "templatePath": "模板/Personal Retreat.md",
+      "templatePath": "模板/个人静修.md",
       "folder": {
         "enabled": true,
         "folders": [
@@ -467,7 +467,7 @@
       },
       "fileNameFormat": {
         "enabled": true,
-        "format": "{{DATE:YYYY-[Q]Q}} Personal Retreat"
+        "format": "{{DATE:YYYY-[Q]Q}} 个人静修"
       },
       "appendLink": false,
       "openFile": true,
@@ -485,7 +485,7 @@
       "name": "📁 新建项目",
       "type": "Template",
       "command": true,
-      "templatePath": "模板/Project.md",
+      "templatePath": "模板/项目.md",
       "folder": {
         "enabled": true,
         "folders": [
@@ -515,7 +515,7 @@
       "name": "👤 新建人物笔记",
       "type": "Template",
       "command": true,
-      "templatePath": "模板/Person.md",
+      "templatePath": "模板/人物.md",
       "folder": {
         "enabled": true,
         "folders": [
@@ -545,7 +545,7 @@
       "name": "✉️ 新建通讯",
       "type": "Template",
       "command": true,
-      "templatePath": "模板/Newsletter.md",
+      "templatePath": "模板/通讯.md",
       "folder": {
         "enabled": true,
         "folders": [
@@ -575,7 +575,7 @@
       "name": "🎬 新建视频脚本",
       "type": "Template",
       "command": true,
-      "templatePath": "模板/YouTube Script.md",
+      "templatePath": "模板/YouTube 脚本.md",
       "folder": {
         "enabled": true,
         "folders": [
@@ -605,7 +605,7 @@
       "name": "📰 新建文章",
       "type": "Template",
       "command": true,
-      "templatePath": "模板/Article.md",
+      "templatePath": "模板/文章.md",
       "folder": {
         "enabled": true,
         "folders": [
@@ -635,7 +635,7 @@
       "name": "🎓 新建课程课时",
       "type": "Template",
       "command": true,
-      "templatePath": "模板/Course Lesson.md",
+      "templatePath": "模板/课程课时.md",
       "folder": {
         "enabled": true,
         "folders": [
@@ -665,7 +665,7 @@
       "name": "📚 新建读书笔记",
       "type": "Template",
       "command": true,
-      "templatePath": "模板/Book Note.md",
+      "templatePath": "模板/读书笔记.md",
       "folder": {
         "enabled": true,
         "folders": [
@@ -695,7 +695,7 @@
       "name": "📖 新建研读笔记",
       "type": "Template",
       "command": true,
-      "templatePath": "模板/Study Note.md",
+      "templatePath": "模板/研读笔记.md",
       "folder": {
         "enabled": true,
         "folders": [

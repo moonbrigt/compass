@@ -1,8 +1,8 @@
-// Compass 人生时间组件：从 元数据/Compass Config 读取 birthdate 与 life_expectancy。
-const cfg = dv.page("元数据/Compass Config") || {};
+// Compass 人生时间组件：从 元数据/Compass 配置 读取 birthdate 与 life_expectancy。
+const cfg = dv.page("元数据/Compass 配置") || {};
 const root = dv.container.createEl("div", { cls: "lifeos-widget" });
 if (!cfg.birthdate) {
-  root.createEl("p", { text: "请在 元数据/Compass Config 中设置 `birthdate`（YYYY-MM-DD）和 `life_expectancy`，以启用人生时间组件。" });
+  root.createEl("p", { text: "请在 元数据/Compass 配置 中设置 `birthdate`（YYYY-MM-DD）和 `life_expectancy`，以启用人生时间组件。" });
 } else {
   const birth = moment(String(cfg.birthdate).slice(0, 10));
   const years = Number(cfg.life_expectancy) || 80;
