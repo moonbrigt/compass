@@ -83,3 +83,9 @@ Windows Obsidian 1.13.7 中临时打开 `F:\compass-zh-cn-candidates\Compass-zh-
 | `F:\compass-zh-cn-candidates\Compass-zh-CN-Lite-personal-v9-template-v1.1.0-zh.14-without-reading.zip` | `04b9d5855fc2c8070719a28f2dd50d773118f642fd0e642e37fbd3f670b2e9c3` | 210/210 | 184 个文件逐一匹配 |
 
 v9 与试用后的 v7 候选的 Life OS 主程序、`setup.js`、`wheel.js`、`quicklinks.js`、Compass 总览笔记逐文件相同；智能助手笔记的 17 个 Agent 代码块相同。v9 完整归档及精简版尚未在 Obsidian 中重新打开；日记和项目创建仍未重新验收。
+
+### v9 原生创建与精简版验收
+
+随后在 Windows Obsidian 1.13.7 中打开 v9 完整候选目录，用户亲自信任并启用插件。Life OS 首页和项目页加载。点击首页“打开今日笔记”，在隔离目录 `01 日记/每日/2026-09-25.md` 创建空白验收笔记；Obsidian 显示日期、六个空白 `dq_*` 和三个未勾选的 `habit_*` 属性。磁盘文件使用中文周记路径、包含 `## 日记`，无未展开的 `<%` 模板标记。点击 Life OS 项目页“新建项目”，输入“验收测试项目”，在隔离目录 `04 项目/验收测试项目.md` 创建笔记；文件包含 `quarter: 2026-Q3`、`started: 2026-09-25`、`#project/验收测试项目` 和 `## 预期成果`，无未展开的模板标记。Life OS 项目页更新为 1 篇进行中项目笔记，并识别其中 1 项带项目标签的未完成任务。两篇验收笔记只存在于打开后的候选目录，不在已构建 ZIP 中。
+
+另在 Obsidian 中打开 v9 精简候选目录，用户亲自信任并启用插件。Life OS 首页加载；设置向导显示必需项目 14/25，Periodic Notes 日记目录、Templater 新建文件和 QuickAdd 命令显示通过；`Compass 总览` 渲染中文快速跳转、记录按钮和生活之轮组件，观察时没有可见 Dataview 错误。精简目录不含 `09 阅读`。精简版未另行创建验收日记或项目。上述原生检查针对候选目录，ZIP 的包内验证和归档恢复结果见上表；真实 AI 服务商请求、移动端和私人备份恢复仍未验证。
